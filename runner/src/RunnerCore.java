@@ -173,7 +173,7 @@ public class RunnerCore {
         //String systemLogSavingDir = "/root/reconf_test_gen/target";
         String systemLogSavingDir = "none";
         ProcessBuilder builder = new ProcessBuilder();
-        builder.command("/root/reconf_test_gen/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir);
+        builder.command("/root/ZebraConf/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir);
 	// set start time
 	startTime = System.nanoTime();
         process = builder.start();

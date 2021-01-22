@@ -4,7 +4,7 @@ if [ $# -lt 3 ]; then echo 'ERROR: ./run_mvn_test.sh [project] [test_name] [log_
 
 # yarn mapreduce hdfs hbase
 the_project=$1
-project_root_dir=$(cat /root/reconf_test_gen/"$the_project"/project_root_dir.txt)
+project_root_dir=$(cat /root/ZebraConf/app_meta/"$the_project"/project_root_dir.txt)
 if [ $? -ne 0 ]; then echo 'ERROR: project name is wrong'; exit -1; fi
 
 the_test=$2
