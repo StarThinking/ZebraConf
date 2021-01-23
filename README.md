@@ -25,17 +25,17 @@ The scripts can be used to reproduce the results in the paper.
 ## Set up Testing Environment
 To let users instantly try ZebraConf, we have provided a Docker image (11.17 GB) that encapsulates our testing environment. With this, users can run heterogeneous configuration tests with HDFS, YARN, MapReduce, HBASE. 
 
-To create a docker container with specified repo and tag:
+- Create a docker container with specified repo and tag:
 ```
 $ docker run -d -it --name [YOUR_CONTAINER_NAME] sixiangma/reconf_parameter:artifact-0.1
 ```
 
-To log into the docker container just created:
+- Log into the docker container you just created:
 ```
 $ docker exec -it [YOUR_CONTAINER_NAME] bash
 ```
 
-## Running the Experiments
+## Running Heterogeneous Configuration Tests
 After logging into the container, users can run heterogeneous configuration tests with *run_heter_conf_test.sh* script under *runner* directory. 
 
 - Dowonload repo and build the runner:
@@ -46,7 +46,7 @@ $ cd ZebraConf/runner
 $ ./build.sh
 ```
 
-- Run an example heterogeneous configuration test:
+- Run a (single-paramater) heterogeneous configuration test.<br><br>The script *run_heter_conf_test.sh* takes three arguments. The first two specify the unit test suite and function. The third argument indicates the heterogeneous configuration assignment in the format of `para@@@component@@@point@@@v1@@@v2`. For example, `dfs.bytes-per-checksum@@@hdfs:DataNode@@@1@@@32@@@512` means setting *dfs.bytes-per-checksum* as 512 for the first HDFS DataNode and *dfs.bytes-per-checksum* as 32 to all the other nodes.
 ```
 $ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.web.TestWebHdfsWithMultipleNameNodes#testRedirect dfs.bytes-per-checksum@@@hdfs:DataNode@@@-2@@@32@@@512
 ```
