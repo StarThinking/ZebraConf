@@ -47,7 +47,7 @@ $ cd /root;
 $ git clone https://github.com/StarThinking/ZebraConf
 $ cd ZebraConf/runner
 $ ./build.sh
-$ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.security.token.block.TestBlockToken#testBlockTokenInLastLocatedBlockLegacy dfs.encrypt.data.transfer@@@hdfs:DataNode@@@1@@@true@@@false
+$ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.web.TestWebHdfsWithMultipleNameNodes#testRedirect dfs.bytes-per-checksum@@@hdfs:DataNode@@@-2@@@32@@@512
 ```
 
 Paper Citation
