@@ -157,7 +157,7 @@ public class RunnerCore {
                         break;
                 }
                 if (!found) {
-                    System.out.println("WARN: test " + t + " has not been updated !");
+                    //System.out.println("WARN: test " + t + " has not been updated !");
                 }
             }
 	} catch (Exception e) {

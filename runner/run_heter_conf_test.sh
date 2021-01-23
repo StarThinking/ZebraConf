@@ -48,7 +48,7 @@ function test_procedure {
    
     echo "";
     echo ">>>>>>>> running $conbime_type run_test for $(echo "$task_array" | awk -F '@@@| ' '{for (i=1;i<=NF;i+=5) print $i}' | tr "\n" " ")"
-    java -cp /root/ZebraConf/runner/target/ HConfRunner $h_list_size 'run' $proj $u_test "$(echo "$task_array" | awk  -F ' ' '{for (i=1;i<=NF;i++) if (i != NF) {printf "%s", $i"%%%"} else printf "%s", $i}')" > /root/ZebraConf/runner/target/"$proj.$u_test.$LOG_TIME."$conbime_type"_run_$RANDOM$RANDOM.txt"
+    java -cp /root/ZebraConf/runner/target/ HConfRunner $h_list_size 'run' $proj $u_test "$(echo "$task_array" | awk  -F ' ' '{for (i=1;i<=NF;i++) if (i != NF) {printf "%s", $i"%%%"} else printf "%s", $i}')" > /root/ZebraConf/runner/log/"$proj.$u_test.$LOG_TIME."$conbime_type"_run_$RANDOM$RANDOM.txt"
     local run_rc=$?
     echo "run_rc is $run_rc"
     if [ $run_rc -eq 0 ]; then
@@ -58,7 +58,7 @@ function test_procedure {
         if [ $conbime_type == "single" ] ; then
             echo "";
             echo ">>>>>>>> running $conbime_type hypo_test for $(echo "$task_array" | awk -F '@@@| ' '{for (i=1;i<=NF;i+=5) print $i}' | tr "\n" " ")"
-            java -cp /root/ZebraConf/runner/target/ HConfRunner $h_list_size 'hypothesis' $proj $u_test "$(echo "$task_array" | awk  -F ' ' '{for (i=1;i<=NF;i++) if (i != NF) {printf "%s", $i"%%%"} else printf "%s", $i}')" > /root/ZebraConf/runner/target/"$proj.$u_test.$LOG_TIME."$conbime_type"_hypothesis_$RANDOM$RANDOM.txt"
+            java -cp /root/ZebraConf/runner/target/ HConfRunner $h_list_size 'hypothesis' $proj $u_test "$(echo "$task_array" | awk  -F ' ' '{for (i=1;i<=NF;i++) if (i != NF) {printf "%s", $i"%%%"} else printf "%s", $i}')" > /root/ZebraConf/runner/log/"$proj.$u_test.$LOG_TIME."$conbime_type"_hypothesis_$RANDOM$RANDOM.txt"
             return 0
         else
             local half_index=$(( h_list_size / 2))
@@ -76,4 +76,4 @@ function test_procedure {
 }
 
 test_procedure $@
-echo "test_procedure returns $?"
+#echo "test_procedure returns $?"
