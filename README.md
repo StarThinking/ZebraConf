@@ -27,13 +27,17 @@ None.
 
 Software Dependencies
 ---------------------
-The scripts, compilation and binaries are tested on Ubuntu 18.04 LTS. 
-Other Linux distributions may work, but are not tested.
+* The scripts, compilation and binaries are tested on Ubuntu 18.04 LTS. 
+Other Linux distributions may work, but are not tested. 
+* In addition, Docker needs to be installed.
 
-Compilation
+Set up Testing Environment
 ---------------------
-To use Zebra
+To facilitate users to instantly run heterogeneous configuration tests with ZebraConf, we provide a Docker image to encapsulate the testing environment, in which ZebraConf has been applied to HDFS, YARN, MR, HBASE. 
 
+```
+$ docker run -d -it --name [YOUR_CONTAINER_NAME] sixiangma/reconf_parameter:artifact-0.1
+```
 
 Running the Experiments
 ---------------------
