@@ -47,10 +47,18 @@ $ ./build.sh
 
 - Run a (single-paramater) heterogeneous configuration test.<br><br>The script *run_heter_conf_test.sh* takes three arguments. The first two specify the unit test suite and function. The third argument indicates the heterogeneous configuration assignment in the format of `para@@@component@@@point@@@v1@@@v2`. For example, `dfs.bytes-per-checksum@@@hdfs:DataNode@@@1@@@32@@@512` means setting *dfs.bytes-per-checksum* as 512 for the first HDFS DataNode and *dfs.bytes-per-checksum* as 32 to all the other nodes.
 ```
-$ ./run_heter_conf_test.sh [suite] [u_test] [[para@@@component@@@point@@@v1@@@v2]%%%[...]]
-$
+$ ./run_heter_conf_test.sh
+./run_heter_conf_test.sh [suite] [u_test] [[para@@@component@@@point@@@v1@@@v2]%%%[...]]
+
 $ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.web.TestWebHdfsWithMultipleNameNodes#testRedirect \
 dfs.bytes-per-checksum@@@hdfs:DataNode@@@1@@@32@@@512
+```
+
+## Reproduce Results in the Paper
+- Reproduce Table 3:
+```
+$ /root/ZebraConf/reproduce_result/run_58_reported_cases.sh
+
 ```
 
 Paper Citation
