@@ -15,9 +15,9 @@ Authors
 
 Directory Structure
 -------------------
- * `app_meta` contains the metadata information about the applications. Currently, we have applied ZebraConf to 4 popular applications (HDFS, YARN, MR, HBASE). The metadata information will be used by scripts to set up testing environment.
- * `agent` contains the source code of ConfAgent module in ConfAgent.java and a utility class TimedOutTestsListener.java which can fetch unit tests' error report to ease debug. 
- * `runner` contains the source code of TestRunner, the external library, the shared files used to communicate with ConfAgent, and utility scripts for cluster testing. Users can use run_heter_conf_test.sh to test a heterogeneous test case.
+ * `app_meta` contains the metadata information about the four applications (HDFS, YARN, MR, HBASE) we applied. The information will be used to set up testing environment.
+ * `agent` contains the source code of ConfAgent module and a utility class to fetch unit tests' error report to ease debug. 
+ * `runner` contains the source code of TestRunner, the library, the shared files used to communicate with ConfAgent,  the script to run heterogeneous tests, and scripts for cluster testing.
  * `test_gen` contains .
  * `analysis_data` contains .
 
@@ -27,20 +27,28 @@ None.
 
 Software Dependencies
 ---------------------
-* The scripts, compilation and binaries are tested on Ubuntu 18.04 LTS. 
-Other Linux distributions may work, but are not tested. 
-* In addition, Docker needs to be installed.
+* Dependencies to compile and run the application.
+* Docker if users want to use our testing environment.
 
 Set up Testing Environment
 ---------------------
-To facilitate users to instantly run heterogeneous configuration tests with ZebraConf, we provide a Docker image to encapsulate the testing environment, in which ZebraConf has been applied to HDFS, YARN, MR, HBASE. 
+To let users instantly try ZebraConf, we have provided a Docker image (11.17 GB) that encapsulates all our testing environment. Currently, users can run heterogeneous configuration tests with HDFS, YARN, MR, HBASE. 
 
+Command to create docker container:
 ```
 $ docker run -d -it --name [YOUR_CONTAINER_NAME] sixiangma/reconf_parameter:artifact-0.1
 ```
 
 Running the Experiments
 ---------------------
+After creating the docker container, run an exmaple test case with the following commands:
+```
+$ cd /root;
+$ git clone https://github.com/StarThinking/ZebraConf
+$ cd ZebraConf/runner
+$ ./build.sh
+$ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.security.token.block.TestBlockToken#testBlockTokenInLastLocatedBlockLegacy dfs.encrypt.data.transfer@@@hdfs:DataNode@@@1@@@true@@@false
+```
 
 Paper Citation
 ---------------------
