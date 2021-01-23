@@ -10,7 +10,7 @@ if [ $? -ne 0 ]; then echo 'ERROR: project name is wrong'; exit -1; fi
 the_test=$2
 classname=$(echo $the_test | awk -F '#' '{print $1}')
 testname=$(echo $the_test | awk -F '#' '{print $2}')
-sub_project_classes_dir="/root/reconf_test_gen/"$the_project"/all_classes"
+sub_project_classes_dir="/root/ZebraConf/app_meta/"$the_project"/all_classes"
 
 log_dts_dir="$3"
 

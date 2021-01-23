@@ -1,7 +1,7 @@
 #!/bin/bash
 
 if [ $# -lt 3 ]; then
-    echo "./run_heter_conf_test.sh [proj] [u_test] [[para,component,point,v1,v2] [...]]"
+    echo "./run_heter_conf_test.sh [suite] [u_test] [[para@@@component@@@point@@@v1@@@v2]%%%[...]]"
     exit -1
 fi
 
@@ -9,7 +9,7 @@ fi
 echo 'false' > /root/ZebraConf/app_meta/lib/enable
 
 # create log if not existed
-if [ -d /root/ZebraConf/runner/log ]; then mkdir /root/ZebraConf/runner/log; fi
+#if [ ! -d /root/ZebraConf/runner/log ]; then mkdir /root/ZebraConf/runner/log; fi
 
 proj=$1
 u_test=$2
