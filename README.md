@@ -54,7 +54,7 @@ $ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.web.TestWebHdfsWithMultip
 dfs.bytes-per-checksum@@@hdfs:DataNode@@@1@@@32@@@512
 ```
 
-## Reproduce Results in the Paper
+## Reproducing Results in the Paper
 - Reproduce Table 3:
 ```
 $ /root/ZebraConf/reproduce_result/run_58_reported_cases.sh
