@@ -40,7 +40,7 @@ echo "perform jar override for hbase common 2.2.4"
 cp /root/hbase-2.2.4/hbase-common/target/*.jar /root/.m2/repository/org/apache/hbase/hbase-common/2.2.4/
 
 # system component modification
-for i in $(find ~/reconf_test_gen -name 'override_jar_store.txt')
+for i in $(find /root/ZebraConf/app_meta -name 'override_jar_store.txt')
 do
     echo ''
     echo "perform jar override for $i"
