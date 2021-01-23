@@ -50,7 +50,8 @@ $ ./build.sh
 ```
 $ ./run_heter_conf_test.sh [suite] [u_test] [[para@@@component@@@point@@@v1@@@v2]%%%[...]]
 $
-$ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.web.TestWebHdfsWithMultipleNameNodes#testRedirect dfs.bytes-per-checksum@@@hdfs:DataNode@@@-2@@@32@@@512
+$ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.web.TestWebHdfsWithMultipleNameNodes#testRedirect \
+dfs.bytes-per-checksum@@@hdfs:DataNode@@@1@@@32@@@512
 ```
 
 Paper Citation
