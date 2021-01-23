@@ -12,17 +12,16 @@ The scripts can be used to reproduce the results in the paper.
  * Yang Wang (The Ohio State University)
 
 ## Directory Structure
- * `app_meta` contains the metadata information about the four applications (HDFS, YARN, MR, HBASE) we applied. The information will be used to set up testing environment.
+ * `app_meta` contains the metadata information about the four applications (i.e., HDFS, YARN, MR, HBASE) we applied. The information will be used to set up testing environment.
  * `agent` contains the source code of ConfAgent module and a utility class to fetch unit tests' error report to ease debug. 
  * `runner` contains the source code of TestRunner, the library, the shared files used to communicate with ConfAgent,  the script to run heterogeneous tests, and scripts for cluster testing.
- * `test_gen` contains .
- * `analysis_data` contains .
+ * `test_gen` contains the scripts to generate testing cases.
 
 ## Software Dependencies
 * Dependencies required to compile and run the target application.
 * Docker, if users want to run tests on our testing environment.
 
-## Set up Testing Environment
+## Setting up Testing Environment
 To let users instantly try ZebraConf, we have provided a Docker image (11.17 GB) that encapsulates our testing environment. With this, users can run heterogeneous configuration tests with HDFS, YARN, MapReduce, HBASE. 
 
 - Create a docker container with specified repo and tag:
