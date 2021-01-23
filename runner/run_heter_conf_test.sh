@@ -8,6 +8,9 @@ fi
 # disable conf tracking
 echo 'false' > /root/ZebraConf/app_meta/lib/enable
 
+# create log if not existed
+if [ -d /root/ZebraConf/runner/log ]; then mkdir /root/ZebraConf/runner/log; fi
+
 proj=$1
 u_test=$2
 shift 2
