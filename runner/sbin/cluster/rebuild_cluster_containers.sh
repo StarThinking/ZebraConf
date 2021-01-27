@@ -9,7 +9,7 @@ pids=()
 
 for i in ${pm[@]}
 do 
-    ssh node-$i "~/vm_images/ZebraConf/runner/sbin/local/rebuild_local_containers.sh" & pids[$i]=$!
+    ssh node-$i "~/vm_images/ZebraConf/runner/sbin/local/rebuild_local_containers.sh $tag $vms" & pids[$i]=$!
 done
 
 for p in ${pids[@]}
