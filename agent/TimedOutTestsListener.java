@@ -54,7 +54,7 @@ public class TimedOutTestsListener extends RunListener {
 
   private final PrintWriter output;
   
-  public String controllerRootDir = "/root/parameter_test_controller/";
+  public String controllerRootDir = "/root/ZebraConf/runner/";
   public String resultDirName = controllerRootDir + "shared/test_results/";
   public String warnDirName = controllerRootDir + "shared/warn_results/";
   public String SEPERATOR = "@@@";
@@ -70,7 +70,7 @@ public class TimedOutTestsListener extends RunListener {
   }
 
   private void writeFile(String testName, String failureMessage, String stackTrace, String result) throws Exception {
-      System.out.println("msx-listener writeFile testName is " + testName);
+      System.out.println("msx-listener INFO: writeFile, the original testName is " + testName);
       File theFile = null;
       if (testName.equals("")) {
           Date date = new Date();
@@ -78,10 +78,13 @@ public class TimedOutTestsListener extends RunListener {
           String dateTime = "Warn-" + formatter.format(date);
           theFile = new File(warnDirName + dateTime);
       } else {
-          theFile = new File(resultDirName + testName);
+          String nameRemovePara = testName.split("\\[")[0];
+          System.out.println("msx-listener INFO: nameRemovePara = " + nameRemovePara);
+          theFile = new File(resultDirName + nameRemovePara);
       }
 
       if (!theFile.exists()) {
+          System.out.println("msx-listener INFO: write result to file " + theFile);
           BufferedWriter writer = new BufferedWriter(new FileWriter(theFile)); 
           writer.write(testName + SEPERATOR + result + SEPERATOR + failureMessage + SEPERATOR + stackTrace + SEPERATOR);
           writer.flush();
@@ -125,6 +128,7 @@ public class TimedOutTestsListener extends RunListener {
           //showStartStack();
           //reset();
       } catch (Exception e) {
+          e.printStackTrace();
       }
   }
 
@@ -140,6 +144,7 @@ public class TimedOutTestsListener extends RunListener {
       //showStartStack();
       //reset();
       } catch (Exception e) {
+          e.printStackTrace();
       }
   }
 

@@ -7,102 +7,6 @@ public class HConfRunner extends RunnerCore {
     private static final int MAX_HYPO_RUN = 20;
     private static final double LONG_TIME_MUL = 2.0;
 
-    private static void hypothesisTestLogic(TestResult test_basic) throws Exception {
-	int v1v2FailedCount = 0;
-	int v1v1v2v2FailedCount = 0;
-        int earlyStopThreshold = 3;
-	boolean earlyStop = false;
-        int i = 0;
-
-        System.out.println(test_basic.toString());
-
-        for (i=0; i<MAX_HYPO_RUN; i++) {
-	    if ( (v1v2FailedCount >= earlyStopThreshold && v1v1v2v2FailedCount == 0) ||
-                    (i >= earlyStopThreshold && v1v2FailedCount == 0) ||
-                    v1v1v2v2FailedCount >= earlyStopThreshold )  {
-		System.out.println("early stop after " + earlyStopThreshold + " is satisfied");
-		earlyStop = true;
-		break;
-	    }
-
-	    TestResult v1v2Test = new TestResult(test_basic);
-            v1v2Test.vv_mode = "v1v2";
-            runTestCore(v1v2Test);
-            if (v1v2Test.ret == RETURN.FAIL) {
-                System.out.println("---> v1v2 test failed.");
-		System.out.println(v1v2Test.completeInfo());
-                v1v2FailedCount ++;
-            } else {
-                System.out.println("---> v1v2 test suceeded.");
-            }
-
-            TestResult v1v1Test = new TestResult(test_basic);
-            v1v1Test.vv_mode = "v1v1";
-            runTestCore(v1v1Test);
-            TestResult v2v2Test = new TestResult(test_basic);
-            v2v2Test.vv_mode = "v2v2";
-            runTestCore(v2v2Test);
-            if (v1v1Test.ret == RETURN.FAIL || v2v2Test.ret == RETURN.FAIL) {
-                System.out.println("---> v1v1 or v2v2 test failed.");
-		if (v1v1Test.ret == RETURN.FAIL)
-		    System.out.println(v1v1Test.completeInfo());
-		if (v2v2Test.ret == RETURN.FAIL)
-		    System.out.println(v2v2Test.completeInfo());
-                v1v1v2v2FailedCount ++;
-            } else {
-                System.out.println("---> v1v1 and v2v2 test test suceeded.");
-            }
-        }
-
-	System.out.println("v1v2 failed with probability " + v1v2FailedCount + " out of " + i);
-        System.out.println("v1v1v2v2 failed with probability " + v1v1v2v2FailedCount + " out of " + i);
-
-        return;
-    }
-
-    private static int runTestLogic(int h_list_size, TestResult test_basic) throws Exception {
-        // clone to create v1v2 test and run it
-        TestResult v1v2Test = new TestResult(test_basic);
-        v1v2Test.vv_mode = "v1v2";
-        System.out.println(v1v2Test.toString());
-        runTestCore(v1v2Test);
-        if (v1v2Test.ret == RETURN.SUCCEED) {
-            System.out.println("v1v2 test succeeded, no issue.");
-            return 0;
-        } else if (v1v2Test.ret == RETURN.FAIL) {
-            if (h_list_size > 1) { // return 1 for group test
-                System.out.println("always return 1 when group test fails");
-                return 1;
-            } else {
-                TestResult v1v1Test = new TestResult(test_basic);
-                v1v1Test.vv_mode = "v1v1";
-                runTestCore(v1v1Test);
-                if (v1v1Test.ret == RETURN.FAIL) { // invalid
-                    System.out.println("invalid value v1");
-                    return 0;
-                }
-            
-                TestResult v2v2Test = new TestResult(test_basic);
-                v2v2Test.vv_mode = "v2v2";
-                runTestCore(v2v2Test);
-                if (v2v2Test.ret == RETURN.FAIL) { // invalid
-                    System.out.println("invalid value v2");
-                    return 0;
-                }
-
-                // one-round v1v1 and v2v2 succeeded, let's do hypo test
-                System.out.println("v1v2 test failed but v1v1&v2v2 succeeded:");
-                System.out.println("---------------------------------------" + MY_TYPE +
-                    " report---------------------------------------------");
-                System.out.println(v1v2Test.completeInfo());
-                return 1;
-            }
-        }
-
-        System.out.println("ERROR: cannot reach here.");
-        return 0;
-    }
-
     public static void main(String[] args) {
         int rc = 0;
         long startTime, endTime, timeElapsed;
@@ -168,10 +72,109 @@ public class HConfRunner extends RunnerCore {
 	    System.exit(rc);
         }
     }
-}
-/* enhancement for revision */ 
-/*
+
     private static void hypothesisTestLogic(TestResult test_basic) throws Exception {
+	int v1v2FailedCount = 0;
+	int v1v1v2v2FailedCount = 0;
+        int earlyStopThreshold = 3;
+	boolean earlyStop = false;
+        int i = 0;
+
+        System.out.println(test_basic.toString());
+
+        for (i=0; i<MAX_HYPO_RUN; i++) {
+	    if ( (v1v2FailedCount >= earlyStopThreshold && v1v1v2v2FailedCount == 0) ||
+                    (i >= earlyStopThreshold && v1v2FailedCount == 0) ||
+                    v1v1v2v2FailedCount >= earlyStopThreshold )  {
+		System.out.println("early stop after " + earlyStopThreshold + " is satisfied");
+		earlyStop = true;
+		break;
+	    }
+
+	    TestResult v1v2Test = new TestResult(test_basic);
+            v1v2Test.vv_mode = "v1v2";
+            runTestCore(v1v2Test);
+            if (v1v2Test.ret == RETURN.FAIL) {
+                System.out.println("---> v1v2 test failed.");
+		System.out.println(v1v2Test.completeInfo());
+                v1v2FailedCount ++;
+            } else {
+                System.out.println("---> v1v2 test suceeded.");
+            }
+
+            TestResult v1v1Test = new TestResult(test_basic);
+            v1v1Test.vv_mode = "v1v1";
+            runTestCore(v1v1Test);
+            TestResult v2v2Test = new TestResult(test_basic);
+            v2v2Test.vv_mode = "v2v2";
+            runTestCore(v2v2Test);
+            if (v1v1Test.ret == RETURN.FAIL || v2v2Test.ret == RETURN.FAIL) {
+                System.out.println("---> v1v1 or v2v2 test failed.");
+		if (v1v1Test.ret == RETURN.FAIL) {
+                    System.out.println("v1v1 failed in a hypo test");
+		    System.out.println(v1v1Test.completeInfo());
+                }
+		if (v2v2Test.ret == RETURN.FAIL) {
+                    System.out.println("v2v2 failed in a hypo test");
+		    System.out.println(v2v2Test.completeInfo());
+                }
+                v1v1v2v2FailedCount ++;
+            } else {
+                System.out.println("---> v1v1 and v2v2 test test suceeded.");
+            }
+        }
+
+	System.out.println("v1v2 failed with probability " + v1v2FailedCount + " out of " + i);
+        System.out.println("v1v1v2v2 failed with probability " + v1v1v2v2FailedCount + " out of " + i);
+
+        return;
+    }
+
+    private static int runTestLogic(int h_list_size, TestResult test_basic) throws Exception {
+        // clone to create v1v2 test and run it
+        TestResult v1v2Test = new TestResult(test_basic);
+        v1v2Test.vv_mode = "v1v2";
+        System.out.println(v1v2Test.toString());
+        runTestCore(v1v2Test);
+        if (v1v2Test.ret == RETURN.SUCCEED) {
+            System.out.println("v1v2 test succeeded, no issue.");
+            return 0;
+        } else if (v1v2Test.ret == RETURN.FAIL) {
+            if (h_list_size > 1) { // return 1 for group test
+                System.out.println("always return 1 when group test fails");
+                return 1;
+            } else {
+                TestResult v1v1Test = new TestResult(test_basic);
+                v1v1Test.vv_mode = "v1v1";
+                runTestCore(v1v1Test);
+                if (v1v1Test.ret == RETURN.FAIL) { // invalid
+                    System.out.println("invalid value v1");
+                    return 0;
+                }
+            
+                TestResult v2v2Test = new TestResult(test_basic);
+                v2v2Test.vv_mode = "v2v2";
+                runTestCore(v2v2Test);
+                if (v2v2Test.ret == RETURN.FAIL) { // invalid
+                    System.out.println("invalid value v2");
+                    return 0;
+                }
+
+                // one-round v1v1 and v2v2 succeeded, let's do hypo test
+                System.out.println("v1v2 test failed but v1v1&v2v2 succeeded:");
+                System.out.println("---------------------------------------" + MY_TYPE +
+                    " report---------------------------------------------");
+                System.out.println(v1v2Test.completeInfo());
+                return 1;
+            }
+        }
+
+        System.out.println("ERROR: cannot reach here.");
+        return 0;
+    }
+    
+    /* enhancement for revision */ 
+    /*private static void hypothesisTestLogic(TestResult test_basic) throws Exception {
 	int v1v2FailedCount = 0;
 	int v1v1v2v2FailedCount = 0;
         int earlyStopThreshold = 3;
@@ -197,10 +200,14 @@ public class HConfRunner extends RunnerCore {
             runTestCore(v2v2Test);
             if (v1v1Test.ret == RETURN.FAIL || v2v2Test.ret == RETURN.FAIL) {
                 System.out.println("---> v1v1 or v2v2 test failed.");
-		if (v1v1Test.ret == RETURN.FAIL)
+		if (v1v1Test.ret == RETURN.FAIL) {
+		    System.out.println("v1v1 failed in a hypo test");
 		    System.out.println(v1v1Test.completeInfo());
-		if (v2v2Test.ret == RETURN.FAIL)
+                }
+		if (v2v2Test.ret == RETURN.FAIL) {
+		    System.out.println("v2v2 failed in a hypo test");
 		    System.out.println(v2v2Test.completeInfo());
+                }
                 v1v1v2v2FailedCount ++;
             } else {
                 System.out.println("---> v1v1 and v2v2 test test suceeded.");
@@ -216,6 +223,7 @@ public class HConfRunner extends RunnerCore {
 		}
 
 		if (v1v2Test.running_time >= (LONG_TIME_MUL * Math.max(v1v1Test.running_time, v2v2Test.running_time))) {
+                    System.out.println("v1v2 runs longer failure");
                     System.out.println("v1v2 running time: " + v1v2Test.running_time);
                     System.out.println("v1v1 running time: " + v1v1Test.running_time);
                     System.out.println("v2v2 running time: " + v2v2Test.running_time);
@@ -259,12 +267,12 @@ public class HConfRunner extends RunnerCore {
 		return 1;
 	    } else {
 		if (v1v1Test.ret == RETURN.FAIL) {
-		    System.out.println("invalid value v1");
+		    System.out.println("v1v1 failed in the run test");
 		    return 0;
 		}
 		
 		if (v2v2Test.ret == RETURN.FAIL) {
-		    System.out.println("invalid value v2");
+		    System.out.println("v2v2 failed in the run test");
 		    return 0;
 		}
 
@@ -274,6 +282,7 @@ public class HConfRunner extends RunnerCore {
 		}
 
 		if (v1v2Test.running_time >= (LONG_TIME_MUL * Math.max(v1v1Test.running_time, v2v2Test.running_time))) {
+                    System.out.println("v1v2 runs longer failure");
                     System.out.println("v1v2 running time: " + v1v2Test.running_time);
                     System.out.println("v1v1 running time: " + v1v1Test.running_time);
                     System.out.println("v2v2 running time: " + v2v2Test.running_time);
@@ -289,5 +298,6 @@ public class HConfRunner extends RunnerCore {
 		
 	    }
 	}
-    }
-*/
+    }*/
+    
+}

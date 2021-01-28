@@ -67,11 +67,12 @@ public class RunnerCore {
 
         public static TestResult getTestResultByName(List<TestResult> list, String name) {
             for (TestResult t : list) {
-                if (t.u_test.equals(name))
+                String nameRemovePara = t.u_test.split("\\[")[0];
+                if (nameRemovePara.equals(name))
                     return t;
             }
             // error
-            System.out.println("Error: name " + name + " cannot be found in the list");
+            System.out.println("ERROR: name " + name + " cannot be found in the list");
             return null;
         }
 
@@ -110,7 +111,7 @@ public class RunnerCore {
         try {
             for (File f : testResultDir.listFiles()) {
                 if (f.isFile()) {
-                    //System.out.println("updating test result for " + f.getName());
+                    System.out.println("updating test result for file " + f.getName());
                     BufferedReader reader = new BufferedReader(new FileReader(f));
                     String buffer = "";
                     StringBuilder sb = new StringBuilder("");  
