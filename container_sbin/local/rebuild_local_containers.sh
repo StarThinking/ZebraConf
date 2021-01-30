@@ -2,7 +2,7 @@
 
 if [ $# -ne 2 ]; then echo "wrong [tag] [vms]"; exit -1; fi
 tag=$1
-vms=$(( $2 - 1 ))
+vms=$(( $2 - 1 )) # minus one here
 
 # kill dispatcher
 ps aux | grep dispatcher | awk '{print $2}' | xargs kill -9
