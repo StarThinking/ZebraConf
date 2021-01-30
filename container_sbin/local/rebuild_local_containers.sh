@@ -17,13 +17,13 @@ cd ~/vm_images/ZebraConf; git pull
 echo "ZebraConf is updated"
 
 # delete containers
-~/vm_images/ZebraConf/runner/sbin/local/delete_local_containers.sh
+~/vm_images/ZebraConf/container_sbin/local/delete_local_containers.sh
 echo "containers are deleted"
 
 # create containers
-~/vm_images/ZebraConf/runner/sbin/local/create_local_containers.sh $tag $vms
+~/vm_images/ZebraConf/container_sbin/local/create_local_containers.sh $tag $vms
 echo "containers are created"
 
 # clean and build runners
-~/vm_images/ZebraConf/runner/sbin/local/clean_and_build.sh
+~/vm_images/ZebraConf/container_sbin/local/clean_and_build.sh
 echo "runner is built"
