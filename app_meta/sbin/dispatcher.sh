@@ -5,7 +5,7 @@ if [ $# -ne 1 ]; then echo 'ERROR: ./dispatcher.sh [project]'; exit -1; fi
 the_project=$1
 busy_file=/tmp/reconf_busy
 IFS=$'\n' 
-entry_list=( $(cat /root/ZebraConf/app_meta/task.txt) )
+entry_list=( $(cat /root/vm_images/ZebraConf/app_meta/task.txt) )
 entry_list_length=${#entry_list[@]}
 entry_cursor=0
 echo "task size = $entry_list_length"
@@ -43,9 +43,13 @@ do
     sleep 1
 done
 
-for i in $(seq 0 $vm_num)
+# wait until all containers are not busy
+for my_container in $(docker container list -a | awk '{print $NF}' | grep -v NAMES)
 do
-    while [ "$(is_busy $i)" == "true" ]; do sleep 10; done
+    while [ "$(is_busy $my_container)" == "true" ]
+    do 
+        sleep 10
+    done
 done
 
-echo all nodes are unbusy now
+echo "all nodes are unbusy now"
