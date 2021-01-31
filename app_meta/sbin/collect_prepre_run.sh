@@ -2,7 +2,7 @@
 
 for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n)
 do 
-    ssh node-$i '/root/vm_images/ZebraConf/container_sbin/local/cp_from_cont_2_local_by_key.sh .txt /root/ZebraConf/app_meta/log/ /root/vm_images/ZebraConf/app_meta/log/' &
+    ssh node-$i '/root/vm_images/ZebraConf/container_sbin/local/cp_from_cont_2_local_by_key.sh txt /root/ZebraConf/app_meta/log/ /root/vm_images/ZebraConf/app_meta/log/' &
     pids[$i]=$!
 done
 
