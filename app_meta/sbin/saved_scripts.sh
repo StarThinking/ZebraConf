@@ -1,6 +1,9 @@
 # get pre-pre run all raw tests
 find . -name '*-output.txt' | while read i; do grep 'msx-listener test started ' $i; done | awk -F 'msx-listener test started ' '{print $2}' | awk -F '\\[' '{print $1}' | sort -u > ~/ZebraConf/app_meta/yarn/about_test/new_all_tests_raw.txt
 
+# test 2 sub project path mapping
+for log in *; do echo "$(echo $log | awk -F '-output.txt' '{print $1}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done > ~/vm_images/ZebraConf/app_meta/yarn/test_2_subproject_mapping.txt
+
 # find all the sub projects pom.xml path
 find /root/flink-release-1.12.1 -name pom.xml | sed -e "s/pom.xml$//g" | sort | sed '1d' | grep -v '/target/' | grep -v '/src/' | while read sub_project; do cd $sub_project; echo "--------------------------$sub_project---------------------------"; mvn test; echo ''; echo ''; done
 
