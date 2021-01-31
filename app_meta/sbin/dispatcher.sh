@@ -33,6 +33,7 @@ do
                 if [ "$(is_busy $my_container)" == "true" ]; then
                     continue
                 fi
+	        sleep 0.1
             done
 	    echo "$my_container is not busy, assign entry $entry_cursor to it"
 	    docker exec -d $my_container bash -c "$(eval $cmd)"
