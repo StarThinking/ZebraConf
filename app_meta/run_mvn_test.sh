@@ -13,7 +13,7 @@ log_dts_dir='/root/ZebraConf/app_meta/log'
 echo "the_test is $the_test"
 
 # find the innerest sub project path
-sub_project_path=$(grep "$the_test " /root/ZebraConf/app_meta/"$the_project"/test_2_subproject_mapping.txt)
+sub_project_path=$(grep "$the_test " /root/ZebraConf/app_meta/"$the_project"/test_2_subproject_mapping.txt | awk '{print $2}')
 if [ "$sub_project_path" == "" ]; then
     echo "ERROR: cannot find sub project path for $the_test"
     exit -1
