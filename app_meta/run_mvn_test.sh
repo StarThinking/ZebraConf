@@ -12,18 +12,17 @@ testname=$(echo $the_test | awk -F '#' '{print $2}')
 log_dts_dir='/root/ZebraConf/app_meta/log'
 echo "the_test is $the_test"
 
-#sub_project_classes_dir="/root/ZebraConf/app_meta/"$the_project"/all_classes"
-#suffix='all_classes.txt'
-#raw_sub_project=$(cd $sub_project_classes_dir; grep ^"$classname"$ *.txt | awk -F 'all_classes.txt' '{print $1}' | sed 's#%#/#g')
-#if [ "$raw_sub_project" == "" ]; then
-#    echo "ERROR: cannot find sub_project for $the_test"; exit -1;
-#fi
-#sub_project="$project_root_dir""$raw_sub_project"
-#echo "sub_project for $the_test is $sub_project"
+# find the innerest sub project path
+sub_project_path=$(grep "$the_test " /root/ZebraConf/app_meta/"$the_project"/test_2_subproject_mapping.txt)
+if [ "$sub_project_path" == "" ]; then
+    echo "ERROR: cannot find sub project path for $the_test"
+    exit -1
+fi
+echo "run test under sub_project_path $sub_project_path"
 
 # run mvn test
 rc=1
-cd $project_root_dir; mvn test -Dtest=$the_test
+cd $sub_project_path; mvn test -Dtest=$the_test
 rc=$?
 
 # find output log
