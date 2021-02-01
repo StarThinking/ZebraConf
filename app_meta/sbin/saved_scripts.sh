@@ -13,14 +13,14 @@ for i in $(seq 0 19); do docker exec hadoop-$i bash -c 'cd /root/reconf_test_gen
 for i in $(seq 0 9); do docker exec hadoop-$i bash -c 'cd /root/reconf_test_gen/; ./display_run_time.sh yarn run'; done
 
 # structure final
-rm *txt*; for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n); do tar zxvf $i.tar.gz ; done; rm *.tar.gz; mkdir component; mkdir parameter; mkdir ultimate; mv *-component-meta.txt component; mv *-parameter-meta.txt parameter; mv *-ultimate-meta.txt ultimate; mkdir final; mv * final
+rm *txt*; for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n); do tar zxvf $i.tar.gz ; done; rm *.tar.gz; mkdir component; mkdir parameter; mkdir ultimate; mv *-component-meta.txt component; mv *-parameter-meta.txt parameter; mv *-ultimate-meta.txt ultimate;
 
 # sanity check
 grep -rn ERROR * | grep 'sanity check failed' | awk -F '-component-meta.txt' '{print $1}' | sort -u
 grep -rn 'msx-rc 0' | wc -l; grep -rn 'msx-rc 1' | wc -l; 
 
 # show components
-grep registerMyCom * | awk -F 'msx-confcontroller| ' '{print $6}' | awk -F '.' '{print $1}' | sort | uniq -c | sort -n -k 1
+grep registerMyCom * | awk -F 'msx-confcontroller| ' '{print $6}' | awk -F '.' '{print $1}' | sort -u | while read i; do count=$(grep -rn $i * | awk -F '-component-meta.txt' '{print $1}' | sort -u | awk -F '#' '{print $1}' | sort -u | wc -l); echo "$i $count"; done
 
 # identified result
 cd final/component/;
