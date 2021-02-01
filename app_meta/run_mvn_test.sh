@@ -1,7 +1,6 @@
 #!/bin/bash
 echo $@
-#if [ $# -lt 3 ]; then echo 'ERROR: ./run_mvn_test.sh [project] [test_name] [log_dts_dir|none]'; exit -1; fi
-if [ $# -ne 2 ]; then echo 'ERROR: ./run_mvn_test.sh [project] [test_name]'; exit -1; fi
+if [ $# -ne 3 ]; then echo 'ERROR: ./run_mvn_test.sh [project] [test_name] [verbose_enable]'; exit -1; fi
 
 the_project=$1
 project_root_dir=$(cat /root/ZebraConf/app_meta/"$the_project"/project_root_dir.txt)
@@ -11,6 +10,8 @@ classname=$(echo $the_test | awk -F '#' '{print $1}')
 testname=$(echo $the_test | awk -F '#' '{print $2}')
 log_dts_dir='/root/ZebraConf/app_meta/log'
 echo "the_test is $the_test"
+verbose_enable=$3
+echo "$verbose_enable" > /root/ZebraConf/app_meta/lib/enable
 
 # find the innerest sub project path
 sub_project_path=$(grep "$the_test " /root/ZebraConf/app_meta/"$the_project"/test_2_subproject_mapping.txt | awk '{print $2}')
