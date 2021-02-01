@@ -2,7 +2,7 @@
 
 if [ $# -ne 1 ]; then 
     echo './collect_pre_run.sh [compress=1 (for pre-run) | not compress=0 (for prepre-run)]'
-    echo -1
+    exit -1
 fi
 
 compress=$1
