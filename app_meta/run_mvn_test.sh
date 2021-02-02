@@ -13,26 +13,26 @@ echo "the_test is $the_test"
 verbose_enable=$3
 echo "$verbose_enable" > /root/ZebraConf/app_meta/lib/enable
 
-## find the innerest sub project path
-#sub_project_path=$(grep "$the_test " /root/ZebraConf/app_meta/"$the_project"/test_2_subproject_mapping.txt | awk '{print $2}')
-#if [ "$sub_project_path" == "" ]; then
-#    echo "ERROR: cannot find sub project path for $the_test"
-#    exit -1
-#fi
-#echo "run test under sub_project_path $sub_project_path"
+# find the innerest sub project path
+sub_project_path=$(grep "$classname " /root/ZebraConf/app_meta/"$the_project"/about_test/mapping.txt | awk '{print $2}')
+if [ "$sub_project_path" == "" ]; then
+    echo "ERROR: cannot find sub project path for $the_test"
+    exit -1
+fi
+echo "run test under sub_project_path $sub_project_path"
 
 # run mvn test
 rc=1
-#cd $sub_project_path; mvn test -Dtest=$the_test
-cd $project_root_dir; mvn test -Dtest=$the_test
+cd $sub_project_path; mvn test -Dtest=$the_test
 rc=$?
 
 # find output log
-output_log=$(find $project_root_dir -name "$classname"-output.txt)
-echo "output_log is $output_log"
+output_log=$(find $sub_project_path -name "$classname"-output.txt)
 if [ "$output_log" == "" ]; then
      echo 'ERROR: cannot find output_log for test $the_test'
-     exit -1;
+     exit -1
+else
+    echo "output_log $output_log has been found"
 fi
 
 # move output log to dst directory

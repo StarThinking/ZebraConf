@@ -1,8 +1,13 @@
-# get pre-pre run all raw tests
+# get pre-pre run all raw tests (including parameterized tests)
 echo > ~/tmp.txtt; grep 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | grep -v ':' >> ~/tmp.txtt; grep 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | grep ':' | awk -F ':' '{print $1":*]"}' >> ~/tmp.txtt; cat ~/tmp.txtt | sort -u > ../all_tests.txt 
 
+# get tests are at least succeed once in three rounds
+grep -rn 'msx-rc 0' CORRECT_* | awk -F '/' '{print $2}' | grep 'msx-rc 0' | awk -F '-component-meta.txt' '{print $1}' | sort -u
+## show all and succeed tests
+for i in hdfs yarn mapreduce hadoop-tools hbase; do echo $i; cat $i/about_test/all_tests.txt | wc -l; cat $i/about_test/correct_tests.txt | wc -l; echo ''; done
+
 # test 2 sub project path mapping
-for log in *; do echo "$(echo $log | awk -F '-output.txt' '{print $1}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done > ~/vm_images/ZebraConf/app_meta/yarn/test_2_subproject_mapping.txt
+find CORRECT_* -name '*-component-meta.txt' | while read log; do echo "$(echo $log | awk -F '#' '{print $1}' | awk -F '/' '{print $2}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done | sort -u > mapping.txt 
 
 # find all the sub projects pom.xml path
 find /root/flink-release-1.12.1 -name pom.xml | sed -e "s/pom.xml$//g" | sort | sed '1d' | grep -v '/target/' | grep -v '/src/' | while read sub_project; do cd $sub_project; echo "--------------------------$sub_project---------------------------"; mvn test; echo ''; echo ''; done
