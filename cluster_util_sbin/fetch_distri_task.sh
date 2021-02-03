@@ -6,11 +6,15 @@ pm=( $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n) )
 num=${#pm[@]}
 src_ip_path=$1
 all_task_file=all_tasks.txt.tmp
+shuffle_tmp_file=shuffle.txt.tmp
 rm $all_task_file
+rm $shuffle_tmp_file
 task_dir=$2
 
 scp $src_ip_path $all_task_file
-
+# shuffle
+shuf $all_task_file > $shuffle_tmp_file 
+mv $shuffle_tmp_file $all_task_file
 rm x*
 split -d -n l/$num $all_task_file
 for i in $(seq 0 9); do mv x0$i x$i; done
@@ -25,3 +29,4 @@ done
 
 rm x*
 rm $all_task_file
+rm $shuffle_tmp_file
