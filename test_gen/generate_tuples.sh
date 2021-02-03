@@ -103,30 +103,21 @@ do
 	    do
 	 	if [ $the_inits -eq 1 ]; then
 		    if [ $unable_id -eq 0 ]; then
-		        echo "$unable_id_prefix""$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" ""$the_inits"" ""$v_p"
+		        echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" ""$the_inits"" ""$v_p"
 		    else
-			echo "$unable_id_prefix""$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" ""$the_inits"" ""$v_p"" ""$unable_id_suffix"
+			echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" ""$the_inits"" ""$v_p"" ""$unable_id_suffix"
 		    fi
 	 	else
 		    if [ $unable_id -eq 0 ]; then
-	                echo "$unable_id_prefix"" ""$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -1 ""$v_p"
-	                echo "$unable_id_prefix"" ""$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -2 ""$v_p"
-	                echo "$unable_id_prefix"" ""$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -3 ""$v_p"
+	                echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -1 ""$v_p"
+	                echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -2 ""$v_p"
+	                echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -3 ""$v_p"
 		    else
-	                echo "$unable_id_prefix"" ""$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -1 ""$v_p"" ""$unable_id_suffix"
-	                echo "$unable_id_prefix"" ""$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -2 ""$v_p"" ""$unable_id_suffix"
-	                echo "$unable_id_prefix"" ""$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -3 ""$v_p"" ""$unable_id_suffix"
+	                echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -1 ""$v_p"" ""$unable_id_suffix"
+	                echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -2 ""$v_p"" ""$unable_id_suffix"
+	                echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" -3 ""$v_p"" ""$unable_id_suffix"
 		    fi
 		fi
-	        #for the_init in $(seq 1 $the_inits)
-	  	#do
-		#    if [ $the_init -eq 1 ]; then
-	        #        echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" ""$the_init"" ""$v_p"
-		#    else
-	        #        echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" ""$the_init"" ""$v_p"
-	        #        echo "$parameter"" ""$the_proj"" ""$the_test"" ""$the_component"" ""$the_init"" ""$v_p"
-		#    fi
-    	        #done
 	    done
 	done
     done
