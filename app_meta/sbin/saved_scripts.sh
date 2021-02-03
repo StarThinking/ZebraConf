@@ -4,9 +4,9 @@
 rm tmp.txt; cat 2.txt all_tests.txt | sort -u | grep '\[' | awk -F '[' '{print $1"[*]"}' | sort -u >> tmp.txt; cat 2.txt all_tests.txt | sort -u | grep -v '\[' >> tmp.txt; cat tmp.txt | sort -u > ALL_TESTS.txt
 
 # get tests are at least succeed once in three rounds
-grep -rn 'msx-rc 0' CORRECT_* | awk -F '/' '{print $2}' | grep 'msx-rc 0' | awk -F '-component-meta.txt' '{print $1}' | sort -u
+grep -rn 'msx-rc 0' CORRECT_TEST_* | awk -F '/' '{print $2}' | grep 'msx-rc 0' | awk -F '-component-meta.txt' '{print $1}' | sort -u > CORRECT_TESTS.txt
 ## show all and succeed tests
-for i in hdfs yarn mapreduce hadoop-tools hbase; do echo $i; cat $i/about_test/all_tests.txt | wc -l; cat $i/about_test/correct_tests.txt | wc -l; echo ''; done
+for i in hdfs yarn mapreduce hadoop-tools hbase; do echo $i; cat $i/about_test/ALL_TESTS.txt | wc -l; cat $i/about_test/CORRECT_TESTS.txt | wc -l; echo ''; done
 
 # test 2 sub project path mapping
 find CORRECT_* -name '*-component-meta.txt' | while read log; do echo "$(echo $log | awk -F '#' '{print $1}' | awk -F '/' '{print $2}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done | sort -u > mapping.txt 
