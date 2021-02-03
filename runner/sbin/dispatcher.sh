@@ -10,7 +10,7 @@ entry_list=( $(cat /root/vm_images/ZebraConf/runner/task.txt) )
 entry_list_length=${#entry_list[@]}
 entry_cursor=0
 echo "task size = $entry_list_length"
-cmd='echo /root/vm_images/ZebraConf/runner/run_heter_conf_test.sh ${entry_list[$entry_cursor]}'
+cmd='echo /root/ZebraConf/runner/run_heter_conf_test.sh ${entry_list[$entry_cursor]}'
 
 function is_busy {
     con_id=$1
