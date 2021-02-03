@@ -16,8 +16,9 @@ echo "$verbose_enable" > /root/ZebraConf/app_meta/lib/enable
 # find the innerest sub project path
 sub_project_path=$(grep "$classname " /root/ZebraConf/app_meta/"$the_project"/about_test/mapping.txt | awk '{print $2}')
 if [ "$sub_project_path" == "" ]; then
-    echo "ERROR: cannot find sub project path for $the_test"
-    exit -1
+    echo "WARN: cannot find sub project path for $the_test"
+    sub_project_path="$project_root_dir"
+    #exit -1
 fi
 echo "run test under sub_project_path $sub_project_path"
 
