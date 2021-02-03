@@ -19,11 +19,11 @@ comm -23 conf_cannot_identify.txt conf_later_identify.txt > conf_real_cannot_ide
 
 cat $log | grep 'reading from' | awk '{print $2}' | sort -u > total_tmp.txt
 # common
-comm -12 total_tmp.txt ~/reconf_test_gen/all_xml_parameters.txt > total.txt
+comm -12 total_tmp.txt ~/vm_images/ZebraConf/app_meta/all_xml_parameters.txt > total.txt
 
 cat conf_real_cannot_identify.txt | while read line; do grep $line $log | grep 'reading from' | awk '{print $2}'; done | sort -u > cannot_tmp.txt
 # common
-comm -12 cannot_tmp.txt ~/reconf_test_gen/all_xml_parameters.txt > cannot.txt
+comm -12 cannot_tmp.txt ~/vm_images/ZebraConf/app_meta/all_xml_parameters.txt > cannot.txt
 
 comm -23 total.txt cannot.txt > can.txt
 

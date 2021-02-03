@@ -32,7 +32,7 @@ grep registerMyCom * | awk -F 'msx-confcontroller| ' '{print $6}' | awk -F '.' '
 # identified result
 cd final/component/;
 #grep registerMyComponent * | awk -F '-component-meta.txt' '{print $1"-component-meta.txt"}' | sort -u | while read line; do echo $line; ~/reconf_test_gen/identify.sh $line 1; echo ""; done > result.txt; mkdir ../identify; mv *-identify-*.txt ../identify; cd ../identify; cat *-identify-can.txt | sort -u > all_can.txt; cat *-identify-cannot.txt | sort -u > all_cannot.txt; comm -13 all_can.txt all_cannot.txt > unique_cannot.txt
-mkdir ../identify;  ls | while read line; do echo $line; ~/reconf_test_gen/identify.sh $line 1; echo ""; done > ../identify/result.txt; mv *-identify-*.txt ../identify; 
+mkdir ../identify;  ls | while read line; do echo $line; /root/vm_images/ZebraConf/app_meta/sbin/identify.sh $line 1; echo ""; done > ../identify/result.txt; mv *-identify-*.txt ../identify; 
 #cd ../identify; cat *-identify-can.txt | sort -u > all_can.txt; cat *-identify-cannot.txt | sort -u > all_cannot.txt; comm -13 all_can.txt all_cannot.txt > unique_cannot.txt
 
 # under final/identity
