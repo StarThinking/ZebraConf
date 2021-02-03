@@ -9,7 +9,7 @@ grep -rn 'msx-rc 0' CORRECT_TEST_* | awk -F '/' '{print $2}' | grep 'msx-rc 0' |
 for i in hdfs yarn mapreduce hadoop-tools hbase; do echo $i; cat $i/about_test/ALL_TESTS.txt | wc -l; cat $i/about_test/CORRECT_TESTS.txt | wc -l; echo ''; done
 
 # test 2 sub project path mapping
-find CORRECT_* -name '*-component-meta.txt' | while read log; do echo "$(echo $log | awk -F '#' '{print $1}' | awk -F '/' '{print $2}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done | sort -u > mapping.txt 
+find CORRECT_TEST_* -name '*-component-meta.txt' | while read log; do if [ "$(cat $log | tail -n 1 | grep 'msx-rc')" == "" ]; then continue; fi; echo "$(echo $log | awk -F '#' '{print $1}' | awk -F '/' '{print $2}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done | sort -u > mapping.txt 
 
 # find all the sub projects pom.xml path
 find /root/flink-release-1.12.1 -name pom.xml | sed -e "s/pom.xml$//g" | sort | sed '1d' | grep -v '/target/' | grep -v '/src/' | while read sub_project; do cd $sub_project; echo "--------------------------$sub_project---------------------------"; mvn test; echo ''; echo ''; done
