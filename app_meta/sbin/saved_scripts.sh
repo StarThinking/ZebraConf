@@ -1,5 +1,7 @@
 # get pre-pre run all raw tests (including parameterized tests)
-echo > ~/tmp.txtt; grep 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | grep -v ':' >> ~/tmp.txtt; grep 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | grep ':' | awk -F ':' '{print $1":*]"}' >> ~/tmp.txtt; cat ~/tmp.txtt | sort -u > ../all_tests.txt 
+#echo > ~/tmp.txtt; grep 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | grep -v ':' >> ~/tmp.txtt; grep 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | grep ':' | awk -F ':' '{print $1":*]"}' >> ~/tmp.txtt; cat ~/tmp.txtt | sort -u > ../all_tests.txt 
+
+rm tmp.txt; cat 2.txt all_tests.txt | sort -u | grep '\[' | awk -F '[' '{print $1"[*]"}' | sort -u >> tmp.txt; cat 2.txt all_tests.txt | sort -u | grep -v '\[' >> tmp.txt; cat tmp.txt | sort -u > ALL_TESTS.txt
 
 # get tests are at least succeed once in three rounds
 grep -rn 'msx-rc 0' CORRECT_* | awk -F '/' '{print $2}' | grep 'msx-rc 0' | awk -F '-component-meta.txt' '{print $1}' | sort -u
@@ -25,7 +27,7 @@ grep -rn ERROR * | grep 'sanity check failed' | awk -F '-component-meta.txt' '{p
 grep -rn 'msx-rc 0' | wc -l; grep -rn 'msx-rc 1' | wc -l; 
 
 # show components
-grep registerMyCom * | awk -F 'msx-confcontroller| ' '{print $6}' | awk -F '.' '{print $1}' | sort -u | while read i; do count=$(grep -rn $i * | awk -F '-component-meta.txt' '{print $1}' | sort -u | awk -F '#' '{print $1}' | sort -u | wc -l); echo "$i $count"; done
+grep registerMyCom * | awk -F 'msx-confcontroller| ' '{print $6}' | awk -F '.' '{print $1}' | sort -u | while read i; do count=$(grep -rn $i * | awk -F '-component-meta.txt' '{print $1}' | sort -u | wc -l); echo "$i $count"; done
 
 # identified result
 cd final/component/;
