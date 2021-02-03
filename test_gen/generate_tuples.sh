@@ -56,9 +56,10 @@ do
     v_index=$(( v_index + 1 ))
 done
 
-exit 0
+# for check
+#exit 0
 
-final_root_dir=~/data_store_sdb/hconf_result_fse/test_gen/final-x1.5/
+final_root_dir=/root/vm_images/ZebraConf/test_gen/final/
 unable_id_suffix="unidentifiable"
 unable_id=1
 

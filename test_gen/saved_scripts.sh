@@ -6,7 +6,7 @@ cat tuples_per_para?.txt | awk '{print $2" "$3}' | sort -u | while read line; do
 #find . -size  0 -print -delete
 
 # grouping
-IFS=$'\n'; for i in *; do echo "grouping for test $i"; java -cp ~/data_store_sdb/hconf_result_fse/test_gen/ GroupTuple "$i" n? > ../after_filter_uncertainty_per_test_grouped/"$i";  done
+IFS=$'\n'; for i in *; do echo "grouping for test $i"; java -cp ~/vm_images/ZebraConf/test_gen GroupTuple "$i" n? > ../after_filter_uncertainty_per_test_grouped/"$i";  done
 
 # get*.txt
 find . -name parameter | while read line; do cat $line/*; done | awk '{print $NF" "$1}' | sort -u | awk '{print $1}' | sort |uniq -c

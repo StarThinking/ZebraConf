@@ -1,21 +1,21 @@
 #!/bin/bash
-date 
-vm_num=$(( $(cat /proc/cpuinfo | grep 'processor' | wc -l) / 2 ))
-if [ $vm_num -gt 20 ]; then vm_num=10; fi
-vm_num=10
-vm_num=$(( vm_num -1 ))
+
+if [ $# -ne 0 ]; then echo 'ERROR: ./dispatcher.sh'; exit -1; fi
+
+the_project=$1
+verbose_enable=$2
+busy_file=/tmp/reconf_busy
 IFS=$'\n' 
-entry_list=( $(cat /root/parameter_test_controller/task.txt) )
+entry_list=( $(cat /root/vm_images/ZebraConf/runner/task.txt) )
 entry_list_length=${#entry_list[@]}
 entry_cursor=0
-echo entry_list_length = $entry_list_length
-cmd='echo /root/parameter_test_controller/procedure.sh ${entry_list[$entry_cursor]}'
+echo "task size = $entry_list_length"
+cmd='echo /root/vm_images/ZebraConf/runner/run_heter_conf_test.sh ${entry_list[$entry_cursor]}'
 
 function is_busy {
-    i=$1
-    jps_num=$(docker exec hadoop-$i bash -c "jps" | wc -l)
-    disp_num=$(docker exec hadoop-$i bash -c "ps -ef | grep procedure.sh" | wc -l)
-    #sh_num=$(docker exec hadoop-$i bash -c "ps aux | grep run_mvn_test.sh" | wc -l)
+    con_id=$1
+    jps_num=$(docker exec hadoop-$con_id bash -c "jps" | wc -l)
+    disp_num=$(docker exec hadoop-$con_id bash -c "ps -ef | grep run_heter_conf_test.sh" | wc -l)
     if [ $disp_num -gt 2 ] || [ $jps_num -gt 1 ] ; then
 	echo "true"
     else
@@ -23,32 +23,46 @@ function is_busy {
     fi
 }
 
+max_id=$(( $(docker container list -a | awk '{print $NF}' | grep -v NAMES | wc -l) - 1 ))
 while [ $entry_cursor -lt $entry_list_length ]
 do
-    for i in $(seq 0 $vm_num)
+    for container_id in $(seq 0 $max_id)
     do
-        if [ "$(is_busy $i)" == "true" ]; then
-	     echo hadoop-$i is busy
+        if [ "$(is_busy $container_id)" == "true" ]; then
+	     echo "$container_id is busy"
 	else
-	    # double check
-	    for dc in 1 2 3 4 5; do
-	        if [ "$(is_busy $i)" == "true" ]; then
-		    continue
-		fi
-	    	sleep 0.1
+            # double check
+	    quit_busy=0
+            for dc in 1 2 3 4 5; do
+                if [ "$(is_busy $container_id)" == "true" ]; then
+		    quit_busy=1
+                    break
+		else
+	            sleep 0.1
+                fi
             done
-	    echo hadoop-$i is not busy, assign entry $entry_cursor to it
-	    docker exec -d hadoop-$i bash -c "$(eval $cmd)"
+	    if [ $quit_busy -eq 1 ]; then 
+		continue
+	    fi
+	    echo "$container_id is not busy, assign entry $entry_cursor to it"
+	    docker exec -d hadoop-$container_id bash -c "$(eval $cmd)"
 	    entry_cursor=$(( entry_cursor + 1 ))
-	    if [ $entry_cursor -ge $entry_list_length ]; then echo finish all tasks; break; fi
+	    if [ $entry_cursor -ge $entry_list_length ]; then 
+		echo finish all tasks
+		break
+	    fi
 	fi
+    done
+    sleep 1
+done
+
+# wait until all containers are not busy
+for container_id in $(seq 0 $max_id)
+do
+    while [ "$(is_busy $container_id)" == "true" ]
+    do 
+        sleep 10
     done
 done
 
-for i in $(seq 0 $vm_num)
-do
-    while [ "$(is_busy $i)" == "true" ]; do sleep 10; done
-done
-
-echo all nodes are unbusy now
-date
+echo "all nodes are unbusy now"

@@ -56,7 +56,7 @@ do
 done
 
 # wait until all containers are not busy
-for container_id in $(docker container list -a | awk '{print $NF}' | grep -v NAMES)
+for container_id in $(seq 0 $max_id)
 do
     while [ "$(is_busy $container_id)" == "true" ]
     do 
