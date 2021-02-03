@@ -76,7 +76,7 @@ public class HConfRunner extends RunnerCore {
     private static void hypothesisTestLogic(TestResult test_basic) throws Exception {
 	int v1v2FailedCount = 0;
 	int v1v1v2v2FailedCount = 0;
-        int earlyStopThreshold = 3;
+        int earlyStopThreshold = 7;
 	boolean earlyStop = false;
         int i = 0;
 
