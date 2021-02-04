@@ -26,7 +26,7 @@ if [ $v1v1v2v2_failed -gt $v1v2_failed ]; then
     exit 0; 
 fi
 
-classpath=/root/parameter_test_controller/target/:/root/parameter_test_controller/src/lib/commons-math3-3.6.1.jar
+classpath=~/vm_images/ZebraConf/runner/target/:~/vm_images/ZebraConf/runner/lib/commons-math3-3.6.1.jar
 output=$(java -cp $classpath HypoAnalysis $v1v2_num $v1v2_failed $v1v1v2v2_num $v1v1v2v2_failed $confidence)
 if [ "$output" == "null_hypothesis is false" ]; then
     echo "$hypo_file"    
