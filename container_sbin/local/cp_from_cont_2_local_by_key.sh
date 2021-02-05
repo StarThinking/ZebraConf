@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 3 ]; then echo 'wrong: [key] [container_log_dir] [local_log_dir']; exit -1; fi
+if [ $# -ne 3 ]; then echo 'wrong: [key] [container_log_dir] [local_log_dir]'; exit -1; fi
 
 key=$1
 container_log_dir=$2

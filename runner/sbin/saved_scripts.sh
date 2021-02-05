@@ -1,8 +1,4 @@
-rm *txt; for i in *; do tar zxvf $i; rm $i; done
-
-mkdir no_need_hypo/; cf=0.9999; for hlog in *_hypothesis_*; do ../sbin/hypo_analysis.sh $hlog $cf 1; done | while read line; do mv $line no_need_hypo/; done
-
-for i in *; do p_and_c="$(../../sbin/extract_utility.sh $i 'para')%$(../../sbin/extract_utility.sh $i 'comp')"; if [ ! -d $p_and_c ]; then mkdir $p_and_c; fi; mv $i $p_and_c; done
+rm *txt; for i in *; do tar zxvf $i; rm $i; done; mkdir no_need_hypo/; cf=0.9999; for hlog in *_hypothesis_*; do ../sbin/hypo_analysis.sh $hlog $cf 1; done | while read line; do mv $line no_need_hypo/; done; cd no_need_hypo; for i in *; do p_and_c="$(~/vm_images/ZebraConf/runner/sbin/extract_utility.sh $i 'para')@@@$(~/vm_images/ZebraConf/runner/sbin/extract_utility.sh $i 'comp')"; if [ ! -d $p_and_c ]; then mkdir $p_and_c; fi; mv $i $p_and_c; done
 
 # start hypo dispatcher
 for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n); do ssh node-$i "rm ~/nohup.txt; ps aux | grep dispatcher | awk '{print $2}' | xargs kill -9; nohup ~/parameter_test_controller/dispatcher_hypo.sh > nohup.txt &" & pids[$i]=$!; done; for p in ${pids[@]}; do wait $p; echo "$p is done"; done
