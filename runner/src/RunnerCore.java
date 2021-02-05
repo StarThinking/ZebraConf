@@ -68,7 +68,7 @@ public class RunnerCore {
         public static TestResult getTestResultByName(List<TestResult> list, String name) {
             for (TestResult t : list) {
                 String nameRemovePara = t.u_test.split("\\[")[0];
-                if (nameRemovePara.equals(name))
+                if (nameRemovePara.equals(name.split("\\[")[0]))
                     return t;
             }
             // error
