@@ -1,12 +1,17 @@
 #!/bin/bash
 
-# remember to remove hdfs:Router
+# generate testing tuples
+pids=(); for p in $(cat final-x1.5/parameter_types/getBoolean_xml.txt | ./undesired_para_filter.sh); do ./generate_tuples.sh $p > final-x1.5/testing_tuples/getBoolaen/"$p".txt & pids+=($!); done; for id in ${pids[@]}; do wait $id; echo "$id done"; done
+
+## filter 'unidentifiable' and 'unit_test'
+cat per_para_tuples_all/* | grep -v 'unidentifiable' | grep -v 'unit_test'
+
 # sort by proj test
-cat tuples_per_para?.txt | awk '{print $2" "$3}' | sort -u | while read line; do grep -F " $line " tuples_per_para?.txt | awk '{print $2" "$3" "$1" "$4" "$5" "$6" "$7}' > tuples_per_test?/"$line".txt ; done
+ cat tuples_per_para.txt | awk '{print $2" "$3}' | sort -u | while read line; do grep -F " $line " tuples_per_para.txt | awk '{print $2" "$3" "$1" "$4" "$5" "$6" "$7}' > tuples_per_test/"$line".txt ; done
 #find . -size  0 -print -delete
 
 # grouping
-IFS=$'\n'; for i in *; do echo "grouping for test $i"; java -cp ~/vm_images/ZebraConf/test_gen GroupTuple "$i" n? > ../after_filter_uncertainty_per_test_grouped/"$i";  done
+mkdir ../grouped; IFS=$'\n'; for i in *; do echo "grouping for test $i"; java -cp ~/vm_images/ZebraConf/test_gen GroupTuple "$i" 100 > ../grouped/"$i";  done
 
 # get*.txt
 find . -name parameter | while read line; do cat $line/*; done | awk '{print $NF" "$1}' | sort -u | awk '{print $1}' | sort |uniq -c
@@ -19,11 +24,6 @@ for dir in $(find . -name parameter); do for i in $dir/*; do cat $i | awk '{prin
 
 # get 5-xml get-parameter
 IFS=$'\n'; for line in $(cat all_get_parameter.txt); do para=$(echo $line | awk '{print $2}'); if [ "$(grep ^"$para"$ all_xml_parameters.txt)" != "" ]; then echo "$line"; fi; done 
-
-# generate testing tuples
-pids=(); for p in $(cat final-x1.5/parameter_types/getBoolean_xml.txt | ./undesired_para_filter.sh); do ./generate_tuples.sh $p > final-x1.5/testing_tuples/getBoolaen/"$p".txt & pids+=($!); done; for id in ${pids[@]}; do wait $id; echo "$id done"; done
-
-cat per_para_tuples_all/* | grep -v 'unidentifiable' | grep -v unit_test
 
 # test num for each parameter
 for i in *; do echo "$i $(cat $i | wc -l)"; done | sort -n -k2 -r
