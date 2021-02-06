@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then 
-    echo './collect_pre_run.sh [compress=1 (for pre-run) | not compress=0 (for prepre-run)]'
+if [ $# -ne 0 ]; then 
+    echo './collect_hypothesis.sh'
     exit -1
 fi
 
-compress=$1
+compress=0
 pids=()
 
 for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n)
