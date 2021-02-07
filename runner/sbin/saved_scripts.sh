@@ -38,9 +38,6 @@ pids=(); for i in x*; do ../filter.sh $i > filter.$i & pids+=($!); done; for p i
 #remember to filter empty line
 sed -r '/^\s*$/d'
 
-# check finish ratio
-for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n); do finished=$(ssh node-$i "cat ~/nohup.txt | grep assign | wc -l"); all=$(ssh node-$i "cat nohup.txt | head -n 2 | tail -n 1" | awk -F ' = ' '{print $2}'); ratio=$(echo "scale=2; $finished / $all" | bc); echo "$finished out of $all are finished $ratio"; done
-
 # list white list candidates
 for i in *_hypothesis_*; do cat $i | head -n 3 | tail -n 1; done | sort | awk -F ' |@@@' '{print $2" "$3}'
 
