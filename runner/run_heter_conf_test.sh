@@ -11,6 +11,9 @@ echo 'false' > /root/ZebraConf/app_meta/lib/enable
 # create log if not existed
 if [ ! -d /root/ZebraConf/runner/log ]; then mkdir /root/ZebraConf/runner/log; fi
 
+# check conjunction_enable
+conjunction_enable=$(cat /root/ZebraConf/runner/conjunction_enable)
+
 proj=$1
 u_test=$2
 shift 2
@@ -47,6 +50,13 @@ function test_procedure {
     elif [ $h_list_size -eq 0 ]; then
         echo "hlist size is 0, bye bye."
         return 0
+    fi
+
+    # if enabled, we force the test to test conjunction parameters, instead of breaking them
+    if [ "$conjunction_enable" == "true" ]; then
+	echo "we are testing conjunction parameters"
+        conbime_type="single"
+	h_list_size=1
     fi
    
     echo "";

@@ -1,11 +1,15 @@
 import java.util.*;
 import java.text.SimpleDateFormat;
+import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 public class HConfRunner extends RunnerCore {
     // run or hypothesis
     private static String MY_TYPE = "";
     private static final int MAX_HYPO_RUN = 20;
     private static final double LONG_TIME_MUL = 2.0;
+    private static boolean conjunction_enable = false;
 
     public static void main(String[] args) {
         int rc = 0;
@@ -23,7 +27,20 @@ public class HConfRunner extends RunnerCore {
             System.out.println("HConfRunner [h_list_size] [run|hypothesis] [testProject] [unitTest] [parameter,component,reconfPoint,v1,v2] ...");
             System.exit(1);
         }
-      
+     
+        // read conjunction_enable setting from file
+	/*try {
+	    File conjunction_enable_file_path = new File("/root/ZebraConf/runner/conjunction_enable");
+	    BufferedReader reader = new BufferedReader(new FileReader(conjunction_enable_file_path));
+	    String conjunction_enable_buffer = reader.readLine();
+	    HConfRunner.conjunction_enable = Boolean.parseBoolean(conjunction_enable_buffer);
+	    //System.out.println("conjunction_enable = " + conjunction_enable);
+	} catch(Exception e) {
+	    System.out.println("ERROR: conjunction_enable content invalid");
+	    e.printStackTrace();
+	    System.exit(-1);
+	}*/
+
         // assign arguments
         h_list_size = Integer.valueOf(args[0]);
         MY_TYPE = args[1];
@@ -140,7 +157,7 @@ public class HConfRunner extends RunnerCore {
             System.out.println("v1v2 test succeeded, no issue.");
             return 0;
         } else if (v1v2Test.ret == RETURN.FAIL) {
-            if (h_list_size > 1) { // return 1 for group test
+            if (h_list_size > 1) {
                 System.out.println("always return 1 when group test fails");
                 return 1;
             } else {
