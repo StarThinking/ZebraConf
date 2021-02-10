@@ -4,10 +4,10 @@
 pids=(); for p in $(cat final-x1.5/parameter_types/getBoolean_xml.txt | ./undesired_para_filter.sh); do ./generate_tuples.sh $p > final-x1.5/testing_tuples/getBoolaen/"$p".txt & pids+=($!); done; for id in ${pids[@]}; do wait $id; echo "$id done"; done
 
 ## filter 'unidentifiable' and 'unit_test'
-cat per_para_tuples_all/* | grep -v 'unidentifiable' | grep -v 'unit_test'
+cat * | grep -v 'unidentifiable' | grep -v 'unit_test' > ../tuples_per_para.txt
 
 # sort by proj test
- cat tuples_per_para.txt | awk '{print $2" "$3}' | sort -u | while read line; do grep -F " $line " tuples_per_para.txt | awk '{print $2" "$3" "$1" "$4" "$5" "$6" "$7}' > tuples_per_test/"$line".txt ; done
+mkdir tuples_per_test; cat tuples_per_para.txt | awk '{print $2" "$3}' | sort -u | while read line; do grep -F " $line " tuples_per_para.txt | awk '{print $2" "$3" "$1" "$4" "$5" "$6" "$7}' > tuples_per_test/"$line".txt ; done
 #find . -size  0 -print -delete
 
 # grouping
