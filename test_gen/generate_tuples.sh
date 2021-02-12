@@ -30,17 +30,18 @@ function find_max_value_line {
     if [ $pv_line_num -ne 1 ]; then
         # resolve duplicates by using line with more values
         if [ $pv_line_num -ge 2 ]; then 
-    	for line in $(grep -r ^"$parameter " $para_value_list_dir)
-    	do
-    	    #1>&2 echo "line $line"
+    	    for line in $(grep -r ^"$parameter " $para_value_list_dir)
+    	    do
+    	        #1>&2 echo "line $line"
                 current_line=$(( current_line + 1 ))
-    	    v_num=$(echo $line | awk '{print NF}')
-    	    if [ $v_num -gt $max_v_num ]; then max_v_num=$v_num; max_line=$current_line; fi
-    	done
-    	1>&2 echo "WARN: multiple pv lines for $parameter, let's use line $max_line with #value $max_v_num"
-    	#echo "WARN: multiple pv lines for $parameter, let's use line $max_line with #value $max_v_num"
+    	        v_num=$(echo $line | awk '{print NF}')
+    	        if [ $v_num -gt $max_v_num ]; then max_v_num=$v_num; max_line=$current_line; fi
+    	    done
+    	    1>&2 echo "WARN: multiple pv lines for $parameter"
+   	    #, let's use line $max_line with #value $max_v_num"
+    	    #echo "WARN: multiple pv lines for $parameter, let's use line $max_line with #value $max_v_num"
         else
-    	echo "ERROR: check $parameter value list!"
+    	    echo "ERROR: check $parameter value list!"
         	exit -1
         fi
     fi
@@ -49,17 +50,20 @@ function find_max_value_line {
 # manual-choose value list for this parameter
 find_max_value_line
 manual_select_v_list=( $(grep -r ^"$parameter " $para_value_list_dir | head -n $max_line | tail -n 1 | awk -F ':' '{print $2}' | awk '{for(i=2;i<=NF;i++) print $i}') )
+v_list=()
+v_list[0]='ut_runtime_v'
 v_index=1
 for v in ${manual_select_v_list[@]}
 do
     v_list[$v_index]="$v"
     v_index=$(( v_index + 1 ))
 done
+1>&2 echo "--->generating testing tuples for $parameter with ${#v_list[@]} values: ${v_list[@]}"
 
 # for check
 #exit 0
 
-final_root_dir=/root/vm_images/ZebraConf/test_gen/final/
+final_root_dir=/root/vm_images/ZebraConf/test_gen/prerun_1.0/
 unable_id_suffix="unidentifiable"
 unable_id=1
 
