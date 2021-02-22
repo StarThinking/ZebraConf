@@ -37,13 +37,14 @@ else
 fi
 
 # move output log to dst directory
+LOG_TIME="$(($(date +%s%N)/1000000))"
 if [ ! -d $log_dts_dir ]; then 
     mkdir $log_dts_dir
 fi
 mv $output_log $log_dts_dir/"$the_test"-output.txt
 # append output_log path and return code to our log
-echo "msx-output-log $output_log" >> $log_dts_dir/"$the_test"-output.txt
-echo "msx-rc $rc" >> $log_dts_dir/"$the_test"-output.txt
+echo "msx-output-log $output_log" >> $log_dts_dir/"$the_test"-output_"$LOG_TIME"_"$RANDOM$RANDOM".txt
+echo "msx-rc $rc" >> $log_dts_dir/"$the_test"-output_"$LOG_TIME"_"$RANDOM$RANDOM".txt
 
 # return exit code of mvn test
 exit $rc
