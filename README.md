@@ -76,7 +76,8 @@ $ cd ZebraConf/test_gen
 $ mkdir boolean_tuples
 $ mkdir boolean_tuples/tuples_per_para
 $ ./generate_tuples_wrapper.sh parameter_types/getBoolean_xml.txt boolean_tuples/tuples_per_para
-$ cat boolean_tuples/tuples_per_para/* | wc -l (check the number of total tuples, should be ~4.3M)
+### check the number of total tuples, should be ~4.3M)
+$ cat boolean_tuples/tuples_per_para/* | wc -l 
 ```
 
 - Compress into grouped testing tuples. This procedure will take quite long (finish within a hour). 
