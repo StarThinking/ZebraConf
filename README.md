@@ -26,7 +26,7 @@ To let users instantly try ZebraConf, we have provided a Docker image (11.17 GB)
 
 - Create a docker container with specified repo and tag:
 ```
-$ docker run -d -it --name [YOUR_CONTAINER_NAME] sixiangma/reconf_parameter:artifact-0.1
+$ docker run -d -it --name [YOUR_CONTAINER_NAME] sixiangma/reconf_parameter:artifact-1.1
 ```
 
 - Log into the docker container you just created:
@@ -37,11 +37,17 @@ $ docker exec -it [YOUR_CONTAINER_NAME] bash
 ## Running Heterogeneous Configuration Tests
 After logging into the container, users can run heterogeneous configuration tests with *run_heter_conf_test.sh* script under *runner* directory. 
 
-- Dowonload repo and build the runner:
+- Dowonload repo (skip this if you're running with docker image) 
 ```
 $ cd /root
 $ git clone https://github.com/StarThinking/ZebraConf
-$ cd ZebraConf/runner
+```
+
+- Update repo and build the runner:
+```
+$ cd /root/ZebraConf
+$ git pull
+$ cd runner
 $ ./build.sh
 ```
 
@@ -53,6 +59,34 @@ $ ./run_heter_conf_test.sh
 $ ./run_heter_conf_test.sh hdfs org.apache.hadoop.hdfs.web.TestWebHdfsWithMultipleNameNodes#testRedirect \
 dfs.bytes-per-checksum@@@hdfs:DataNode@@@1@@@32@@@512
 ```
+
+- The test will finish a few minutes and the test results will be saved into ZebraConf/runner/log directory, as single\_hypothesis and single\_run txt files. Please check the end of single\_hypothesis files to see if Hypothesis Testing Info is recorded.
+
+- Determine with hypothesis testing info.
+```
+$ ./runner/sbin/hypo_analysis_wrapper.sh ./runner/log/[replace with the SINGLE_HYPOTHESIS.txt file] 0.999
+```
+
+## Generating Testing Tuples
+Now, we show how to generate heterogeneous configuration tests tuples by given parameters, and then how to compress them into pooled testing tuples.
+
+- Generate tuples for all boolean type parameters. This procedure will take quite long (finish within a hour).
+```
+$ cd ZebraConf/test_gen
+$ mkdir boolean_tuples
+$ mkdir boolean_tuples/tuples_per_para
+$ ./generate_tuples_wrapper.sh parameter_types/getBoolean_xml.txt boolean_tuples/tuples_per_para
+```
+
+- Compress into grouped testing tuples. This procedure will take quite long (finish within a hour). 
+```
+$ cd boolean_tuples
+$ cat tuples_per_para/* | grep -v 'unidentifiable' | grep -v 'unit_test' > tuples_per_para.txt \
+mkdir tuples_per_test; cat tuples_per_para.txt | awk '{print $2" "$3}' | sort -u | while read line; do grep -F " $line " tuples_per_para.txt | awk '{print $2" "$3" "$1" "$4" "$5" "$6" "$7}' > tuples_per_test/"$line".txt ; done \
+cd tuples_per_test; mkdir ../grouped; IFS=$'\n'; for i in *; do echo "grouping for test $i"; java -cp ~/ZebraConf/test_gen GroupTuple "$i" 100 > ../grouped/"$i"; done
+```
+
+
 
 ## Reproducing Results in the Paper
 - Reproduce Table 3:
