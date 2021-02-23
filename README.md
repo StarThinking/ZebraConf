@@ -62,7 +62,7 @@ dfs.bytes-per-checksum@@@hdfs:DataNode@@@1@@@32@@@512
 
 - The test will finish a few minutes and the test results will be saved into ZebraConf/runner/log directory, as single\_hypothesis and single\_run txt files. Please check the end of single\_hypothesis files to see if Hypothesis Testing Info is recorded.
 
-- Determine with hypothesis testing info.
+- Analyze hypothesis testing info. Here, the second argument indicates the confidence used in hypothesis testing analysis.
 ```
 $ ./runner/sbin/hypo_analysis_wrapper.sh ./runner/log/[replace with the SINGLE_HYPOTHESIS.txt file] 0.999
 ```
@@ -76,19 +76,24 @@ $ cd ZebraConf/test_gen
 $ mkdir boolean_tuples
 $ mkdir boolean_tuples/tuples_per_para
 $ ./generate_tuples_wrapper.sh parameter_types/getBoolean_xml.txt boolean_tuples/tuples_per_para
+$ cat boolean_tuples/tuples_per_para/* | wc -l (check the number of total tuples, should be ~4.3M)
 ```
 
 - Compress into grouped testing tuples. This procedure will take quite long (finish within a hour). 
 ```
 $ cd boolean_tuples
-$ cat tuples_per_para/* | grep -v 'unidentifiable' | grep -v 'unit_test' > tuples_per_para.txt \
-mkdir tuples_per_test; cat tuples_per_para.txt | awk '{print $2" "$3}' | sort -u | while read line; do grep -F " $line " tuples_per_para.txt | awk '{print $2" "$3" "$1" "$4" "$5" "$6" "$7}' > tuples_per_test/"$line".txt ; done \
-cd tuples_per_test; mkdir ../grouped; IFS=$'\n'; for i in *; do echo "grouping for test $i"; java -cp ~/ZebraConf/test_gen GroupTuple "$i" 100 > ../grouped/"$i"; done
+$ ../generate_grouped_tuples.sh
 ```
 
-
+- Finally, let's see how many tuples will be generated without prerun filtering and grouping. Taking HDFS for example, one can see naively mulitplying parameter, value, test, node dimensions will generate 408,032,256 testing tuples. This number is different (higher) than the data in Table 5 because we collect the complete HDFS unit test suite this time. 
+```
+$ cd ZebraConf/test_gen
+$ ./calculate_ori_tuples.sh
+```
 
 ## Reproducing Results in the Paper
+- Table 5 data can be produced in the last part.
+
 - Reproduce Table 3:
 ```
 $ /root/ZebraConf/reproduce_result/run_58_reported_cases.sh
