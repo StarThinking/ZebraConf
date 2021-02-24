@@ -99,7 +99,7 @@ $ ./calculate_ori_tuples.sh
 ## Reproducing Results in the Paper
 - Table 5 data can be produced in the last part.
 
-- Reproduce Table 3:
+- Reproduce Table 3 (it will take 5 hours):
 ```
 $ /root/ZebraConf/reproduce_result/run_58_reported_cases.sh
 
