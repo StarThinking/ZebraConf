@@ -64,7 +64,8 @@ dfs.bytes-per-checksum@@@hdfs:DataNode@@@1@@@32@@@512
 
 - Analyze hypothesis testing info. Here, the second argument indicates the confidence used in hypothesis testing analysis.
 ```
-$ ./runner/sbin/hypo_analysis_wrapper.sh ./runner/log/[replace with the SINGLE_HYPOTHESIS.txt file] 0.999
+# under runner directory
+$ ./sbin/hypo_analysis_wrapper.sh ./log/[replace with the SINGLE_HYPOTHESIS.txt file] 0.999
 ```
 
 ## Generating Testing Tuples
