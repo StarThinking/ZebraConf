@@ -73,6 +73,7 @@ Now, we show how to generate heterogeneous configuration tests tuples by given p
 - Generate tuples for all boolean type parameters. This procedure will take quite long (finish within a hour).
 ```
 $ cd ZebraConf/test_gen
+$ javac GroupTuple.java
 $ mkdir boolean_tuples
 $ mkdir boolean_tuples/tuples_per_para
 $ ./generate_tuples_wrapper.sh parameter_types/getBoolean_xml.txt boolean_tuples/tuples_per_para
