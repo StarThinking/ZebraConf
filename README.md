@@ -22,7 +22,7 @@ The scripts can be used to reproduce the results in the paper.
 * Docker, if users want to run tests on our testing environment.
 
 ## Setting up Testing Environment
-To let users instantly try ZebraConf, we have provided a Docker image (11.17 GB) that encapsulates our testing environment. With this, users can run heterogeneous configuration tests with HDFS, YARN, MapReduce, HBASE. 
+To let users instantly try ZebraConf, we have provided a Docker image (7.55 GB) that encapsulates our testing environment. With this, users can run heterogeneous configuration tests with HDFS, YARN, MapReduce, HBASE. 
 
 - Create a docker container with specified repo and tag:
 ```
