@@ -76,7 +76,8 @@ $ cd ZebraConf/test_gen
 $ mkdir boolean_tuples
 $ mkdir boolean_tuples/tuples_per_para
 $ ./generate_tuples_wrapper.sh parameter_types/getBoolean_xml.txt boolean_tuples/tuples_per_para
-### check the number of total tuples, should be ~4.3M)
+
+# check the number of total tuples, should be ~4.3M)
 $ cat boolean_tuples/tuples_per_para/* | wc -l 
 ```
 
@@ -84,6 +85,9 @@ $ cat boolean_tuples/tuples_per_para/* | wc -l
 ```
 $ cd boolean_tuples
 $ ../generate_grouped_tuples.sh
+
+# check the number of total tuples, should be ~94K
+$ cat grouped/* | wc -l
 ```
 
 - Finally, let's see how many tuples will be generated without prerun filtering and grouping. Taking HDFS for example, one can see naively mulitplying parameter, value, test, node dimensions will generate 408,032,256 testing tuples. This number is different (higher) than the data in Table 5 because we collect the complete HDFS unit test suite this time. 
