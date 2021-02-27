@@ -63,7 +63,7 @@ done
 # for check
 #exit 0
 
-final_root_dir=/root/vm_images/ZebraConf/test_gen/prerun_1.0/
+final_root_dir=/root/ZebraConf/test_gen/prerun_1.0/
 unable_id_suffix="unidentifiable"
 unable_id=1
 
