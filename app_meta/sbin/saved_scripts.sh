@@ -15,10 +15,10 @@ for i in hdfs yarn mapreduce hadoop-tools hbase; do echo $i; cat $i/about_test/A
 find CORRECT_TEST_* -name '*-component-meta.txt' | while read log; do if [ "$(cat $log | tail -n 1 | grep 'msx-rc')" == "" ]; then continue; fi; echo "$(echo $log | awk -F '#' '{print $1}' | awk -F '/' '{print $2}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done | sort -u > mapping.txt 
 
 ## get mapping from -output.txt
-find /root/flink-1.12.1 -name *-output.txt | while read i; do class=$(echo "$i" | awk -F '/' '{print $NF}' | awk -F '-output.txt' '{print $1}'); path=$(echo "$i" | awk -F '/target/' '{print $1}'); echo "$class $path"; done | sort -u > mapping.txt
+find /root/flink-1.11.3 -name *-output.txt | while read i; do class=$(echo "$i" | awk -F '/' '{print $NF}' | awk -F '-output.txt' '{print $1}'); path=$(echo "$i" | awk -F '/target/' '{print $1}'); echo "$class $path"; done | sort -u > mapping.txt
 
 # find all the sub projects pom.xml path
-find /root/flink-1.12.1 -name pom.xml | sed -e "s/pom.xml$//g" | sort | sed '1d' | grep -v '/target/' | grep -v '/src/' | while read sub_project; do cd $sub_project; echo "--------------------------$sub_project---------------------------"; mvn test; echo ''; echo ''; done
+find /root/flink-1.11.3 -name pom.xml | sed -e "s/pom.xml$//g" | sort | sed '1d' | grep -v '/target/' | grep -v '/src/' | while read sub_project; do cd $sub_project; echo "--------------------------$sub_project---------------------------"; mvn test; echo ''; echo ''; done
 
 # test running time
 docker container list -a | awk '{print $NF}' | grep -v NAMES | while read i; do docker container stop $i; docker container rm $i; done

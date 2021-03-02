@@ -21,5 +21,5 @@ echo "perform jar override for hbase common 2.2.4"
 cp /root/hbase-2.2.4/hbase-common/target/*.jar /root/.m2/repository/org/apache/hbase/hbase-common/2.2.4/
 
 # flink core: Configuration
-echo "perform jar override for flink core 1.12.1"
-cp /root/flink-1.12.1/flink-core/target/*.jar /root/.m2/repository/org/apache/flink/flink-core/1.12.1/
+echo "perform jar override for flink core flink-1.11.3"
+cp /root/flink-1.11.3/flink-core/target/*.jar /root/.m2/repository/org/apache/flink/flink-core/1.11.3/
