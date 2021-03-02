@@ -16,9 +16,34 @@ echo "$verbose_enable" > /root/ZebraConf/app_meta/lib/enable
 # find the innerest sub project path
 sub_project_path=$(grep "$classname " /root/ZebraConf/app_meta/"$the_project"/about_test/mapping.txt | awk '{print $2}')
 if [ "$sub_project_path" == "" ]; then
-    echo "WARN: cannot find sub project path for $the_test"
-    sub_project_path="$project_root_dir"
-    #exit -1
+    short_classname=$(echo $classname | awk -F '.' '{print $NF}')
+    sub_project_path_count=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | wc -l)
+
+    if [ $sub_project_path_count -eq 0 ]; then
+        echo "ERROR: cannot find sub project path for $the_test"
+        # just use project root dir
+        sub_project_path="$project_root_dir"
+    elif [ $sub_project_path_count -eq 1 ]; then
+        sub_project_path=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | awk -F 'src/test' '{print $1}')
+        echo "WARN: find sub project path for $the_test by finding $short_classname java class at $sub_project_path"
+    else
+        path_last_dir_name=$(echo $classname | awk -F '.' '{print $(NF-1)}')
+        sub_project_path_count_filter=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | grep $path_last_dir_name | grep wc -l)
+        if [ $sub_project_path_count_filter -eq 0 ]; then
+            echo "ERROR: cannot find sub project path for $the_test"
+            # just use project root dir
+            sub_project_path="$project_root_dir"
+        elif [ $sub_project_path_count_filter -eq 1 ]; then
+            echo "WARN: find sub project path for $the_test by finding $short_classname java class at $sub_project_path"
+            sub_project_path=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | grep $path_last_dir_name | awk -F 'src/test' '{print $1}')
+        else
+            echo "ERROR: find multiple sub project path for $the_test"
+            # just use the first one
+            sub_project_path=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | grep $path_last_dir_name | head -n 1 | awk -F 'src/test' '{print $1}')
+        fi
+    fi
+else
+    echo "find sub project path for $the_test from mapping"
 fi
 echo "run test under sub_project_path $sub_project_path"
 

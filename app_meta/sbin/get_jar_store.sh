@@ -1,14 +1,9 @@
 #!/bin/bash
 
-if [ $# -ne 2 ]; then echo "[proj] [version]"; exit -1; fi
-proj=$1
-version=$2
-if [ $version -eq 3 ]; then
-    proj_root_dir=$(cat /root/ZebraConf/app_meta/$proj/project_root_dir.txt)
-else
-    proj_root_dir=$(cat /root/ZebraConf/app_meta/$proj/project_root_dir_2.txt)
-fi
+if [ $# -ne 2 ]; then echo "[proj] [proj_root_dir]"; exit -1; fi
 
+proj=$1
+proj_root_dir=$2
 tmp_file='jar.class.tmp'
 	
 IFS=$'\n'
