@@ -7,6 +7,7 @@ project_root_dir=$(cat /root/ZebraConf/app_meta/"$the_project"/project_root_dir.
 if [ $? -ne 0 ]; then echo 'ERROR: project name is wrong'; exit -1; fi
 the_test=$2
 classname=$(echo $the_test | awk -F '#' '{print $1}')
+short_classname=$(echo $classname | awk -F '.' '{print $NF}')
 testname=$(echo $the_test | awk -F '#' '{print $2}')
 log_dts_dir='/root/ZebraConf/app_meta/log'
 echo "the_test is $the_test"
@@ -16,7 +17,6 @@ echo "$verbose_enable" > /root/ZebraConf/app_meta/lib/enable
 # find the innerest sub project path
 sub_project_path=$(grep "$classname " /root/ZebraConf/app_meta/"$the_project"/about_test/mapping.txt | awk '{print $2}')
 if [ "$sub_project_path" == "" ]; then
-    short_classname=$(echo $classname | awk -F '.' '{print $NF}')
     sub_project_path_count=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | wc -l)
 
     if [ $sub_project_path_count -eq 0 ]; then
@@ -49,7 +49,16 @@ echo "run test under sub_project_path $sub_project_path"
 
 # run mvn test
 rc=1
-cd $sub_project_path; mvn test -Dtest=$the_test
+cd $sub_project_path
+if [ "$the_project" == "flink" ]; then
+    if [ "$(echo $short_classname | grep 'ITCase'$)" != "" ]; then
+	mvn integration-test -Dtest=$the_test
+    else
+	mvn test -Dtest=$the_test
+    fi
+else
+    mvn test -Dtest=$the_test
+fi
 rc=$?
 
 # find output log
