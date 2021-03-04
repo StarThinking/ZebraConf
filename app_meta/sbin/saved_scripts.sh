@@ -1,30 +1,19 @@
+# find all the sub projects pom.xml path
+find /root/flink-1.11.3 -name pom.xml | sed -e "s/pom.xml$//g" | sort | sed '1d' | grep -v '/target/' | grep -v '/src/' | while read sub_project; do cd $sub_project; echo "--------------------------$sub_project---------------------------"; mvn test; echo ''; echo ''; done
+
 # get all test java/scala class
 find . -name 'test' | grep '/src/test' | while read test_dir; do find $test_dir -name '*.java'; find $test_dir -name '*.scala'; done | awk -F 'src/test/' '{print $2}' | sed -e "s#^java/##g" | sed -e "s#^scala/##g" | sed -e "s/.java$//g" | sed -e "s/.scala$//g" | sed 's#/#.#g'  > ~/ZebraConf/app_meta/flink/about_test/JUST_ALL_TESTS.txt
 
 # get pre-pre run all raw tests (including parameterized tests)
 ./app_meta/sbin/run_cluster_dispacther.sh flink false;
 ./app_meta/sbin/collect_prepre_run.sh 1;
-rm *-parameter-meta.txt *-ultimate-meta.txt;
+rm *txt; for i in *; do tar zxvf $i; rm $i; done; find . -name '*-parameter-meta.txt' | xargs rm; find . -name '*-ultimate-meta.txt' | xargs rm;
 cat * | grep -r 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | sort -u > ~/tmp.1.txt; rm ~/tmp.2.txt; cat ~/tmp.1.txt | grep '\[' | awk -F '[' '{print $1"[*]"}' | sort -u >> ~/tmp.2.txt; cat ~/tmp.1.txt | grep -v '\[' >> ~/tmp.2.txt; cat ~/tmp.2.txt | sort -u > ALL_TESTS.txt
 
 # get tests are at least succeed once in three rounds
-grep -rn 'msx-rc 0' CORRECT_TEST_* | awk -F '/' '{print $2}' | grep 'msx-rc 0' | awk -F '-output' '{print $1}' | sort -u  > CORRECT_TESTS.txt
+grep -rn 'msx-rc 0' log | awk -F '/' '{print $2}' | grep 'msx-rc 0' | awk -F '-output' '{print $1}' | sort -u  > CORRECT_TESTS.txt
 ## show all and succeed tests
 for i in hdfs yarn mapreduce hadoop-tools hbase; do echo $i; cat $i/about_test/ALL_TESTS.txt | wc -l; cat $i/about_test/CORRECT_TESTS.txt | wc -l; echo ''; done
-
-# test 2 sub project path mapping
-find CORRECT_TEST_* -name '*txt' | while read log; do if [ "$(cat $log | tail -n 1 | grep 'msx-rc')" == "" ]; then continue; fi; echo "$(echo $log | awk -F '#' '{print $1}' | awk -F '/' '{print $2}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done | sort -u > mapping.txt
-
-## get mapping from -output.txt
-find /root/flink-1.11.3 -name *-output.txt | while read i; do class=$(echo "$i" | awk -F '/' '{print $NF}' | awk -F '-output.txt' '{print $1}'); path=$(echo "$i" | awk -F '/target/' '{print $1}'); echo "$class $path"; done | sort -u > mapping.txt
-
-# find all the sub projects pom.xml path
-find /root/flink-1.11.3 -name pom.xml | sed -e "s/pom.xml$//g" | sort | sed '1d' | grep -v '/target/' | grep -v '/src/' | while read sub_project; do cd $sub_project; echo "--------------------------$sub_project---------------------------"; mvn test; echo ''; echo ''; done
-
-# test running time
-docker container list -a | awk '{print $NF}' | grep -v NAMES | while read i; do docker container stop $i; docker container rm $i; done
-for i in $(seq 0 19); do docker exec hadoop-$i bash -c 'cd /root/reconf_test_gen/; for i in target/*-mvnlog.txt; do ~/reconf_test_gen/filter_time.sh $i; done > yarn.txt'; done
-for i in $(seq 0 9); do docker exec hadoop-$i bash -c 'cd /root/reconf_test_gen/; ./display_run_time.sh yarn run'; done
 
 # structure final
 rm *txt*; for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n); do tar zxvf $i.tar.gz ; done; rm *.tar.gz; mkdir component; mkdir parameter; mkdir ultimate; mv *-component-meta.txt component; mv *-parameter-meta.txt parameter; mv *-ultimate-meta.txt ultimate;
@@ -54,3 +43,14 @@ grep -rn 'static void main(' | awk -F ':' '{print $1}' | grep .java | grep -v '/
 
 # component init point statistics
 grep ' init,' * | awk '{print $2}' | sort | uniq -c | sort -n -r -k1 | awk '{print $1" "$2}'
+
+# test 2 sub project path mapping (not necessary anymore)
+#find CORRECT_TEST_* -name '*txt' | while read log; do if [ "$(cat $log | tail -n 1 | grep 'msx-rc')" == "" ]; then continue; fi; echo "$(echo $log | awk -F '#' '{print $1}' | awk -F '/' '{print $2}') $(cat $log | tail -n 2 | head -n 1 | awk -F 'msx-output-log ' '{print $2}' | awk -F '/target/' '{print $1}')"; done | sort -u > mapping.txt
+
+## get mapping from -output.txt
+#find /root/flink-1.11.3 -name *-output.txt | while read i; do class=$(echo "$i" | awk -F '/' '{print $NF}' | awk -F '-output.txt' '{print $1}'); path=$(echo "$i" | awk -F '/target/' '{print $1}'); echo "$class $path"; done | sort -u > mapping.txt
+
+# test running time
+docker container list -a | awk '{print $NF}' | grep -v NAMES | while read i; do docker container stop $i; docker container rm $i; done
+for i in $(seq 0 19); do docker exec hadoop-$i bash -c 'cd /root/reconf_test_gen/; for i in target/*-mvnlog.txt; do ~/reconf_test_gen/filter_time.sh $i; done > yarn.txt'; done
+for i in $(seq 0 9); do docker exec hadoop-$i bash -c 'cd /root/reconf_test_gen/; ./display_run_time.sh yarn run'; done
