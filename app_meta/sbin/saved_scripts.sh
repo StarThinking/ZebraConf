@@ -1,5 +1,6 @@
 # just get all test java class
-find . -name '*.java' | awk -F '\.java' '{print $1}' | grep 'src/test/java/' | awk -F 'src/test/java/' '{print $2}' | sed 's#/#.#g' > ~/ZebraConf/app_meta/flink/about_test/JUST_ALL_JAVA_CLASS.txt
+#find . -name '*.java' | awk -F '\.java' '{print $1}' | grep 'src/test/' | awk -F 'src/test/' '{print $2}' | sed 's#/#.#g' > ~/ZebraConf/app_meta/flink/about_test/JUST_ALL_TESTS.txt
+find . -name 'test' | grep '/src/test' | while read test_dir; do find $test_dir -name '*.java'; find $test_dir -name '*.scala'; done | awk -F 'src/test/' '{print $2}' | awk -F 'java/|scala/' '{print $2}' | sed 's#/#.#g' > ~/ZebraConf/app_meta/flink/about_test/JUST_ALL_TESTS.txt
 
 # get pre-pre run all raw tests (including parameterized tests)
 #echo > ~/tmp.txtt; grep -r 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | grep -v ':' >> ~/tmp.txtt; grep -r 'msx-listener test started ' * | awk -F 'msx-listener test started ' '{print $2}' | grep ':' | awk -F ':' '{print $1":*]"}' >> ~/tmp.txtt; cat ~/tmp.txtt | sort -u > ../all_tests.txt 
