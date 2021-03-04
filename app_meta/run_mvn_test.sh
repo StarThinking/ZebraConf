@@ -32,7 +32,7 @@ if [ "$sub_project_path" == "" ]; then
 	for cand in ${candidates[@]}
  	do
 	    # check if the class file contains the package pattern
-	    if [ "$(grep ^"package $class_path"";" $cand)" != "" ] && [ "$the_matched" == "" ]; then 
+	    if [ "$(grep ^"package $class_path" $cand)" != "" ] && [ "$the_matched" == "" ]; then 
 		the_matched="$cand"
 	    fi
 	done
