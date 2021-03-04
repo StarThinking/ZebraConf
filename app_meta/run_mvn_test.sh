@@ -15,31 +15,35 @@ verbose_enable=$3
 echo "$verbose_enable" > /root/ZebraConf/app_meta/lib/enable
 
 # find the innerest sub project path
+cannot_find_sub_error=0
 sub_project_path=$(grep "$classname " /root/ZebraConf/app_meta/"$the_project"/about_test/mapping.txt | awk '{print $2}')
 if [ "$sub_project_path" == "" ]; then
-    sub_project_path_count=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | wc -l)
-
+    sub_project_path_count=$(find $project_root_dir -name "$short_classname"".java" | grep '/src/test/' | wc -l)
     if [ $sub_project_path_count -eq 0 ]; then
         echo "ERROR: cannot find sub project path for $the_test"
-        # just use project root dir
-        sub_project_path="$project_root_dir"
-    elif [ $sub_project_path_count -eq 1 ]; then
-        sub_project_path=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | awk -F 'src/test' '{print $1}')
-        echo "WARN: find sub project path for $the_test by finding $short_classname java class at $sub_project_path"
+	sub_project_path="$the_project"
+	cannot_find_sub_error=1
     else
-        path_last_dir_name=$(echo $classname | awk -F '.' '{print $(NF-1)}')
-        sub_project_path_count_filter=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | grep $path_last_dir_name | grep wc -l)
-        if [ $sub_project_path_count_filter -eq 0 ]; then
+        class_path=$(echo $classname | awk -F '.' '{for (i=1; i<NF-1; i++) printf "%s.", $i}';  echo $classname | awk -F '.' '{print $(NF-1)}')
+	#echo "class_path = $class_path"
+	candidates=( $(find $project_root_dir -name "$short_classname"".java" | grep '/src/test/') )
+	the_matched=""
+	
+	for cand in ${candidates[@]}
+ 	do
+	    # check if the class file contains the package pattern
+	    if [ "$(grep ^"package $class_path"";" $cand)" != "" ] && [ "$the_matched" == "" ]; then 
+		the_matched="$cand"
+	    fi
+	done
+
+	if [ "$the_matched" == "" ]; then
             echo "ERROR: cannot find sub project path for $the_test"
-            # just use project root dir
-            sub_project_path="$project_root_dir"
-        elif [ $sub_project_path_count_filter -eq 1 ]; then
-            echo "WARN: find sub project path for $the_test by finding $short_classname java class at $sub_project_path"
-            sub_project_path=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | grep $path_last_dir_name | awk -F 'src/test' '{print $1}')
-        else
-            echo "ERROR: find multiple sub project path for $the_test"
-            # just use the first one
-            sub_project_path=$(find $project_root_dir -name "$short_classname"".java" | grep 'src/test' | grep $path_last_dir_name | head -n 1 | awk -F 'src/test' '{print $1}')
+	    sub_project_path="$the_project"
+	    cannot_find_sub_error=1
+	else
+ 	    sub_project_path=$(echo "$the_matched" | awk -F '/src/test/' '{print $1}')
+       	    echo "WARN: find sub project path for $the_test at $sub_project_path by searching class with package $short_classname"
         fi
     fi
 else
@@ -60,6 +64,10 @@ else
     mvn test -Dtest=$the_test
 fi
 rc=$?
+
+if [ $cannot_find_sub_error -eq 1 ]; then
+    rc=12
+fi
 
 # find output log
 output_log=$(find $sub_project_path -name "$classname"-output.txt)
