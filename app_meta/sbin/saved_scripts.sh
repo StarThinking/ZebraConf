@@ -16,19 +16,21 @@ grep -rn 'msx-rc 0' log | awk -F '/' '{print $2}' | grep 'msx-rc 0' | awk -F '-o
 for i in hdfs yarn mapreduce hadoop-tools hbase; do echo $i; cat $i/about_test/ALL_TESTS.txt | wc -l; cat $i/about_test/CORRECT_TESTS.txt | wc -l; echo ''; done
 
 # structure final
-rm *txt*; for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n); do tar zxvf $i.tar.gz ; done; rm *.tar.gz; mkdir component; mkdir parameter; mkdir ultimate; mv *-component-meta.txt component; mv *-parameter-meta.txt parameter; mv *-ultimate-meta.txt ultimate;
+rm *txt*; for i in $(grep -oP "node-[0-9]{1,2}$" /etc/hosts | sed 's/node-//g' | sort -n); do tar zxvf $i.tar.gz ; done; rm *.tar.gz; mkdir component; mkdir parameter; mkdir ultimate; find . -name '*-component-meta.txt' | xargs mv -t component; find . -name '*-parameter-meta.txt' | xargs mv -t parameter; find . -name '*-ultimate-meta.txt' | xargs mv -t ultimate;
+    ### remove empty line
+    ls | while read file; do sed -r '/^\s*$/d' $file > "$file".tmp; mv "$file".tmp $file; done
 
-# sanity check
-grep -rn ERROR * | grep 'sanity check failed' | awk -F '-component-meta.txt' '{print $1}' | sort -u
-grep -rn 'msx-rc 0' | wc -l; grep -rn 'msx-rc 1' | wc -l; 
+    ### sanity check
+    grep -rn ERROR * | grep 'sanity check failed' | awk -F '-component-meta.txt' '{print $1}' | sort -u
+    grep -rn 'msx-rc 0' . | wc -l; grep -rn 'msx-rc 1' . | wc -l; 
 
-# show components
-grep registerMyCom * | awk -F 'msx-confcontroller| ' '{print $6}' | awk -F '.' '{print $1}' | sort -u | while read i; do count=$(grep -rn $i * | awk -F '-component-meta.txt' '{print $1}' | sort -u | wc -l); echo "$i $count"; done
+    ### show components
+    grep -rn 'msx-confcontroller registerMyComponent' . | awk -F ' for comoponent ' '{print $2}' | awk -F '.' '{print $1}' | sort | uniq -c
 
 # identified result
 cd final/component/;
 #grep registerMyComponent * | awk -F '-component-meta.txt' '{print $1"-component-meta.txt"}' | sort -u | while read line; do echo $line; ~/reconf_test_gen/identify.sh $line 1; echo ""; done > result.txt; mkdir ../identify; mv *-identify-*.txt ../identify; cd ../identify; cat *-identify-can.txt | sort -u > all_can.txt; cat *-identify-cannot.txt | sort -u > all_cannot.txt; comm -13 all_can.txt all_cannot.txt > unique_cannot.txt
-mkdir ../identify;  ls | while read line; do echo $line; /root/vm_images/ZebraConf/app_meta/sbin/identify.sh $line 1; echo ""; done > ../identify/result.txt; mv *-identify-*.txt ../identify; 
+mkdir ../identify;  ls | while read line; do echo $line; /root/vm_images/ZebraConf/app_meta/sbin/identify.sh $line 1; echo ""; done > ../identify/result.txt; find . -name '*-identify-*.txt' | xargs mv -t ../identify; 
 #cd ../identify; cat *-identify-can.txt | sort -u > all_can.txt; cat *-identify-cannot.txt | sort -u > all_cannot.txt; comm -13 all_can.txt all_cannot.txt > unique_cannot.txt
 
 # under final/identity
@@ -37,6 +39,9 @@ cat result.txt | grep '% can' | awk '{print $NF}' | sort -n > distri.txt
 echo "avg:"; awk '{ total += $1; count++ } END { print total/count }' distri.txt; echo "50p:"; head -n $(echo "$(cat distri.txt | wc -l) / 2" | bc) distri.txt | tail -n 1;  echo "90p:"; head -n $(echo "scale=0; $(cat distri.txt | wc -l) / 100 * 10" | bc) distri.txt | tail -n 1;  echo "95p:"; head -n $(echo "scale=0; $(cat distri.txt | wc -l) / 100 * 5" | bc) distri.txt | tail -n 1;
 
 echo "avg:"; awk '{ total += $1; count++ } END { print total/count }' distri.txt; echo "50p:"; head -n $(echo "$(cat distri.txt | wc -l) / 2" | bc) distri.txt | tail -n 1
+
+# remove random number in file names
+ls | while read i; do cp $i ../parameter_rename/"$(echo $i | awk -F '-output_' '{print $1"-parameter-meta.txt"}')"; done
 
 # get hbase main+conf components
 grep -rn 'static void main(' | awk -F ':' '{print $1}' | grep .java | grep -v '/test/' | while read line; do if [ "$(grep 'HBaseConfiguration.create' $line)" != "" ]; then echo $line; fi; done

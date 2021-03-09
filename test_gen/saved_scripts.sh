@@ -15,9 +15,13 @@ mkdir ../grouped; IFS=$'\n'; for i in *; do echo "grouping for test $i"; java -c
 
 # get*.txt
 find . -name parameter | while read line; do cat $line/*; done | awk '{print $NF" "$1}' | sort -u | awk '{print $1}' | sort |uniq -c
+    # for flink
+    find . -name '*txt' | while read i; do cat $i; done | awk '{print $NF" "$1}' | sort -u | awk '{print $1}' | sort |uniq -c
 
 find . -name parameter | while read line; do cat $line/*; done | grep ' getXXX'$ | awk '{print $1}' | sort -u > getXXX.txt
 comm -12 getXXX.txt ~/vm_images/ZebraConf/app_meta/all_xml_parameters.txt > getXXX_xml.txt
+    # for flink
+    find . -name '*txt' | while read i; do cat $i | grep ' getXXX'$ ; done | awk '{print $1}' | sort -u > getXXX.txt
 
 # get all get-parameter table
 for dir in $(find . -name parameter); do for i in $dir/*; do cat $i | awk '{print $5" "$3}'; done; done | sort -u > all_get_parameter.txt
