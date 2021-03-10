@@ -85,7 +85,7 @@ public class RunnerCore {
 
         public boolean isValid() {
             if (!proj.equals("hdfs") && !proj.equals("yarn") && !proj.equals("mapreduce") &&
-                !proj.equals("hadoop-tools") && !proj.equals("hbase")) {
+                !proj.equals("hadoop-tools") && !proj.equals("hbase") && !proj.equals("flink")) {
         	    System.out.println("ERROR: wrong proj " + proj);
         	    return false;
             }
