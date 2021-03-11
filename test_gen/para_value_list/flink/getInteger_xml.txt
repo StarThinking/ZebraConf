@@ -1,10 +1,10 @@
-akka.client-socket-worker-pool.pool-size-max 2 1 4 20 50
-akka.client-socket-worker-pool.pool-size-min 1 2 10 50
-akka.fork-join-executor.parallelism-max 64 1 4 128
-akka.fork-join-executor.parallelism-min 8 1 2 32 64
-akka.server-socket-worker-pool.pool-size-max 2 1 4 20
-akka.server-socket-worker-pool.pool-size-min 1 2 10 50
-akka.throughput 15 1 5 30 150 1000
+akka.client-socket-worker-pool.pool-size-max 2 1 4 20 50 200
+akka.client-socket-worker-pool.pool-size-min 1 2 10 50 200
+akka.fork-join-executor.parallelism-max 64 1 4 128 1024
+akka.fork-join-executor.parallelism-min 8 1 2 32 64 256
+akka.server-socket-worker-pool.pool-size-max 2 1 4 20 100
+akka.server-socket-worker-pool.pool-size-min 1 2 5 10 50
+akka.throughput 15 1 5 30 150 1000 10000
 blob.client.connect.timeout 0 10 100 1000 100000
 blob.client.socket.timeout 300000 30 300 3000 600000
 blob.fetch.backlog 1000 1 10 100 2000 10000
@@ -34,44 +34,42 @@ queryable-state.proxy.network-threads 0 1 2 5 10
 queryable-state.proxy.query-threads 0 1 2 5 10
 queryable-state.server.network-threads 0 1 2 5 10
 queryable-state.server.query-threads 0 1 2 5 10
-restart-strategy.failure-rate.max-failures-per-interval
-restart-strategy.fixed-delay.attempts
-rest.client.max-content-length
-rest.port
-rest.retry.max-attempts
-rest.server.max-content-length
-rest.server.numThreads
-rest.server.thread-priority
-security.ssl.internal.close-notify-flush-timeout
-security.ssl.internal.handshake-timeout
-security.ssl.internal.session-cache-size
-security.ssl.internal.session-timeout
-slotmanager.number-of-slots.max
-slotmanager.redundant-taskmanager-num
-state.checkpoints.num-retained
-taskmanager.data.port
-taskmanager.network.memory.buffers-per-channel
-taskmanager.network.memory.floating-buffers-per-gate
-taskmanager.network.memory.max-buffers-per-channel
-taskmanager.network.netty.client.connectTimeoutSec
-taskmanager.network.netty.client.numThreads
-taskmanager.network.netty.num-arenas
-taskmanager.network.netty.sendReceiveBufferSize
-taskmanager.network.netty.server.backlog
-taskmanager.network.netty.server.numThreads
-taskmanager.network.request-backoff.initial
-taskmanager.network.request-backoff.max
-taskmanager.network.retries
-taskmanager.network.sort-shuffle.min-buffers
-taskmanager.network.sort-shuffle.min-parallelism
-taskmanager.numberOfTaskSlots
-taskmanager.runtime.max-fan
-web.backpressure.cleanup-interval
-web.backpressure.delay-between-samples
-web.backpressure.num-samples
-web.backpressure.refresh-interval
-web.checkpoints.history
-yarn.appmaster.vcores
-yarn.containers.vcores
-yarn.heartbeat.container-request-interval
-yarn.heartbeat.interval
+restart-strategy.failure-rate.max-failures-per-interval 1 2 5 10 100
+restart-strategy.fixed-delay.attempts 1 2 5 10 50 100
+rest.client.max-content-length 104857600 1048576 204857600 16384 4096 1024
+rest.retry.max-attempts 20 10 40 0 1 2 100
+rest.server.max-content-length 104857600 1048576 204857600 16384 4096 1024
+rest.server.numThreads 4 2 1 8 32
+rest.server.thread-priority 5 4 6 1 2 9 10
+security.ssl.internal.close-notify-flush-timeout -1 10 100 1000 10000
+security.ssl.internal.handshake-timeout -1 10 100 1000 10000
+security.ssl.internal.session-cache-size -1 1 10 100
+security.ssl.internal.session-timeout -1 10 100 1000 10000
+slotmanager.number-of-slots.max 2147483647 214748364 1 10 100 1000 
+slotmanager.redundant-taskmanager-num 0 1 2 3 
+state.checkpoints.num-retained 1 0 2 5 10 100
+taskmanager.network.memory.buffers-per-channel 2 1 3 4 5 20 100
+taskmanager.network.memory.floating-buffers-per-gate 8 4 16 1 2 64 256
+taskmanager.network.memory.max-buffers-per-channel 10 5 20 1 100 1000
+taskmanager.network.netty.client.connectTimeoutSec 120 1 10 200
+taskmanager.network.netty.client.numThreads -1 1 2 10 50
+taskmanager.network.netty.num-arenas -1 1 2 10 50
+taskmanager.network.netty.sendReceiveBufferSize 0 4096 8192 65536 1048576
+taskmanager.network.netty.server.backlog 0 1 2 5 10 100
+taskmanager.network.netty.server.numThreads -1 1 2 5 10
+taskmanager.network.request-backoff.initial 100 50 200 10 1000 10000
+taskmanager.network.request-backoff.max 10000 1000 100 10 20000 100000
+taskmanager.network.retries 0 1 2 5 10 50
+taskmanager.network.sort-shuffle.min-buffers 64 32 128 8 1 512 4096
+taskmanager.network.sort-shuffle.min-parallelism 2147483647 214748364 1 10 100 1000
+taskmanager.numberOfTaskSlots 1 2 3 5 10 20 50 100 500
+taskmanager.runtime.max-fan 128 64 256 8 1 1024 65536 1048576
+web.backpressure.cleanup-interval 600000 1 60000 6000 600 60 601000 6000000
+web.backpressure.delay-between-samples 50 25 100 5 1 500 5000
+web.backpressure.num-samples 100 50 200 10 1 1000 10000
+web.backpressure.refresh-interval 60000 6000 600 60 70000 600000
+web.checkpoints.history 10 5 20 1 100
+yarn.appmaster.vcores 1 2 3 5 10
+yarn.containers.vcores -1 1 2 5 10
+yarn.heartbeat.container-request-interval 500 100 50 5 1000 5000 50000 200000
+yarn.heartbeat.interval 5 1 2 10 50 100 500
