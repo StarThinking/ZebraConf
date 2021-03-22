@@ -4,7 +4,7 @@ if [ $# -ne 3 ]; then echo 'ERROR: ./run_mvn_test.sh [project] [test_name] [verb
 
 the_project=$1
 project_root_dir=$(cat /root/ZebraConf/app_meta/"$the_project"/project_root_dir.txt)
-zebraconf_class_test_mapping_path=/root/ZebraConf/app_meta/"$the_project"/about_test/CORRECT_ZEBRA_CLASSES.txt
+zebraconf_class_test_mapping_path=/root/ZebraConf/app_meta/"$the_project"/about_test/CORRECT_ZEBRA_CLASS_MAPPING.txt
 if [ $? -ne 0 ]; then echo 'ERROR: project name is wrong'; exit -1; fi
 the_test=$2
 classname=$(echo $the_test | awk -F '#' '{print $1}')
