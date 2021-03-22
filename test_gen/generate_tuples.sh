@@ -41,8 +41,8 @@ function find_max_value_line {
    	    #, let's use line $max_line with #value $max_v_num"
     	    #echo "WARN: multiple pv lines for $parameter, let's use line $max_line with #value $max_v_num"
         else
-    	    echo "ERROR: check $parameter value list!"
-        	exit -1
+    	    1>&2 echo "ERROR: check $parameter value list!"
+            exit -1
         fi
     fi
 }
@@ -68,7 +68,7 @@ unable_id_suffix="unidentifiable"
 unable_id=1
 
 #for p in hdfs hbase yarn mapreduce hadoop-tools
-for p in hdfs
+for p in yarn
 do
     logs=$(grep -r ^"$parameter " $final_root_dir/$p/ultimate | awk -F '-ultimate-meta.txt' '{print $1"-ultimate-meta.txt"}' | sort -u)
 
