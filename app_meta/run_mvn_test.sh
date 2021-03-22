@@ -1,6 +1,6 @@
 #!/bin/bash
 echo $@
-if [ $# -ne 3 ]; then echo 'ERROR: ./run_mvn_test.sh [project] [test_name] [verbose_enable]'; exit -1; fi
+if [ $# -ne 4 ]; then echo 'ERROR: ./run_mvn_test.sh [project] [test_name] [verbose_enable] [clone_log]'; exit -1; fi
 
 the_project=$1
 project_root_dir=$(cat /root/ZebraConf/app_meta/"$the_project"/project_root_dir.txt)
@@ -13,6 +13,7 @@ testname=$(echo $the_test | awk -F '#' '{print $2}')
 log_dts_dir='/root/ZebraConf/app_meta/log'
 echo "the_test is $the_test"
 verbose_enable=$3
+clone_log=$4
 echo "$verbose_enable" > /root/ZebraConf/app_meta/lib/enable
 
 # find the innerest sub project path
@@ -78,15 +79,15 @@ if [ "$testname" == "zebraconf_class_test" ]; then
     fi
 fi
 
-if [ "$the_project" == "flink" ]; then
-    if [ "$(echo $short_classname | grep 'ITCase'$)" != "" ]; then
-	mvn integration-test -Dtest=$the_real_test
-    else
-	mvn test -Dtest=$the_real_test
-    fi
-else
-    mvn test -Dtest=$the_real_test
-fi
+#if [ "$the_project" == "flink" ]; then
+#    if [ "$(echo $short_classname | grep 'ITCase'$)" != "" ]; then
+#	mvn integration-test -Dtest=$the_real_test
+#    else
+#	mvn test -Dtest=$the_real_test
+#    fi
+#else
+    mvn surefire:test -Dtest=$the_real_test
+#fi
 rc=$?
 
 # set error rc
@@ -107,16 +108,18 @@ else
     echo "output_log $output_log has been found"
 fi
 
-# move output log to dst directory
-LOG_TIME="$(($(date +%s%N)/1000000))"
-if [ ! -d $log_dts_dir ]; then 
-    mkdir $log_dts_dir
+# if enabled, copy output log to dst directory
+if [ "$clone_log" == "true" ]; then
+    LOG_TIME="$(($(date +%s%N)/1000000))"
+    if [ ! -d $log_dts_dir ]; then 
+        mkdir $log_dts_dir
+    fi
+    my_random_name="$the_test"-output_"$LOG_TIME"_"$RANDOM$RANDOM".txt
+    mv $output_log $log_dts_dir/$my_random_name
+    # append output_log path and return code to our log
+    echo "msx-output-log $output_log" >> $log_dts_dir/$my_random_name
+    echo "msx-rc $rc" >> $log_dts_dir/$my_random_name
 fi
-my_random_name="$the_test"-output_"$LOG_TIME"_"$RANDOM$RANDOM".txt
-mv $output_log $log_dts_dir/$my_random_name
-# append output_log path and return code to our log
-echo "msx-output-log $output_log" >> $log_dts_dir/$my_random_name
-echo "msx-rc $rc" >> $log_dts_dir/$my_random_name
 
 # return exit code of mvn test
 exit $rc

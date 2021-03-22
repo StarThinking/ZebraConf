@@ -170,11 +170,12 @@ public class RunnerCore {
         int exitCode = -1;
         boolean isTimeout = false;
 	long startTime = 0, endTime = 0, totalTime = 0;
+	String cloneLogFlag="false";
         Process process = null;
         //String systemLogSavingDir = "/root/reconf_test_gen/target";
         String systemLogSavingDir = "false";
         ProcessBuilder builder = new ProcessBuilder();
-        builder.command("/root/ZebraConf/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir);
+        builder.command("/root/ZebraConf/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir, cloneLogFlag);
 	// set start time
 	startTime = System.nanoTime();
         process = builder.start();

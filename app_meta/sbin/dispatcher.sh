@@ -4,13 +4,14 @@ if [ $# -ne 2 ]; then echo 'ERROR: ./dispatcher.sh [project] [verbose_enable]'; 
 
 the_project=$1
 verbose_enable=$2
+clone_log='true'
 busy_file=/tmp/reconf_busy
 IFS=$'\n' 
 entry_list=( $(cat /root/vm_images/ZebraConf/app_meta/task.txt) )
 entry_list_length=${#entry_list[@]}
 entry_cursor=0
 echo "task size = $entry_list_length"
-cmd='echo /root/ZebraConf/app_meta/run_mvn_test.sh $the_project ${entry_list[$entry_cursor]} $verbose_enable'
+cmd='echo /root/ZebraConf/app_meta/run_mvn_test.sh $the_project ${entry_list[$entry_cursor]} $verbose_enable $clone_log'
 
 function is_busy {
     con_id=$1

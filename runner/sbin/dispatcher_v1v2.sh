@@ -11,7 +11,7 @@ entry_list=( $(cat /root/vm_images/ZebraConf/runner/task.txt) )
 entry_list_length=${#entry_list[@]}
 entry_cursor=0
 echo "task size = $entry_list_length"
-cmd='echo /root/ZebraConf/app_meta/run_mvn_test.sh $the_project $the_test false'
+cmd='echo /root/ZebraConf/app_meta/run_mvn_test.sh $the_project $the_test false true'
 
 function is_busy {
     con_id=$1
