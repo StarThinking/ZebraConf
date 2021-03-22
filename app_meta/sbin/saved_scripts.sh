@@ -1,6 +1,6 @@
 # generate zebra correct class which remove vanilla failed tests
 for proj in hdfs yarn mapreduce hadoop-tools hbase flink; do ./sbin/zebra_class_generater.sh "$proj"/about_test/CORRECT_TESTS.txt > "$proj"/about_test/CORRECT_ZEBRA_CLASSES.txt; done
-for proj in hdfs yarn mapreduce hadoop-tools hbase flink; do cat "$proj"/about_test/CORRECT_ZEBRA_CLASS_MAPPING.txt | awk -F '#zebraconf_class_test ' '{print $2"#zebraconf_class_test"}' > "$proj"/about_test/CORRECT_ZEBRA_CLASSES.txt; done
+for proj in hdfs yarn mapreduce hadoop-tools hbase flink; do cat "$proj"/about_test/CORRECT_ZEBRA_CLASS_MAPPING.txt | awk -F '#zebraconf_class_test ' '{print $1"#zebraconf_class_test"}' > "$proj"/about_test/CORRECT_ZEBRA_CLASSES.txt; done
 
 # find all the sub projects pom.xml path
 find /root/flink-1.11.3 -name pom.xml | sed -e "s/pom.xml$//g" | sort | sed '1d' | grep -v '/target/' | grep -v '/src/' | while read sub_project; do cd $sub_project; echo "--------------------------$sub_project---------------------------"; mvn test; echo ''; echo ''; done
