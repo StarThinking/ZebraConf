@@ -63,11 +63,12 @@ done
 # for check
 #exit 0
 
-final_root_dir=/root/ZebraConf/test_gen/prerun_1.0/
+final_root_dir=/root/vm_images/ZebraConf/test_gen/prerun_1.0/
 unable_id_suffix="unidentifiable"
 unable_id=1
 
-for p in hdfs hbase yarn mapreduce hadoop-tools
+#for p in hdfs hbase yarn mapreduce hadoop-tools
+for p in hdfs
 do
     logs=$(grep -r ^"$parameter " $final_root_dir/$p/ultimate | awk -F '-ultimate-meta.txt' '{print $1"-ultimate-meta.txt"}' | sort -u)
 
