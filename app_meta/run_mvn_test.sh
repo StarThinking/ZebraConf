@@ -4,6 +4,7 @@ if [ $# -ne 3 ]; then echo 'ERROR: ./run_mvn_test.sh [project] [test_name] [verb
 
 the_project=$1
 project_root_dir=$(cat /root/ZebraConf/app_meta/"$the_project"/project_root_dir.txt)
+zebraconf_class_test_mapping_path=/root/ZebraConf/app_meta/"$the_project"/about_test/CORRECT_ZEBRA_CLASSES.txt
 if [ $? -ne 0 ]; then echo 'ERROR: project name is wrong'; exit -1; fi
 the_test=$2
 classname=$(echo $the_test | awk -F '#' '{print $1}')
@@ -15,7 +16,7 @@ verbose_enable=$3
 echo "$verbose_enable" > /root/ZebraConf/app_meta/lib/enable
 
 # find the innerest sub project path
-can_find_sub_dir=0
+can_find_sub_dir=0 # 1 means can, 0 means connot
 sub_project_path=''
 
 function find_sub_project_dir {
@@ -65,19 +66,36 @@ echo "run test under sub_project_path $sub_project_path"
 # run mvn test
 rc=1
 cd $sub_project_path
+
+# if unit test uses pattern of unit_test_class#zebraconf_class_test, replace zebraconf_class_test with real correct tests
+the_real_test="$the_test"
+can_find_zebraconf_test_mapping=1 # 1 means can, 0 means connot
+if [ "$testname" == "zebraconf_class_test" ]; then
+    if [ "$(grep "$the_test" $zebraconf_class_test_mapping_path)" == "" ]; then
+        can_find_zebraconf_test_mapping=0
+    else
+        the_real_test="$(grep "$the_test" $zebraconf_class_test_mapping_path | awk -F '#zebraconf_class_test ' '{print $2}')"
+    fi
+fi
+
 if [ "$the_project" == "flink" ]; then
     if [ "$(echo $short_classname | grep 'ITCase'$)" != "" ]; then
-	mvn integration-test -Dtest=$the_test
+	mvn integration-test -Dtest=$the_real_test
     else
-	mvn test -Dtest=$the_test
+	mvn test -Dtest=$the_real_test
     fi
 else
-    mvn test -Dtest=$the_test
+    mvn test -Dtest=$the_real_test
 fi
 rc=$?
 
+# set error rc
 if [ $can_find_sub_dir -ne 1 ]; then
     rc=12
+fi
+
+if [ $can_find_zebraconf_test_mapping -ne 1 ]; then
+    rc=13
 fi
 
 # find output log
