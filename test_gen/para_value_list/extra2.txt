@@ -38,45 +38,40 @@ fs.s3a.s3guard.ddb.throttle.retry.interval 100ms 50ms 10ms 200ms 1000ms
 fs.s3a.socket.recv.buffer 8192 4096 128 16384 1048576
 fs.s3a.socket.send.buffer 8192 4096 128 16384 1048576
 fs.s3a.threads.keepalivetime 60 6 1 600
-fs.s3a.threads.max 10 5 1 20 100
+fs.s3a.threads.max 10 1 50
 fs.viewfs.rename.strategy SAME_MOUNTPOINT SAME_TARGET_URI_ACROSS_MOUNTPOINT SAME_FILESYSTEM_ACROSS_MOUNTPOINT
-ftp.blocksize 67108864 33554432 65536 4096 512 134217728
-ftp.bytes-per-checksum 512 256 64 1024
-ftp.client-write-packet-size 65536 32768 4096 131072 1048576
-ftp.replication 3 1 5 10
+ftp.blocksize 67108864 4096 134217728
+ftp.bytes-per-checksum 512 256 1024
+ftp.client-write-packet-size 65536 4096 131072
+ftp.replication 3 1 5
 ftp.stream-buffer-size 4096 2048 8192 512 65536 1048576
 hadoop.common.configuration.version 3.0.0 2.0.0 1.0.0
-hadoop.fuse.connection.timeout 300 30 600 3000
-hadoop.fuse.timer.period 5 1 10 100
+hadoop.fuse.connection.timeout 300 30 3000
+hadoop.fuse.timer.period 5 1 50
 hadoop.hdfs.configuration.version 1 2 3
 hadoop.http.authentication.type simple kerberos
 hadoop.http.cross-origin.allowed-headers X-Requested-With,Content-Type,Accept,Origin X-Requested-With,Content-Type,Accept X-Requested-With,Content-Type X-Requested-With
 hadoop.http.cross-origin.allowed-methods GET,POST,HEAD GET,POST GET
-hadoop.http.cross-origin.max-age 1800 5 1 3600
-hadoop.http.filter.initializers org.apache.hadoop.yarn.server.security.http.RMAuthenticationFilterInitializer org.apache.hadoop.http.lib.StaticUserWebFilter org.apache.hadoop.security.AuthenticationFilterInitializer
+hadoop.http.cross-origin.max-age 1800 180 3600
 hadoop.rpc.protection authentication integrity privacy
-hadoop.service.shutdown.timeout 30s 3s 1s 60ss 300s
+hadoop.service.shutdown.timeout 30s 1s 60s
 hadoop.ssl.enabled false true
 hadoop.ssl.enabled.protocols TLSv1,SSLv2Hello,TLSv1.1,TLSv1.2 TLSv1 TLSv1.1 TLSv1.2
 hadoop.util.hash.type murmur jenkins
 hadoop.zk.acl world:anyone:rwca world:anyone:rwcda
-ha.health-monitor.check-interval.ms 1000 100 10 1 2000 10000 100000
-ha.health-monitor.connect-retry-interval.ms 1000 100 10 1 2000 10000 100000
+ha.health-monitor.check-interval.ms 1000 100 10000
+ha.health-monitor.connect-retry-interval.ms 1000 100 10000
 ha.health-monitor.sleep-after-disconnect.ms ha.health-monitor.sleep-after-disconnect.ms
 hbase.bucketcache.ioengine offheap file files mmap pmem
 hbase.hstore.checksum.algorithm CRC32C NULL CRC32
-hbase.http.filter.initializers org.apache.hadoop.hbase.http.FilterInitializer org.apache.hadoop.hbase.http.lib.StaticUserWebFilter
-hbase.master.logcleaner.plugins org.apache.hadoop.hbase.replication.master.ReplicationLogCleaner org.apache.hadoop.hbase.replication.master.ReplicationLogCleaner org.apache.hadoop.hbase.master.cleaner.TimeToLiveProcedureWALCleaner org.apache.hadoop.hbase.master.cleaner.TimeToLiveProcedureWALCleaner,org.apache.hadoop.hbase.master.cleaner.TimeToLiveLogCleaner org.apache.hadoop.hbase.master.cleaner.TimeToLiveLogCleaner,org.apache.hadoop.hbase.master.cleaner.TimeToLiveProcedureWALCleaner
-hbase.regionserver.region.split.policy org.apache.hadoop.hbase.regionserver.BusyRegionSplitPolicy org.apache.hadoop.hbase.regionserver.ConstantSizeRegionSplitPolicy org.apache.hadoop.hbase.regionserver.DisabledRegionSplitPolicy org.apache.hadoop.hbase.regionserver.DelimitedKeyPrefixRegionSplitPolicy org.apache.hadoop.hbase.regionserver.KeyPrefixRegionSplitPolicy org.apache.hadoop.hbase.regionserver.SteppingSplitPolicy
-hbase.systemtables.compacting.memstore.type NONE BASIC/EAGER EAGER
+hbase.systemtables.compacting.memstore.type NONE EAGER
 httpfs.authentication.type simple kerberos
-httpfs.delegation.token.manager.max.lifetime 604800 10 5 1 704800
-httpfs.delegation.token.manager.renewal.interval 86400 10 5 1 96400
-httpfs.delegation.token.manager.update.interval 86400 10 5 1 96400
+httpfs.delegation.token.manager.max.lifetime 604800 1 704800
+httpfs.delegation.token.manager.renewal.interval 86400 1 96400
+httpfs.delegation.token.manager.update.interval 86400 1 96400
 httpfs.hadoop.authentication.type simple kerberos
 io.compression.codec.bzip2.library system-native java-builtin
 io.erasurecode.codec.rs.rawcoders rs_native rs_java rs_native,rs_java
 io.erasurecode.codec.xor.rawcoders xor_native,xor_java xor_native xor_java
-io.map.index.skip 0 1 2 4 8 16 1024
-io.serializations org.apache.hadoop.io.serializer.JavaSerialization,org.apache.hadoop.io.serializer.WritableSerialization org.apache.hadoop.io.serializer.JavaSerialization org.apache.hadoop.io.serializer.WritableSerialization
+io.map.index.skip 0 2 16
 io.skip.checksum.errors false true
