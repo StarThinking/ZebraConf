@@ -1,7 +1,6 @@
 #!/bin/bash
 
 ~/vm_images/ZebraConf/runner/build_local.sh 
-rm nohup.out
 
 while true
 do
