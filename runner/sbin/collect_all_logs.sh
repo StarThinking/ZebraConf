@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]; then echo '[new_dir]'; fi
+if [ $# -ne 1 ]; then echo '[new_dir]'; exit -1; fi
 
 ~/vm_images/ZebraConf/runner/sbin/collect_combine_run.sh
 rm mv ~/vm_images/ZebraConf/runner/log/*txt
