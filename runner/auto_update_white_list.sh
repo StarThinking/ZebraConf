@@ -1,5 +1,7 @@
 #!/bin/bash
 
+~/vm_images/ZebraConf/runner/sbin/build_local.sh 
+
 while true
 do
     ~/vm_images/ZebraConf/runner/sbin/collect_hypothesis.sh
