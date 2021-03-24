@@ -68,7 +68,7 @@ unable_id_suffix="unidentifiable"
 unable_id=1
 
 #for p in hdfs hbase yarn mapreduce hadoop-tools
-for p in yarn
+for p in hdfs
 do
     logs=$(grep -r ^"$parameter " $final_root_dir/$p/ultimate | awk -F '-ultimate-meta.txt' '{print $1"-ultimate-meta.txt"}' | sort -u)
 
@@ -98,7 +98,13 @@ do
         
 	#value_used=( $(cat $log | grep ^"$parameter " | awk '{print $3}' | sort -u | grep -v null | head -n 1) )       
 	value_used=( $(cat $log | grep ^"$parameter " | awk '{print $3}' | sort -u | head -n 1) )       
-    	v_list[0]="$value_used"
+	
+	# let the index-1 value be the default value, if the used value is invalid
+	if [[ "$value_used" == *'Ljava.lang.String'* ]]; then 
+	    v_list[0]="${v_list[1]}"
+	else
+ 	    v_list[0]="$value_used"
+	fi
     	v_pairs=( $(get_combo ${v_list[@]}) )
 	
 	for component_init in ${component_inits[@]}
