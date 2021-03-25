@@ -6,15 +6,15 @@ if [ $# -ne 1 ]; then echo '[new_dir]'; exit -1; fi
 ps aux | grep auto_update_white_list.sh | awk '{print $2}' | xargs kill -9
 
 ~/vm_images/ZebraConf/runner/sbin/collect_combine_run.sh
-rm mv ~/vm_images/ZebraConf/runner/log/*txt
+rm ~/vm_images/ZebraConf/runner/log/*txt
 mv ~/vm_images/ZebraConf/runner/log ~/vm_images/ZebraConf/runner/log_combine_run
 
 ~/vm_images/ZebraConf/runner/sbin/collect_hypothesis.sh
-rm mv ~/vm_images/ZebraConf/runner/log/*txt
+rm ~/vm_images/ZebraConf/runner/log/*txt
 mv ~/vm_images/ZebraConf/runner/log ~/vm_images/ZebraConf/runner/log_hypothesis
 
 ~/vm_images/ZebraConf/runner/sbin/collect_single_run.sh
-rm mv ~/vm_images/ZebraConf/runner/log/*txt
+rm ~/vm_images/ZebraConf/runner/log/*txt
 mv ~/vm_images/ZebraConf/runner/log ~/vm_images/ZebraConf/runner/log_single_run
 
 mkdir ~/vm_images/ZebraConf/runner/"$1"
