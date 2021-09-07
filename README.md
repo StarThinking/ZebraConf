@@ -12,7 +12,7 @@ The scripts can be used to reproduce the results in the paper.
  * Yang Wang (The Ohio State University)
 
 ## Directory Structure
- * `app_meta` contains the metadata information about the four applications (i.e., HDFS, YARN, MR, HBASE) we applied. The information will be used to set up testing environment.
+ * `app_meta` contains the metadata information about the four applications (i.e., HDFS, YARN, MR, HBASE, FLINK) we applied. The information will be used to set up testing environment.
  * `agent` contains the source code of ConfAgent module and a utility class to fetch unit tests' error report to ease debug. 
  * `runner` contains the source code of TestRunner, the library, the shared files used to communicate with ConfAgent,  the script to run heterogeneous tests, and scripts for cluster testing.
  * `test_gen` contains the scripts to generate testing cases.
@@ -22,11 +22,11 @@ The scripts can be used to reproduce the results in the paper.
 * Docker, if users want to run tests on our testing environment.
 
 ## Setting up Testing Environment
-To let users instantly try ZebraConf, we have provided a Docker image (7.55 GB) that encapsulates our testing environment. With this, users can run heterogeneous configuration tests with HDFS, YARN, MapReduce, HBASE. 
+To let users instantly try ZebraConf, we have provided a Docker image (18 GB) that encapsulates our testing environment. With this, users can run heterogeneous configuration tests with HDFS, YARN, MapReduce, HBASE. 
 
 - Create a docker container with specified repo and tag:
 ```
-$ docker run -d -it --name [YOUR_CONTAINER_NAME] sixiangma/reconf_parameter:artifact-1.1
+$ docker run -d -it --name [YOUR_CONTAINER_NAME] sixiangma/reconf_parameter:artifact-1.5.7
 ```
 
 - Log into the docker container you just created:
