@@ -1,6 +1,6 @@
 # ZebraConf
 This repository contains scripts and other supplementary material
-for the EuroSys'21 artifact evaluation of the paper **Finding Unsafe Heterogeneous Configurations in Cloud Systems** (http://web.cse.ohio-state.edu/~ma.1189/papers/eurosys21-ma.pdf)
+for the EuroSys'21 artifact evaluation of the paper **Finding Unsafe Heterogeneous Configurations in Cloud Systems** [paper](http://web.cse.ohio-state.edu/~ma.1189/papers/eurosys21-ma.pdf)
 by Sixiang Ma, Fang Zhou, Michael D. Bond, and Yang Wang.
 
 The scripts can be used to reproduce the results in the paper.
