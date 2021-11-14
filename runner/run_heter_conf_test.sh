@@ -6,13 +6,13 @@ if [ $# -lt 3 ]; then
 fi
 
 # disable conf tracking
-echo 'false' > /root/ZebraConf/app_meta/lib/enable
+echo 'false' > ~/ZebraConf/app_meta/lib/enable
 
 # create log if not existed
-if [ ! -d /root/ZebraConf/runner/log ]; then mkdir /root/ZebraConf/runner/log; fi
+if [ ! -d ~/ZebraConf/runner/log ]; then mkdir ~/ZebraConf/runner/log; fi
 
 # check conjunction_enable
-conjunction_enable=$(cat /root/ZebraConf/runner/conjunction_enable)
+conjunction_enable=$(cat ~/ZebraConf/runner/conjunction_enable)
 
 proj=$1
 u_test=$2
@@ -22,7 +22,7 @@ LOG_TIME="$(($(date +%s%N)/1000000))"
 
 function filter_with_white_list {
     local str="$@"
-    for p_c in $(cat /root/ZebraConf/runner/white_list.txt)
+    for p_c in $(cat ~/ZebraConf/runner/white_list.txt)
     do
         str=$(echo "$str" | awk -F ' ' '{for(i=1; i<=NF; i++) {print $i}}' | grep -v "$p_c" | tr '\n' ' ')
     done
@@ -61,7 +61,7 @@ function test_procedure {
    
     echo "";
     echo ">>>>>>>> running $conbime_type run_test for $(echo "$task_array" | awk -F '@@@| ' '{for (i=1;i<=NF;i+=5) print $i}' | tr "\n" " ")"
-    java -cp /root/ZebraConf/runner/target/ HConfRunner $h_list_size 'run' $proj $u_test "$(echo "$task_array" | awk  -F ' ' '{for (i=1;i<=NF;i++) if (i != NF) {printf "%s", $i"%%%"} else printf "%s", $i}')" > /root/ZebraConf/runner/log/"$proj.$u_test.$LOG_TIME."$conbime_type"_run_$RANDOM$RANDOM.txt"
+    java -cp ~/ZebraConf/runner/target/ HConfRunner $h_list_size 'run' $proj $u_test "$(echo "$task_array" | awk  -F ' ' '{for (i=1;i<=NF;i++) if (i != NF) {printf "%s", $i"%%%"} else printf "%s", $i}')" > ~/ZebraConf/runner/log/"$proj.$u_test.$LOG_TIME."$conbime_type"_run_$RANDOM$RANDOM.txt"
     local run_rc=$?
     echo "run_rc is $run_rc"
     if [ $run_rc -eq 0 ]; then
@@ -71,7 +71,7 @@ function test_procedure {
         if [ $conbime_type == "single" ] ; then
             echo "";
             echo ">>>>>>>> running $conbime_type hypo_test for $(echo "$task_array" | awk -F '@@@| ' '{for (i=1;i<=NF;i+=5) print $i}' | tr "\n" " ")"
-            java -cp /root/ZebraConf/runner/target/ HConfRunner $h_list_size 'hypothesis' $proj $u_test "$(echo "$task_array" | awk  -F ' ' '{for (i=1;i<=NF;i++) if (i != NF) {printf "%s", $i"%%%"} else printf "%s", $i}')" > /root/ZebraConf/runner/log/"$proj.$u_test.$LOG_TIME."$conbime_type"_hypothesis_$RANDOM$RANDOM.txt"
+            java -cp ~/ZebraConf/runner/target/ HConfRunner $h_list_size 'hypothesis' $proj $u_test "$(echo "$task_array" | awk  -F ' ' '{for (i=1;i<=NF;i++) if (i != NF) {printf "%s", $i"%%%"} else printf "%s", $i}')" > ~/ZebraConf/runner/log/"$proj.$u_test.$LOG_TIME."$conbime_type"_hypothesis_$RANDOM$RANDOM.txt"
             return 0
         else
             local half_index=$(( h_list_size / 2))

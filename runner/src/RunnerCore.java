@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class RunnerCore {
-    protected static String systemRootDir = "/root/ZebraConf/runner/";
+    protected static String systemRootDir = "/users/masix/ZebraConf/runner/";
     protected static BufferedWriter runLogWriter = null;
 
     /* shared files */
@@ -175,7 +175,8 @@ public class RunnerCore {
         //String systemLogSavingDir = "/root/reconf_test_gen/target";
         String systemLogSavingDir = "false";
         ProcessBuilder builder = new ProcessBuilder();
-        builder.command("/root/ZebraConf/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir, cloneLogFlag);
+        //builder.command("/root/ZebraConf/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir, cloneLogFlag);
+        builder.command("/users/masix/ZebraConf/app_meta/run_cassandra_dtest.sh");
 	// set start time
 	startTime = System.nanoTime();
         process = builder.start();
