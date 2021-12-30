@@ -5,4 +5,4 @@ rm -f ./target/*.class
 rm -f ./target/*.txt
 
 # build
-javac -cp /root/ZebraConf/runner/lib/commons-math3-3.6.1.jar /root/ZebraConf/runner/src/*.java -d /root/ZebraConf/runner/target/
+javac -cp $ZEBRACONF_HOME/runner/lib/commons-math3-3.6.1.jar $ZEBRACONF_HOME/runner/src/*.java -d $ZEBRACONF_HOME/runner/target/
