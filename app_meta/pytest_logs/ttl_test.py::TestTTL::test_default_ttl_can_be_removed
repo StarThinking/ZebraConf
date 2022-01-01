@@ -1,0 +1,94 @@
+cassandra ttl_test.py::TestTTL::test_default_ttl_can_be_removed true true
+the_test is ttl_test.py::TestTTL::test_default_ttl_can_be_removed
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+ttl_test.py::TestTTL::test_default_ttl_can_be_removed 
+-------------------------------- live log setup --------------------------------
+16:35:23,695 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+16:35:23,788 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+16:35:23,862 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+ERROR                                                                    [100%]
+
+==================================== ERRORS ====================================
+__________ ERROR at setup of TestTTL.test_default_ttl_can_be_removed ___________
+
+itf = ('127.0.0.1', 7000)
+
+    def assert_socket_available(itf):
+        info = socket.getaddrinfo(itf[0], itf[1], socket.AF_UNSPEC, socket.SOCK_STREAM)
+        if not info:
+            raise UnavailableSocketError("Failed to get address info for [%s]:%s" % itf)
+    
+        (family, socktype, proto, canonname, sockaddr) = info[0]
+        s = socket.socket(family, socktype)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    
+        try:
+>           s.bind(sockaddr)
+E           OSError: [Errno 98] Address already in use
+
+../dtest/lib/python3.6/site-packages/ccmlib/common.py:523: OSError
+
+During handling of the above exception, another exception occurred:
+
+self = <ttl_test.TestTTL object at 0x7fc011f10ac8>
+fixture_dtest_setup = <dtest_setup.DTestSetup object at 0x7fc011f0e0f0>
+
+    @pytest.fixture(scope='function', autouse=True)
+    def fixture_ttl_test_setup(self, fixture_dtest_setup):
+        self.cluster = fixture_dtest_setup.cluster
+        self.fixture_dtest_setup = fixture_dtest_setup
+>       self.cluster.populate(1).start()
+
+ttl_test.py:32: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+../dtest/lib/python3.6/site-packages/ccmlib/cluster.py:513: in start
+    common.assert_socket_available(itf)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+itf = ('127.0.0.1', 7000)
+
+    def assert_socket_available(itf):
+        info = socket.getaddrinfo(itf[0], itf[1], socket.AF_UNSPEC, socket.SOCK_STREAM)
+        if not info:
+            raise UnavailableSocketError("Failed to get address info for [%s]:%s" % itf)
+    
+        (family, socktype, proto, canonname, sockaddr) = info[0]
+        s = socket.socket(family, socktype)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    
+        try:
+            s.bind(sockaddr)
+            s.close()
+            return True
+        except socket.error as msg:
+            s.close()
+            addr, port = itf
+>           raise UnavailableSocketError("Inet address %s:%s is not available: %s; a cluster may already be running or you may need to add the loopback alias" % (addr, port, msg))
+E           ccmlib.common.UnavailableSocketError: Inet address 127.0.0.1:7000 is not available: [Errno 98] Address already in use; a cluster may already be running or you may need to add the loopback alias
+
+../dtest/lib/python3.6/site-packages/ccmlib/common.py:529: UnavailableSocketError
+------------------------------ Captured log setup ------------------------------
+16:35:23,600 conftest INFO Starting execution of test_default_ttl_can_be_removed at 2022-01-01 16:35:23.600170
+16:35:23,601 dtest_setup INFO cluster ccm directory: /tmp/dtest-zwo6m_36
+16:35:23,695 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+16:35:23,788 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+16:35:23,862 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+===Flaky Test Report===
+
+test_default_ttl_can_be_removed failed and was not selected for rerun.
+	<class 'ccmlib.common.UnavailableSocketError'>
+	Inet address 127.0.0.1:7000 is not available: [Errno 98] Address already in use; a cluster may already be running or you may need to add the loopback alias
+	[<TracebackEntry /users/masix/cassandra-dtest/ttl_test.py:32>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/cluster.py:513>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/common.py:529>]
+
+===End Flaky Test Report===
+=========================== 1 error in 1.19 seconds ============================
+[msx] rc = 1

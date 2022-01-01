@@ -1,0 +1,32 @@
+cassandra schema_test.py::TestSchema::test_drop_static_column_and_restart true true
+the_test is schema_test.py::TestSchema::test_drop_static_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_static_column_and_restart 
+-------------------------------- live log call ---------------------------------
+12:42:43,879 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+12:42:43,964 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+12:42:43,964 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+12:42:44,33 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+12:42:44,33 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+12:42:52,889 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+12:42:53,997 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.94 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+12:42:56,3 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+12:43:00,517 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.0 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_static_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 21.83 seconds ===========================
+[msx] rc = 0

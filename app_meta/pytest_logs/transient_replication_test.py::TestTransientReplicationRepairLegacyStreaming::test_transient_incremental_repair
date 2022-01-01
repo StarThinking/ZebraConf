@@ -1,0 +1,116 @@
+cassandra transient_replication_test.py::TestTransientReplicationRepairLegacyStreaming::test_transient_incremental_repair true true
+the_test is transient_replication_test.py::TestTransientReplicationRepairLegacyStreaming::test_transient_incremental_repair
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationRepairLegacyStreaming::test_transient_incremental_repair 
+-------------------------------- live log setup --------------------------------
+16:23:34,211 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+16:23:34,315 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+16:23:34,407 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+16:23:34,521 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+16:23:34,618 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+16:23:34,720 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+16:23:34,831 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+16:23:34,931 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+16:23:35,16 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+ERROR                                                                    [100%]
+
+==================================== ERRORS ====================================
+_ ERROR at setup of TestTransientReplicationRepairLegacyStreaming.test_transient_incremental_repair _
+
+itf = ('127.0.0.1', 7000)
+
+    def assert_socket_available(itf):
+        info = socket.getaddrinfo(itf[0], itf[1], socket.AF_UNSPEC, socket.SOCK_STREAM)
+        if not info:
+            raise UnavailableSocketError("Failed to get address info for [%s]:%s" % itf)
+    
+        (family, socktype, proto, canonname, sockaddr) = info[0]
+        s = socket.socket(family, socktype)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    
+        try:
+>           s.bind(sockaddr)
+E           OSError: [Errno 98] Address already in use
+
+../dtest/lib/python3.6/site-packages/ccmlib/common.py:523: OSError
+
+During handling of the above exception, another exception occurred:
+
+self = <transient_replication_test.TestTransientReplicationRepairLegacyStreaming object at 0x7f5b5b127b38>
+fixture_dtest_setup = <dtest_setup.DTestSetup object at 0x7f5b5b124f28>
+
+    @pytest.fixture(scope='function', autouse=True)
+    def setup_cluster(self, fixture_dtest_setup):
+        self.tokens = self.tokens()
+    
+        patch_start(self.cluster)
+        self.cluster.set_configuration_options(values={'hinted_handoff_enabled': False,
+                                                       'num_tokens': 1,
+                                                       'stream_entire_sstables': self.stream_entire_sstables(),
+                                                       'commitlog_sync_period_in_ms': 500,
+                                                       'enable_transient_replication': True,
+                                                       'dynamic_snitch': False})
+        self.populate()
+>       self.cluster.start()
+
+transient_replication_test.py:216: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:137: in new_start
+    return old_start(*args, **kwargs)
+../dtest/lib/python3.6/site-packages/ccmlib/cluster.py:513: in start
+    common.assert_socket_available(itf)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+itf = ('127.0.0.1', 7000)
+
+    def assert_socket_available(itf):
+        info = socket.getaddrinfo(itf[0], itf[1], socket.AF_UNSPEC, socket.SOCK_STREAM)
+        if not info:
+            raise UnavailableSocketError("Failed to get address info for [%s]:%s" % itf)
+    
+        (family, socktype, proto, canonname, sockaddr) = info[0]
+        s = socket.socket(family, socktype)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    
+        try:
+            s.bind(sockaddr)
+            s.close()
+            return True
+        except socket.error as msg:
+            s.close()
+            addr, port = itf
+>           raise UnavailableSocketError("Inet address %s:%s is not available: %s; a cluster may already be running or you may need to add the loopback alias" % (addr, port, msg))
+E           ccmlib.common.UnavailableSocketError: Inet address 127.0.0.1:7000 is not available: [Errno 98] Address already in use; a cluster may already be running or you may need to add the loopback alias
+
+../dtest/lib/python3.6/site-packages/ccmlib/common.py:529: UnavailableSocketError
+------------------------------ Captured log setup ------------------------------
+16:23:34,98 conftest INFO Starting execution of test_transient_incremental_repair at 2022-01-01 16:23:34.098676
+16:23:34,99 dtest_setup INFO cluster ccm directory: /tmp/dtest-oq0jyyjz
+16:23:34,211 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+16:23:34,315 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+16:23:34,407 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+16:23:34,521 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+16:23:34,618 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+16:23:34,720 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+16:23:34,831 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+16:23:34,931 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+16:23:35,16 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+===Flaky Test Report===
+
+test_transient_incremental_repair failed and was not selected for rerun.
+	<class 'ccmlib.common.UnavailableSocketError'>
+	Inet address 127.0.0.1:7000 is not available: [Errno 98] Address already in use; a cluster may already be running or you may need to add the loopback alias
+	[<TracebackEntry /users/masix/cassandra-dtest/transient_replication_test.py:216>, <TracebackEntry /users/masix/cassandra-dtest/transient_replication_test.py:137>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/cluster.py:513>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/common.py:529>]
+
+===End Flaky Test Report===
+=========================== 1 error in 1.75 seconds ============================
+[msx] rc = 1

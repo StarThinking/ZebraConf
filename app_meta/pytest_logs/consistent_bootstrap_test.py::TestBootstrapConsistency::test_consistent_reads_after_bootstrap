@@ -1,0 +1,43 @@
+cassandra consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_bootstrap true true
+the_test is consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_bootstrap
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+consistent_bootstrap_test.py::TestBootstrapConsistency::test_consistent_reads_after_bootstrap 
+-------------------------------- live log call ---------------------------------
+23:33:06,50 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+23:33:06,136 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+23:33:06,136 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+23:33:06,204 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+23:33:06,204 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+23:33:06,295 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+23:33:06,380 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+23:33:06,381 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+23:33:06,446 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+23:33:06,447 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+23:33:25,904 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+23:33:26,910 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.02 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:33:29,17 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.36 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:33:33,430 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.16 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:33:41,661 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 17.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:33:48,957 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+23:33:49,47 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+23:33:49,47 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+23:33:49,119 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+23:33:49,119 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_consistent_reads_after_bootstrap passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 126.49 seconds ==========================
+[msx] rc = 0

@@ -1,0 +1,50 @@
+cassandra transient_replication_ring_test.py::TestTransientReplicationRing::test_replace true true
+the_test is transient_replication_ring_test.py::TestTransientReplicationRing::test_replace
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_ring_test.py::TestTransientReplicationRing::test_replace 
+-------------------------------- live log setup --------------------------------
+15:50:40,543 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:50:40,630 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+15:50:40,630 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:50:40,703 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+15:50:40,703 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:50:40,798 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:50:40,882 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+15:50:40,882 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:50:40,951 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+15:50:40,951 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:50:41,45 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:50:41,129 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+15:50:41,129 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:50:41,198 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+15:50:41,198 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+-------------------------------- live log call ---------------------------------
+15:51:01,39 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+15:51:02,46 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.08 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:51:04,153 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.52 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:51:08,766 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 7.84 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:51:09,418 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:51:09,510 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = replacement
+15:51:09,510 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:51:09,583 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = replacement
+15:51:09,584 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:51:16,700 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 17.12 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:51:33,846 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 34.24 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_replace passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 77.81 seconds ===========================
+[msx] rc = 0

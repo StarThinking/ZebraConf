@@ -1,0 +1,305 @@
+cassandra sstable_generation_loading_test.py::TestSSTableGenerationAndLoading::test_sstableloader_with_mv true true
+the_test is sstable_generation_loading_test.py::TestSSTableGenerationAndLoading::test_sstableloader_with_mv
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+sstable_generation_loading_test.py::TestSSTableGenerationAndLoading::test_sstableloader_with_mv 
+-------------------------------- live log call ---------------------------------
+14:28:10,423 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+14:28:10,508 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+14:28:10,508 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+14:28:10,577 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+14:28:10,577 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+14:28:10,669 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+14:28:10,753 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+14:28:10,753 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+14:28:10,819 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+14:28:10,819 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+14:28:57,628 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+14:28:57,629 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+14:28:57,632 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+14:28:58,636 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.84 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+14:28:58,736 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.08 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+14:29:00,639 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:00,843 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.2 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+14:29:01,664 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:02,762 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:03,866 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:04,967 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:05,54 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 7.12 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+14:29:06,171 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:07,275 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:08,378 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:09,481 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:10,588 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:11,786 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:12,368 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:12,890 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:13,494 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:14,93 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+14:29:14,595 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1439, in cassandra.connection.Connection.set_keyspace_blocking
+  File "cassandra/connection.py", line 1029, in cassandra.connection.Connection.wait_for_response
+  File "cassandra/connection.py", line 1076, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1071, in cassandra.connection.Connection.wait_for_responses
+  File "cassandra/connection.py", line 1570, in cassandra.connection.ResponseWaiter.deliver
+cassandra.InvalidRequest: Error from server: code=2200 [Invalid query] message="Keyspace 'Keyspace1' does not exist"
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 405, in cassandra.pool.HostConnection.__init__
+  File "cassandra/connection.py", line 1447, in cassandra.connection.Connection.set_keyspace_blocking
+cassandra.connection.ConnectionException: Problem while setting keyspace: InvalidRequest('Error from server: code=2200 [Invalid query] message="Keyspace \'Keyspace1\' does not exist"',)
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_sstableloader_with_mv passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 133.43 seconds ==========================
+[msx] rc = 0

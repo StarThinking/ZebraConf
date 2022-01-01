@@ -1,0 +1,41 @@
+cassandra paxos_test.py::TestPaxos::test_contention_many_threads true true
+the_test is paxos_test.py::TestPaxos::test_contention_many_threads
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+paxos_test.py::TestPaxos::test_contention_many_threads 
+-------------------------------- live log call ---------------------------------
+08:12:13,582 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:12:13,670 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+08:12:13,670 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+08:12:13,739 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+08:12:13,739 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+08:12:13,830 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:12:13,914 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+08:12:13,915 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+08:12:13,980 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+08:12:13,981 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+08:12:14,72 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:12:14,156 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+08:12:14,156 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+08:12:14,222 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+08:12:14,222 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+08:12:33,52 cassandra.cluster WARNING Cluster.__init__ called with contact_points specified, but load-balancing policies are not specified in some ExecutionProfiles. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['127.0.0.1'], EPs without explicit LBPs = ('EXEC_PROFILE_DEFAULT',))
+08:12:33,64 cassandra.cluster WARNING Downgrading core protocol version from 66 to 65 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+08:12:33,69 cassandra.cluster WARNING Downgrading core protocol version from 65 to 5 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_contention_many_threads passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 36.84 seconds ===========================
+[msx] rc = 0

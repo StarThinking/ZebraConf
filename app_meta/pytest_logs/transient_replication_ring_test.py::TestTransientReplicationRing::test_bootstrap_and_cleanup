@@ -1,0 +1,60 @@
+cassandra transient_replication_ring_test.py::TestTransientReplicationRing::test_bootstrap_and_cleanup true true
+the_test is transient_replication_ring_test.py::TestTransientReplicationRing::test_bootstrap_and_cleanup
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_ring_test.py::TestTransientReplicationRing::test_bootstrap_and_cleanup 
+-------------------------------- live log setup --------------------------------
+15:24:20,845 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:24:20,930 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+15:24:20,931 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:24:21,2 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+15:24:21,2 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:24:21,96 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:24:21,180 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+15:24:21,180 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:24:21,248 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+15:24:21,249 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:24:21,342 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:24:21,426 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+15:24:21,426 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:24:21,495 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+15:24:21,495 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+-------------------------------- live log call ---------------------------------
+15:24:49,433 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+15:24:50,443 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.06 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:24:52,550 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.2 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:24:56,763 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 9.2 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:25:05,989 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 14.56 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:25:11,529 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+15:25:11,531 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+15:25:13,1 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:25:13,101 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node4
+15:25:13,102 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+15:25:13,183 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node4
+15:25:13,184 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_bootstrap_and_cleanup passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 133.26 seconds ==========================
+[msx] rc = 0

@@ -1,0 +1,39 @@
+cassandra auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data true true
+the_test is auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data 
+-------------------------------- live log call ---------------------------------
+18:22:02,229 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+18:22:02,314 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+18:22:02,315 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+18:22:02,383 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+18:22:02,384 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+18:22:20,144 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+18:22:21,152 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.04 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+18:22:23,257 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.4 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+18:22:26,80 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+18:22:26,174 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+18:22:26,174 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+18:22:27,680 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.64 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+18:22:36,402 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 13.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+18:22:39,402 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+18:22:39,495 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+18:22:39,495 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_restart_node_doesnt_lose_auth_data passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 45.17 seconds ===========================
+[msx] rc = 0

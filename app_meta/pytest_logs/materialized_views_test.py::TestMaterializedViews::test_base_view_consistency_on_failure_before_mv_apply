@@ -1,0 +1,70 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_base_view_consistency_on_failure_before_mv_apply true true
+the_test is materialized_views_test.py::TestMaterializedViews::test_base_view_consistency_on_failure_before_mv_apply
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_base_view_consistency_on_failure_before_mv_apply 
+-------------------------------- live log call ---------------------------------
+05:04:56,711 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+05:04:56,796 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+05:04:56,796 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+05:04:56,867 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+05:04:56,867 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+05:04:56,961 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+05:04:57,46 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+05:04:57,46 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+05:04:57,115 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+05:04:57,115 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+05:04:57,208 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+05:04:57,292 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+05:04:57,292 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+05:04:57,361 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+05:04:57,361 ccmlib.node WARNING [msx] ccmlib:node.py, sstable_preemptive_open_interval_in_mb = 50
+05:05:16,975 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:05:44,665 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:05:44,668 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+05:05:45,774 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.78 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+05:05:45,830 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:05:45,831 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+05:05:46,837 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.26 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+05:05:47,580 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.88 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+05:05:49,142 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+05:05:51,492 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+05:05:53,657 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:06:40,176 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:06:41,709 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:06:43,288 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_base_view_consistency_on_failure_before_mv_apply passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 117.31 seconds ==========================
+[msx] rc = 0
