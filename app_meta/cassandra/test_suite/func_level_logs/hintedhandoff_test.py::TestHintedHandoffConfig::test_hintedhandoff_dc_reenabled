@@ -1,0 +1,43 @@
+cassandra hintedhandoff_test.py::TestHintedHandoffConfig::test_hintedhandoff_dc_reenabled true true
+the_test is hintedhandoff_test.py::TestHintedHandoffConfig::test_hintedhandoff_dc_reenabled
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+hintedhandoff_test.py::TestHintedHandoffConfig::test_hintedhandoff_dc_reenabled 
+-------------------------------- live log call ---------------------------------
+04:21:39,396 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+04:21:39,481 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+04:21:39,552 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+04:21:39,644 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+04:21:39,729 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+04:21:39,797 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+04:22:35,914 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:22:35,916 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:22:36,922 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.18 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:22:39,128 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.52 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:22:43,746 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.44 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_hintedhandoff_dc_reenabled passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 65.50 seconds ===========================
+[msx] rc = 0

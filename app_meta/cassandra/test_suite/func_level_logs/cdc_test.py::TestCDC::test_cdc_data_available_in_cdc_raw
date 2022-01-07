@@ -1,0 +1,49 @@
+cassandra cdc_test.py::TestCDC::test_cdc_data_available_in_cdc_raw true true
+the_test is cdc_test.py::TestCDC::test_cdc_data_available_in_cdc_raw
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cdc_test.py::TestCDC::test_cdc_data_available_in_cdc_raw 
+-------------------------------- live log call ---------------------------------
+00:58:25,726 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:58:25,813 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:58:25,881 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:58:25,936 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:58:26,21 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:58:44,738 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:58:44,824 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:58:44,893 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+
+-------------------------------- live log call ---------------------------------
+01:00:47,48 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+01:00:47,133 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+01:00:47,200 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+01:00:47,255 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+01:00:47,340 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+01:01:06,603 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+01:01:06,689 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+01:01:06,757 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_cdc_data_available_in_cdc_raw failed (1 runs remaining out of 2).
+	<class 'ccmlib.node.TimeoutError'>
+	06 Jan 2022 07:00:46 [node2] after 120.19/120 seconds Missing: ['Starting listening for CQL clients'] not found in system.log:
+ Head: WARN  [main] 2022-01-05 23:58:46,963 DatabaseDescr
+ Tail: ...9:59,118 Gossiper.java:2303 - No gossip backlog; proceeding
+INFO  [main] 2022-01-05 23:59:59,119 Gossiper.java:2272 - Waiting for gossip to settle...
+
+	[<TracebackEntry /users/masix/cassandra-dtest/cdc_test.py:608>, <TracebackEntry /users/masix/cassandra-dtest/cdc_test.py:550>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/node.py:899>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/node.py:689>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/node.py:592>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/node.py:56>]
+test_cdc_data_available_in_cdc_raw passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 316.53 seconds ==========================
+[msx] rc = 0

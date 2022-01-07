@@ -1,0 +1,53 @@
+cassandra transient_replication_ring_test.py::TestTransientReplicationRing::test_bootstrap_and_cleanup true true
+the_test is transient_replication_ring_test.py::TestTransientReplicationRing::test_bootstrap_and_cleanup
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_ring_test.py::TestTransientReplicationRing::test_bootstrap_and_cleanup 
+-------------------------------- live log setup --------------------------------
+13:56:31,294 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+13:56:31,379 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+13:56:31,451 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+13:56:31,544 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+13:56:31,629 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+13:56:31,698 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+13:56:31,791 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+13:56:31,876 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+13:56:31,945 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+-------------------------------- live log call ---------------------------------
+13:57:01,379 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+13:57:02,386 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.78 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:57:04,193 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.6 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:57:08,807 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.96 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:57:17,834 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 16.64 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:57:23,6 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+13:57:23,7 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:57:24,113 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:57:25,112 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+13:57:25,210 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node4
+13:57:25,293 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node4
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_bootstrap_and_cleanup passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 137.71 seconds ==========================
+[msx] rc = 0

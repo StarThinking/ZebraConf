@@ -1,0 +1,32 @@
+cassandra ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn true true
+the_test is ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn 
+-------------------------------- live log setup --------------------------------
+15:03:57,739 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:03:57,824 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+15:03:57,892 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+-------------------------------- live log call ---------------------------------
+15:04:04,341 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+15:04:05,448 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.08 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+15:04:07,553 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+15:04:11,380 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.16 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+15:04:19,949 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_expiration_overflow_policy_capnowarn passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 23.10 seconds ===========================
+[msx] rc = 0

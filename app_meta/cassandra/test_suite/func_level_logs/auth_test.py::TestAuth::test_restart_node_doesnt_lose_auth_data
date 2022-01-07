@@ -1,0 +1,35 @@
+cassandra auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data true true
+the_test is auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data 
+-------------------------------- live log call ---------------------------------
+22:41:43,369 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+22:41:43,456 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+22:41:43,524 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+22:42:00,947 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+22:42:02,155 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.88 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:42:04,60 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.04 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:42:07,373 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+22:42:07,470 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+22:42:08,177 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.64 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:42:16,899 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 17.92 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:42:20,886 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+22:42:20,981 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_restart_node_doesnt_lose_auth_data passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 45.75 seconds ===========================
+[msx] rc = 0

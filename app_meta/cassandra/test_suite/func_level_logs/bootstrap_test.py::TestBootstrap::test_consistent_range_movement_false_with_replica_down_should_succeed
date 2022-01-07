@@ -1,0 +1,48 @@
+cassandra bootstrap_test.py::TestBootstrap::test_consistent_range_movement_false_with_replica_down_should_succeed true true
+the_test is bootstrap_test.py::TestBootstrap::test_consistent_range_movement_false_with_replica_down_should_succeed
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+bootstrap_test.py::TestBootstrap::test_consistent_range_movement_false_with_replica_down_should_succeed 
+-------------------------------- live log call ---------------------------------
+00:08:54,740 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:08:54,824 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:08:54,892 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:08:54,984 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:08:55,67 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:08:55,133 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:08:55,187 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:08:55,272 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:08:55,322 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:08:55,405 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:08:55,455 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:08:55,538 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:08:55,588 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:08:55,671 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:09:24,909 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+00:09:25,782 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+00:09:26,988 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.28 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:09:29,296 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.92 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:09:33,307 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.24 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:09:33,831 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:09:33,915 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+00:09:33,988 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+00:09:41,641 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 14.4 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:09:56,80 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 31.36 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:10:27,461 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 54.4 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_consistent_range_movement_false_with_replica_down_should_succeed passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 97.83 seconds ===========================
+[msx] rc = 0

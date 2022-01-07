@@ -1,0 +1,32 @@
+cassandra ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn_default_ttl true true
+the_test is ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn_default_ttl
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn_default_ttl 
+-------------------------------- live log setup --------------------------------
+15:04:51,692 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+15:04:51,777 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+15:04:51,846 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+-------------------------------- live log call ---------------------------------
+15:04:59,653 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+15:05:00,865 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.2 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+15:05:03,71 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.84 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+15:05:06,984 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.28 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+15:05:13,830 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_expiration_overflow_policy_capnowarn_default_ttl passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 23.11 seconds ===========================
+[msx] rc = 0

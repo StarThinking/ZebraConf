@@ -1,0 +1,43 @@
+cassandra auth_test.py::TestNetworkAuth::test_single_dc_access true true
+the_test is auth_test.py::TestNetworkAuth::test_single_dc_access
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+auth_test.py::TestNetworkAuth::test_single_dc_access 
+-------------------------------- live log setup --------------------------------
+23:30:46,237 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+23:30:46,323 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+23:30:46,393 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+23:30:46,486 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+23:30:46,570 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+23:30:46,638 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+23:31:03,665 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+-------------------------------- live log call ---------------------------------
+23:31:06,570 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3599, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 3584, in cassandra.cluster.ControlConnection._try_connect
+cassandra.Unauthorized: Error from server: code=2100 [Unauthorized] message="You do not have access to this datacenter (dc2)"
+23:31:06,572 cassandra.cluster ERROR Control connection failed to connect, shutting down Cluster:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 1690, in cassandra.cluster.Cluster.connect
+  File "cassandra/cluster.py", line 3488, in cassandra.cluster.ControlConnection.connect
+  File "cassandra/cluster.py", line 3533, in cassandra.cluster.ControlConnection._reconnect_internal
+cassandra.cluster.NoHostAvailable: ('Unable to connect to any servers', {'127.0.0.2:9042': Unauthorized('Error from server: code=2100 [Unauthorized] message="You do not have access to this datacenter (dc2)"',)})
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_single_dc_access passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 21.46 seconds ===========================
+[msx] rc = 0

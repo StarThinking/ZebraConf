@@ -1,0 +1,48 @@
+cassandra bootstrap_test.py::TestBootstrap::test_killed_wiped_node_cannot_join true true
+the_test is bootstrap_test.py::TestBootstrap::test_killed_wiped_node_cannot_join
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+bootstrap_test.py::TestBootstrap::test_killed_wiped_node_cannot_join 
+-------------------------------- live log call ---------------------------------
+00:34:16,88 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:34:16,173 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:34:16,242 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:34:16,334 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:34:16,417 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:34:16,484 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:34:16,576 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:34:16,660 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+00:34:16,726 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+00:34:46,808 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:34:46,903 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node4
+00:34:46,978 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node4
+00:35:59,959 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.4:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 402, in cassandra.pool.HostConnection.__init__
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 837, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 350, in handle_read
+    buf = self._socket.recv(self.in_buffer_size)
+ConnectionResetError: [Errno 104] Connection reset by peer
+00:35:59,962 cassandra.cluster WARNING Connection pool could not be created, not marking node 127.0.0.4:9042 up
+00:35:59,962 cassandra.cluster WARNING Host 127.0.0.4:9042 has been marked down
+00:36:01,67 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.4:9042, scheduling retry in 1.86 seconds: [Errno 111] Tried connecting to [('127.0.0.4', 9042)]. Last error: Connection refused
+00:36:02,970 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.4:9042, scheduling retry in 4.56 seconds: [Errno 111] Tried connecting to [('127.0.0.4', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_killed_wiped_node_cannot_join passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 111.56 seconds ==========================
+[msx] rc = 0

@@ -1,0 +1,53 @@
+cassandra paging_test.py::TestPagingDatasetChanges::test_node_unavailabe_during_paging true true
+the_test is paging_test.py::TestPagingDatasetChanges::test_node_unavailabe_during_paging
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+paging_test.py::TestPagingDatasetChanges::test_node_unavailabe_during_paging 
+-------------------------------- live log call ---------------------------------
+08:11:45,230 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:11:45,316 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+08:11:45,385 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+08:11:45,476 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:11:45,561 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+08:11:45,627 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+08:11:45,718 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:11:45,803 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+08:11:45,869 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+08:12:15,336 cassandra.cluster ERROR Unexpected exception while handling result in ResponseFuture:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4678, in cassandra.cluster.ResponseFuture._set_result
+  File "cassandra/cluster.py", line 4831, in cassandra.cluster.ResponseFuture._handle_retry_decision
+  File "cassandra/cluster.py", line 4815, in cassandra.cluster.ResponseFuture._set_final_exception
+  File "/users/masix/cassandra-dtest/tools/paging.py", line 68, in handle_error
+    raise exc
+cassandra.Unavailable: Error from server: code=1000 [Unavailable exception] message="Cannot achieve consistency level ALL" info={'consistency': 'ALL', 'required_replicas': 1, 'alive_replicas': 0}
+08:12:15,338 cassandra.connection ERROR Callback handler errored, ignoring:
+Traceback (most recent call last):
+  File "cassandra/connection.py", line 1218, in cassandra.connection.Connection.process_msg
+  File "cassandra/cluster.py", line 4703, in cassandra.cluster.ResponseFuture._set_result
+  File "cassandra/cluster.py", line 4815, in cassandra.cluster.ResponseFuture._set_final_exception
+  File "/users/masix/cassandra-dtest/tools/paging.py", line 68, in handle_error
+    raise exc
+  File "cassandra/cluster.py", line 4678, in cassandra.cluster.ResponseFuture._set_result
+  File "cassandra/cluster.py", line 4831, in cassandra.cluster.ResponseFuture._handle_retry_decision
+  File "cassandra/cluster.py", line 4815, in cassandra.cluster.ResponseFuture._set_final_exception
+  File "/users/masix/cassandra-dtest/tools/paging.py", line 68, in handle_error
+    raise exc
+cassandra.Unavailable: Error from server: code=1000 [Unavailable exception] message="Cannot achieve consistency level ALL" info={'consistency': 'ALL', 'required_replicas': 1, 'alive_replicas': 0}
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_node_unavailabe_during_paging passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 35.94 seconds ===========================
+[msx] rc = 0

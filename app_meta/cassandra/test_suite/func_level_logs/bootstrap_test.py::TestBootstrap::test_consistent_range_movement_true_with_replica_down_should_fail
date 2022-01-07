@@ -1,0 +1,47 @@
+cassandra bootstrap_test.py::TestBootstrap::test_consistent_range_movement_true_with_replica_down_should_fail true true
+the_test is bootstrap_test.py::TestBootstrap::test_consistent_range_movement_true_with_replica_down_should_fail
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+bootstrap_test.py::TestBootstrap::test_consistent_range_movement_true_with_replica_down_should_fail 
+-------------------------------- live log call ---------------------------------
+00:06:52,755 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:06:52,841 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:06:52,911 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:06:53,4 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:06:53,89 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:06:53,156 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:06:53,211 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:06:53,297 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:06:53,347 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:06:53,433 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:06:53,484 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:06:53,571 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:06:53,621 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:06:53,707 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:07:22,207 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+00:07:22,468 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+00:07:23,565 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.1 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:07:25,672 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.52 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:07:29,284 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.8 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:07:30,516 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:07:30,606 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+00:07:30,677 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+00:07:38,119 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 18.08 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+00:07:56,267 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 29.44 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_consistent_range_movement_true_with_replica_down_should_fail passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 91.13 seconds ===========================
+[msx] rc = 0

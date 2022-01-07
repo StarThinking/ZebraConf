@@ -1,0 +1,38 @@
+cassandra rebuild_test.py::TestRebuild::test_resumable_rebuild true true
+the_test is rebuild_test.py::TestRebuild::test_resumable_rebuild
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+rebuild_test.py::TestRebuild::test_resumable_rebuild 
+-------------------------------- live log call ---------------------------------
+08:55:26,941 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:55:27,27 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+08:55:27,120 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:55:27,206 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+08:55:27,274 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+08:55:27,342 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+08:56:46,753 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+08:56:46,853 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+08:56:46,950 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+08:57:25,484 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+08:57:26,818 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+PASSED                                                                   [100%]
+------------------------------ live log teardown -------------------------------
+08:58:28,961 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.3:7000-ec36b468] 2022-01-06 07:57:30,994 StreamSession.java:888 - [Stream #f8ba8820-6f00-11ec-a2b8-0f4248347084] Remote peer /127.0.0.3:7000 failed stream session.
+
+===Flaky Test Report===
+
+test_resumable_rebuild passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 183.59 seconds ==========================
+[msx] rc = 0

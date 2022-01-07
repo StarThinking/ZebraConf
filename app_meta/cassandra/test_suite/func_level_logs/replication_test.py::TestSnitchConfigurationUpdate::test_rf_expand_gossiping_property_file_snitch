@@ -1,0 +1,57 @@
+cassandra replication_test.py::TestSnitchConfigurationUpdate::test_rf_expand_gossiping_property_file_snitch true true
+the_test is replication_test.py::TestSnitchConfigurationUpdate::test_rf_expand_gossiping_property_file_snitch
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+replication_test.py::TestSnitchConfigurationUpdate::test_rf_expand_gossiping_property_file_snitch 
+-------------------------------- live log call ---------------------------------
+11:22:12,64 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+11:22:12,152 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+11:22:12,221 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+11:22:12,313 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+11:22:12,399 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+11:22:12,466 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+11:22:12,558 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+11:22:12,642 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+11:22:12,709 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+11:22:12,764 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+11:22:12,849 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+11:22:12,899 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+11:22:12,984 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+11:22:13,34 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+11:22:13,119 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+11:23:02,43 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+11:23:02,44 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+11:23:02,48 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.3:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+11:23:03,51 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+11:23:03,251 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.72 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+11:23:04,856 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 3.64 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+11:23:05,56 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+11:23:08,567 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 6.96 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+11:23:09,569 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 9.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+11:23:15,588 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 16.32 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_rf_expand_gossiping_property_file_snitch passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 86.64 seconds ===========================
+[msx] rc = 0

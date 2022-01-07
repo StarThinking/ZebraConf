@@ -1,0 +1,30 @@
+cassandra scrub_test.py::TestScrub::test_standalone_scrub_essential_files_only true true
+the_test is scrub_test.py::TestScrub::test_standalone_scrub_essential_files_only
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+scrub_test.py::TestScrub::test_standalone_scrub_essential_files_only 
+-------------------------------- live log call ---------------------------------
+11:58:03,227 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+11:58:03,313 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+11:58:03,382 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+11:58:11,426 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+11:58:12,536 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.86 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+11:58:14,441 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.44 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+11:58:18,953 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.4 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_standalone_scrub_essential_files_only passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 25.58 seconds ===========================
+[msx] rc = 0

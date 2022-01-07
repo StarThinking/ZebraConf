@@ -1,0 +1,36 @@
+cassandra consistency_test.py::TestConsistency::test_quorum_available_during_failure true true
+the_test is consistency_test.py::TestConsistency::test_quorum_available_during_failure
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+consistency_test.py::TestConsistency::test_quorum_available_during_failure 
+-------------------------------- live log call ---------------------------------
+02:30:09,311 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+02:30:09,394 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+02:30:09,463 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+02:30:09,555 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+02:30:09,638 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+02:30:09,705 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+02:30:09,797 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+02:30:09,880 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+02:30:09,947 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+02:30:29,423 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+02:30:30,527 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.18 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+02:30:32,735 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.28 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+02:30:37,48 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.64 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_quorum_available_during_failure passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 30.03 seconds ===========================
+[msx] rc = 0

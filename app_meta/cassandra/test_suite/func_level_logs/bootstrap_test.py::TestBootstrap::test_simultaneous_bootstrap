@@ -1,0 +1,37 @@
+cassandra bootstrap_test.py::TestBootstrap::test_simultaneous_bootstrap true true
+the_test is bootstrap_test.py::TestBootstrap::test_simultaneous_bootstrap
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+bootstrap_test.py::TestBootstrap::test_simultaneous_bootstrap 
+-------------------------------- live log call ---------------------------------
+00:45:40,229 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:45:40,315 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:45:40,384 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node1
+00:46:18,365 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:46:18,456 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:46:18,527 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node2
+00:46:51,367 ccmlib.node WARNING [msx] ccmlib:copy_config_files.py, conf_dir = /users/masix/cassandra/conf
+00:46:51,455 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+00:46:51,525 ccmlib.node WARNING [msx] ccmlib:node.py, self.name = node3
+00:47:40,434 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+00:47:49,75 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+00:47:57,326 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+00:48:04,384 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+00:48:11,852 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_simultaneous_bootstrap passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 152.76 seconds ==========================
+[msx] rc = 0
