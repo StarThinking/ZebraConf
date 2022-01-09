@@ -22,6 +22,10 @@ fi
 echo "the_test is $the_test"
 echo "$verbose_enable" > $ZEBRACONF_HOME/app_meta/lib/enable
 
+# delete old log
+cassandra_dtest_log='/tmp/my_log.txt'
+rm $cassandra_dtest_log
+
 # run pytest
 rc=1
 cd $project_root_dir
@@ -30,12 +34,10 @@ echo "[msx] rc = $?"
 sleep 2
 
 # if save_log enabled, copy output log to dst directory
-cassandra_dtest_last_log='/users/masix/cassandra-dtest/logs/last'
 if [ "$save_log" == "true" ]; then
     LOG_TIME="$(($(date +%s%N)/1000000))"
     my_random_name="$the_test"-output_"$LOG_TIME"_"$RANDOM$RANDOM"
-    mkdir $log_dts_dir/$my_random_name
-    cp -Lr $cassandra_dtest_last_log/* $log_dts_dir/$my_random_name
+    mv $cassandra_dtest_log $log_dts_dir/$my_random_name
 fi
 
 # return exit code of pytest
