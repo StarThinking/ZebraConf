@@ -1,0 +1,31 @@
+cassandra cql_tracing_test.py::TestCqlTracing::test_tracing_default_impl true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is cql_tracing_test.py::TestCqlTracing::test_tracing_default_impl
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_tracing_test.py::TestCqlTracing::test_tracing_default_impl 
+-------------------------------- live log call ---------------------------------
+01:54:42,799 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 20726
+01:54:42,800 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 20630 node.name= node1 node.pid= 20726
+01:54:50,756 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 21190
+01:54:50,758 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 21094 node.name= node2 node.pid= 21190
+01:54:58,755 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 21758
+01:54:58,756 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 21662 node.name= node3 node.pid= 21758
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_tracing_default_impl passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 35.84 seconds ===========================
+[msx] rc = 0

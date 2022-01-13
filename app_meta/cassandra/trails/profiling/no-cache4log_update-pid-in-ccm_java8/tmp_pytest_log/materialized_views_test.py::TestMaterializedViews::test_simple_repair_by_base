@@ -1,0 +1,42 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_simple_repair_by_base true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is materialized_views_test.py::TestMaterializedViews::test_simple_repair_by_base
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_simple_repair_by_base 
+-------------------------------- live log call ---------------------------------
+08:19:23,940 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 32928
+08:19:23,941 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 32831 node.name= node1 node.pid= 32928
+08:20:04,940 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 33393
+08:20:04,942 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 33296 node.name= node2 node.pid= 33393
+08:20:13,957 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 33975
+08:20:13,958 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 33878 node.name= node3 node.pid= 33975
+08:20:28,289 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+08:20:30,907 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+08:20:31,917 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.24 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:20:34,222 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.16 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:20:38,433 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.0 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:20:46,452 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 15.84 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:21:02,388 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 34.24 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:21:36,663 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 59.52 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:21:41,199 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+08:21:42,596 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+08:22:19,5 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 35372
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_simple_repair_by_base passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 233.39 seconds ==========================
+[msx] rc = 0

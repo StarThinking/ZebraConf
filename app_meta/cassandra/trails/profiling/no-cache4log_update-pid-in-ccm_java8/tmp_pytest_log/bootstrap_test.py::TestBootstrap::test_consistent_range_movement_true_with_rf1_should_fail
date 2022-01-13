@@ -1,0 +1,38 @@
+cassandra bootstrap_test.py::TestBootstrap::test_consistent_range_movement_true_with_rf1_should_fail true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is bootstrap_test.py::TestBootstrap::test_consistent_range_movement_true_with_rf1_should_fail
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+bootstrap_test.py::TestBootstrap::test_consistent_range_movement_true_with_rf1_should_fail 
+-------------------------------- live log call ---------------------------------
+20:08:03,8 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 33664
+20:08:03,10 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 33568 node.name= node1 node.pid= 33664
+20:08:12,980 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 34128
+20:08:12,981 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 34032 node.name= node2 node.pid= 34128
+20:08:39,842 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+20:08:40,730 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+20:08:41,734 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.86 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+20:08:43,639 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.8 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+20:08:47,449 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 6.88 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+20:08:49,877 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 35151
+20:08:54,370 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 17.76 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+20:09:12,210 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 29.12 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+20:09:41,374 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 69.76 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_consistent_range_movement_true_with_rf1_should_fail passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 104.56 seconds ==========================
+[msx] rc = 0

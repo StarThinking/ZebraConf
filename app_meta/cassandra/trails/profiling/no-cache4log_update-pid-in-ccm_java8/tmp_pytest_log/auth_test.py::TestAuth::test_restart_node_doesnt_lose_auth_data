@@ -1,0 +1,37 @@
+cassandra auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+auth_test.py::TestAuth::test_restart_node_doesnt_lose_auth_data 
+-------------------------------- live log call ---------------------------------
+17:40:03,646 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 10007
+17:40:03,647 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 9910 node.name= node1 node.pid= 10007
+17:40:23,823 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+17:40:24,829 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.04 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+17:40:26,934 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.04 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+17:40:31,44 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.8 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+17:40:39,73 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 10643
+17:40:39,74 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 10546 node.name= node1 node.pid= 10643
+17:40:39,871 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 16.0 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+17:40:55,906 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 31.36 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+17:41:00,340 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 11271
+17:41:00,341 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 11173 node.name= node1 node.pid= 11271
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_restart_node_doesnt_lose_auth_data passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 64.64 seconds ===========================
+[msx] rc = 0

@@ -1,0 +1,251 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_view_metadata_cleanup true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is materialized_views_test.py::TestMaterializedViews::test_view_metadata_cleanup
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_view_metadata_cleanup 
+-------------------------------- live log call ---------------------------------
+05:31:45,759 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 22706
+05:31:45,760 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 22609 node.name= node1 node.pid= 22706
+05:31:54,707 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 23171
+05:31:54,708 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23074 node.name= node2 node.pid= 23171
+05:32:10,392 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:14,201 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:17,934 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:21,817 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:25,823 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:30,382 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:32:30,408 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:32:55,925 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('75e29959-5f04-3c46-bf51-8765a25294f0'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('8dbe6af4-8afb-3dfb-bf9f-57c81a2b2254'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+
+-------------------------------- live log call ---------------------------------
+05:32:58,278 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 24024
+05:32:58,280 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23927 node.name= node1 node.pid= 24024
+05:33:07,254 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 24488
+05:33:07,255 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 24392 node.name= node2 node.pid= 24488
+05:33:23,225 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:27,590 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:31,224 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:34,519 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:37,954 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:42,718 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:33:42,742 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:34:09,669 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('2e7e2624-ff81-3577-9089-e6bd37aec0de'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('f9af0106-15d1-302e-b250-1d76a64a3044'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+FAILED                                                                   [100%]
+------------------------------ live log teardown -------------------------------
+05:34:09,979 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('2e7e2624-ff81-3577-9089-e6bd37aec0de'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('f9af0106-15d1-302e-b250-1d76a64a3044'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+05:34:10,58 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('2e7e2624-ff81-3577-9089-e6bd37aec0de'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('f9af0106-15d1-302e-b250-1d76a64a3044'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+05:34:10,62 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('2e7e2624-ff81-3577-9089-e6bd37aec0de'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('f9af0106-15d1-302e-b250-1d76a64a3044'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+
+
+=================================== FAILURES ===================================
+_______________ TestMaterializedViews.test_view_metadata_cleanup _______________
+
+self = <materialized_views_test.TestMaterializedViews object at 0x7f973fe7b0f0>
+
+    def test_view_metadata_cleanup(self):
+        """
+            drop keyspace or view should clear built_views and view_build_status
+            """
+        session = self.prepare(rf=2, nodes=2)
+    
+        def populate_data(session, rows):
+            logger.debug("populate base data")
+            for v in range(rows):
+                session.execute("INSERT INTO t(k,c,a,b,e,f) VALUES({v},{v},{v},{v},{v},{v})".format(v=v))
+    
+        def verify_data(session, rows, views):
+            logger.debug("verify view data")
+            for v in range(rows):
+                for view in range(views):
+                    assert_one(session, "SELECT * FROM mv{} WHERE k={v} AND c={v}".format(view, v=v), [v, v, v, v, v, v])
+    
+        def create_keyspace(session, ks="ks1", rf=2):
+            create_ks(session, ks, rf)
+    
+        def create_table(session):
+            logger.debug("create base table")
+            session.execute("CREATE TABLE t (k int, c int, a int, b int, e int, f int, primary key(k, c))")
+    
+        def create_views(session, views, keyspace="ks1"):
+            logger.debug("create view")
+            for view in range(views):
+                session.execute("CREATE MATERIALIZED VIEW mv{} AS SELECT * FROM t "
+                                "WHERE k IS NOT NULL AND c IS NOT NULL PRIMARY KEY (c,k)".format(view),
+                                timeout=60)
+                self._wait_for_view(keyspace, "mv{}".format(view))
+    
+        def drop_keyspace(session, keyspace="ks1"):
+            logger.debug("drop keyspace {}".format(keyspace))
+            session.execute("DROP KEYSPACE IF EXISTS {}".format(keyspace),
+                            timeout=60)
+    
+        def drop_views(session, views):
+            logger.debug("drop all views")
+            for view in range(views):
+                session.execute("DROP MATERIALIZED VIEW IF EXISTS mv{}".format(view))
+    
+        rows = 100
+        views = 5
+    
+        create_keyspace(session)
+        create_table(session)
+        populate_data(session, rows)
+        create_views(session, views)
+        verify_data(session, rows, views)
+    
+        self._assert_view_meta(session, views)
+        drop_keyspace(session)
+>       self._assert_view_meta(session, views, exists=False)
+
+materialized_views_test.py:237: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+materialized_views_test.py:179: in _assert_view_meta
+    assert_none(session, "SELECT * FROM system.built_views")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+session = <cassandra.cluster.Session object at 0x7f971c4fed68>
+query = 'SELECT * FROM system.built_views', cl = None
+
+    def assert_none(session, query, cl=None):
+        """
+        Assert query returns nothing
+        @param session Session to use
+        @param query Query to run
+        @param cl Optional Consistency Level setting. Default ONE
+    
+        Examples:
+        assert_none(self.session1, "SELECT * FROM test where key=2;")
+        assert_none(cursor, "SELECT * FROM test WHERE k=2", cl=ConsistencyLevel.SERIAL)
+        """
+        simple_query = SimpleStatement(query, consistency_level=cl)
+        res = session.execute(simple_query)
+        list_res = _rows_to_list(res)
+>       assert list_res == [], "Expected nothing from {}, but got {}".format(query, list_res)
+E       AssertionError: Expected nothing from SELECT * FROM system.built_views, but got [['ks1', 'mv1', True], ['ks1', 'mv3', True], ['ks1', 'mv4', True]]
+
+tools/assertions.py:149: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+05:31:44,399 ccm DEBUG Log-watching thread starting.
+------------------------------ Captured log setup ------------------------------
+05:31:44,347 conftest INFO Starting execution of test_view_metadata_cleanup at 2022-01-11 05:31:44.347342
+05:31:44,348 dtest_setup INFO cluster ccm directory: /tmp/dtest-gosdtzrr
+------------------------------ Captured log call -------------------------------
+05:31:44,999 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/users/masix/cassandra, env={'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTTYPE': 'x86_64-linux', 'SSH_CONNECTION': '104.6.248.234 65373 128.105.145.106 22', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'OLDPWD': '/users/masix/vm_images/ZebraConf/app_meta', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'VENDOR': 'unknown', 'MACHTYPE': 'x86_64', 'OSTYPE': 'linux', 'XDG_SESSION_ID': '295', 'USER': 'masix', 'GROUP': 'postman-PG0', 'PWD': '/users/masix/cassandra-dtest', 'HOME': '/users/masix', 'HOST': 'node0.2-220g2.postman-pg0.wisc.cloudlab.us', 'SSH_CLIENT': '104.6.248.234 65373 22', 'SSH_TTY': '/dev/pts/1', 'MAIL': '/var/mail/masix', 'REMOTEHOST': '104.6.248.234', 'TERM': 'xterm-256color', 'SHELL': '/bin/tcsh', 'SHLVL': '4', 'ZEBRACONF_HOME': '/users/masix/vm_images/ZebraConf', 'LOGNAME': 'masix', 'XDG_RUNTIME_DIR': '/run/user/20001', 'PATH': '/users/masix/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/users/masix/dtest/bin/pytest', 'PYTEST_CURRENT_TEST': 'materialized_views_test.py::TestMaterializedViews::()::test_view_metadata_cleanup (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-gosdtzrr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/users/masix/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-gosdtzrr/test/node1/conf'}
+05:31:45,0 ccm INFO node1: using Java 8 for the current invocation
+05:31:45,164 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/users/masix/cassandra, env={'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTTYPE': 'x86_64-linux', 'SSH_CONNECTION': '104.6.248.234 65373 128.105.145.106 22', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'OLDPWD': '/users/masix/vm_images/ZebraConf/app_meta', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'VENDOR': 'unknown', 'MACHTYPE': 'x86_64', 'OSTYPE': 'linux', 'XDG_SESSION_ID': '295', 'USER': 'masix', 'GROUP': 'postman-PG0', 'PWD': '/users/masix/cassandra-dtest', 'HOME': '/users/masix', 'HOST': 'node0.2-220g2.postman-pg0.wisc.cloudlab.us', 'SSH_CLIENT': '104.6.248.234 65373 22', 'SSH_TTY': '/dev/pts/1', 'MAIL': '/var/mail/masix', 'REMOTEHOST': '104.6.248.234', 'TERM': 'xterm-256color', 'SHELL': '/bin/tcsh', 'SHLVL': '4', 'ZEBRACONF_HOME': '/users/masix/vm_images/ZebraConf', 'LOGNAME': 'masix', 'XDG_RUNTIME_DIR': '/run/user/20001', 'PATH': '/users/masix/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/users/masix/dtest/bin/pytest', 'PYTEST_CURRENT_TEST': 'materialized_views_test.py::TestMaterializedViews::()::test_view_metadata_cleanup (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-gosdtzrr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/users/masix/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-gosdtzrr/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:31:45,164 ccm INFO node1: using Java 8 for the current invocation
+05:31:45,247 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/users/masix/cassandra
+05:31:45,759 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 22706
+05:31:45,760 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 22609 node.name= node1 node.pid= 22706
+05:31:45,973 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/users/masix/cassandra, env={'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTTYPE': 'x86_64-linux', 'SSH_CONNECTION': '104.6.248.234 65373 128.105.145.106 22', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'OLDPWD': '/users/masix/vm_images/ZebraConf/app_meta', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'VENDOR': 'unknown', 'MACHTYPE': 'x86_64', 'OSTYPE': 'linux', 'XDG_SESSION_ID': '295', 'USER': 'masix', 'GROUP': 'postman-PG0', 'PWD': '/users/masix/cassandra-dtest', 'HOME': '/users/masix', 'HOST': 'node0.2-220g2.postman-pg0.wisc.cloudlab.us', 'SSH_CLIENT': '104.6.248.234 65373 22', 'SSH_TTY': '/dev/pts/1', 'MAIL': '/var/mail/masix', 'REMOTEHOST': '104.6.248.234', 'TERM': 'xterm-256color', 'SHELL': '/bin/tcsh', 'SHLVL': '4', 'ZEBRACONF_HOME': '/users/masix/vm_images/ZebraConf', 'LOGNAME': 'masix', 'XDG_RUNTIME_DIR': '/run/user/20001', 'PATH': '/users/masix/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/users/masix/dtest/bin/pytest', 'PYTEST_CURRENT_TEST': 'materialized_views_test.py::TestMaterializedViews::()::test_view_metadata_cleanup (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-gosdtzrr/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/users/masix/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-gosdtzrr/test/node2/conf'}
+05:31:45,973 ccm INFO node2: using Java 8 for the current invocation
+05:31:46,113 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/users/masix/cassandra, env={'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTTYPE': 'x86_64-linux', 'SSH_CONNECTION': '104.6.248.234 65373 128.105.145.106 22', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'OLDPWD': '/users/masix/vm_images/ZebraConf/app_meta', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'VENDOR': 'unknown', 'MACHTYPE': 'x86_64', 'OSTYPE': 'linux', 'XDG_SESSION_ID': '295', 'USER': 'masix', 'GROUP': 'postman-PG0', 'PWD': '/users/masix/cassandra-dtest', 'HOME': '/users/masix', 'HOST': 'node0.2-220g2.postman-pg0.wisc.cloudlab.us', 'SSH_CLIENT': '104.6.248.234 65373 22', 'SSH_TTY': '/dev/pts/1', 'MAIL': '/var/mail/masix', 'REMOTEHOST': '104.6.248.234', 'TERM': 'xterm-256color', 'SHELL': '/bin/tcsh', 'SHLVL': '4', 'ZEBRACONF_HOME': '/users/masix/vm_images/ZebraConf', 'LOGNAME': 'masix', 'XDG_RUNTIME_DIR': '/run/user/20001', 'PATH': '/users/masix/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/users/masix/dtest/bin/pytest', 'PYTEST_CURRENT_TEST': 'materialized_views_test.py::TestMaterializedViews::()::test_view_metadata_cleanup (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-gosdtzrr/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/users/masix/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-gosdtzrr/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:31:46,113 ccm INFO node2: using Java 8 for the current invocation
+05:31:46,188 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/users/masix/cassandra
+05:31:54,707 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 23171
+05:31:54,708 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23074 node.name= node2 node.pid= 23171
+05:32:04,931 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:10,392 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:11,949 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:13,34 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:13,114 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:32:14,201 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:15,713 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:16,785 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:16,882 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:32:17,934 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:19,665 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:19,741 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:32:20,815 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:32:21,817 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:22,694 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:23,760 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:24,832 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:24,900 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:32:25,823 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:32:26,912 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:27,984 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:32:28,55 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:32:30,382 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:32:30,408 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:32:55,925 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('75e29959-5f04-3c46-bf51-8765a25294f0'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('8dbe6af4-8afb-3dfb-bf9f-57c81a2b2254'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:32:56,345 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+05:32:56,919 ccm DEBUG Log-watching thread starting.
+------------------------------ Captured log setup ------------------------------
+05:32:56,872 conftest INFO Starting execution of test_view_metadata_cleanup at 2022-01-11 05:32:56.872445
+05:32:56,873 dtest_setup INFO cluster ccm directory: /tmp/dtest-aaujqxvh
+------------------------------ Captured log call -------------------------------
+05:32:57,519 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/users/masix/cassandra, env={'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTTYPE': 'x86_64-linux', 'SSH_CONNECTION': '104.6.248.234 65373 128.105.145.106 22', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'OLDPWD': '/users/masix/vm_images/ZebraConf/app_meta', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'VENDOR': 'unknown', 'MACHTYPE': 'x86_64', 'OSTYPE': 'linux', 'XDG_SESSION_ID': '295', 'USER': 'masix', 'GROUP': 'postman-PG0', 'PWD': '/users/masix/cassandra-dtest', 'HOME': '/users/masix', 'HOST': 'node0.2-220g2.postman-pg0.wisc.cloudlab.us', 'SSH_CLIENT': '104.6.248.234 65373 22', 'SSH_TTY': '/dev/pts/1', 'MAIL': '/var/mail/masix', 'REMOTEHOST': '104.6.248.234', 'TERM': 'xterm-256color', 'SHELL': '/bin/tcsh', 'SHLVL': '4', 'ZEBRACONF_HOME': '/users/masix/vm_images/ZebraConf', 'LOGNAME': 'masix', 'XDG_RUNTIME_DIR': '/run/user/20001', 'PATH': '/users/masix/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/users/masix/dtest/bin/pytest', 'PYTEST_CURRENT_TEST': 'materialized_views_test.py::TestMaterializedViews::()::test_view_metadata_cleanup (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-aaujqxvh/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/users/masix/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-aaujqxvh/test/node1/conf'}
+05:32:57,520 ccm INFO node1: using Java 8 for the current invocation
+05:32:57,682 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/users/masix/cassandra, env={'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTTYPE': 'x86_64-linux', 'SSH_CONNECTION': '104.6.248.234 65373 128.105.145.106 22', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'OLDPWD': '/users/masix/vm_images/ZebraConf/app_meta', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'VENDOR': 'unknown', 'MACHTYPE': 'x86_64', 'OSTYPE': 'linux', 'XDG_SESSION_ID': '295', 'USER': 'masix', 'GROUP': 'postman-PG0', 'PWD': '/users/masix/cassandra-dtest', 'HOME': '/users/masix', 'HOST': 'node0.2-220g2.postman-pg0.wisc.cloudlab.us', 'SSH_CLIENT': '104.6.248.234 65373 22', 'SSH_TTY': '/dev/pts/1', 'MAIL': '/var/mail/masix', 'REMOTEHOST': '104.6.248.234', 'TERM': 'xterm-256color', 'SHELL': '/bin/tcsh', 'SHLVL': '4', 'ZEBRACONF_HOME': '/users/masix/vm_images/ZebraConf', 'LOGNAME': 'masix', 'XDG_RUNTIME_DIR': '/run/user/20001', 'PATH': '/users/masix/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/users/masix/dtest/bin/pytest', 'PYTEST_CURRENT_TEST': 'materialized_views_test.py::TestMaterializedViews::()::test_view_metadata_cleanup (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-aaujqxvh/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/users/masix/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-aaujqxvh/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:32:57,683 ccm INFO node1: using Java 8 for the current invocation
+05:32:57,764 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/users/masix/cassandra
+05:32:58,278 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 24024
+05:32:58,280 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23927 node.name= node1 node.pid= 24024
+05:32:58,514 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/users/masix/cassandra, env={'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTTYPE': 'x86_64-linux', 'SSH_CONNECTION': '104.6.248.234 65373 128.105.145.106 22', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'OLDPWD': '/users/masix/vm_images/ZebraConf/app_meta', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'VENDOR': 'unknown', 'MACHTYPE': 'x86_64', 'OSTYPE': 'linux', 'XDG_SESSION_ID': '295', 'USER': 'masix', 'GROUP': 'postman-PG0', 'PWD': '/users/masix/cassandra-dtest', 'HOME': '/users/masix', 'HOST': 'node0.2-220g2.postman-pg0.wisc.cloudlab.us', 'SSH_CLIENT': '104.6.248.234 65373 22', 'SSH_TTY': '/dev/pts/1', 'MAIL': '/var/mail/masix', 'REMOTEHOST': '104.6.248.234', 'TERM': 'xterm-256color', 'SHELL': '/bin/tcsh', 'SHLVL': '4', 'ZEBRACONF_HOME': '/users/masix/vm_images/ZebraConf', 'LOGNAME': 'masix', 'XDG_RUNTIME_DIR': '/run/user/20001', 'PATH': '/users/masix/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/users/masix/dtest/bin/pytest', 'PYTEST_CURRENT_TEST': 'materialized_views_test.py::TestMaterializedViews::()::test_view_metadata_cleanup (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-aaujqxvh/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/users/masix/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-aaujqxvh/test/node2/conf'}
+05:32:58,515 ccm INFO node2: using Java 8 for the current invocation
+05:32:58,653 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/users/masix/cassandra, env={'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.Z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'HOSTTYPE': 'x86_64-linux', 'SSH_CONNECTION': '104.6.248.234 65373 128.105.145.106 22', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'LANG': 'en_US.UTF-8', 'OLDPWD': '/users/masix/vm_images/ZebraConf/app_meta', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'VENDOR': 'unknown', 'MACHTYPE': 'x86_64', 'OSTYPE': 'linux', 'XDG_SESSION_ID': '295', 'USER': 'masix', 'GROUP': 'postman-PG0', 'PWD': '/users/masix/cassandra-dtest', 'HOME': '/users/masix', 'HOST': 'node0.2-220g2.postman-pg0.wisc.cloudlab.us', 'SSH_CLIENT': '104.6.248.234 65373 22', 'SSH_TTY': '/dev/pts/1', 'MAIL': '/var/mail/masix', 'REMOTEHOST': '104.6.248.234', 'TERM': 'xterm-256color', 'SHELL': '/bin/tcsh', 'SHLVL': '4', 'ZEBRACONF_HOME': '/users/masix/vm_images/ZebraConf', 'LOGNAME': 'masix', 'XDG_RUNTIME_DIR': '/run/user/20001', 'PATH': '/users/masix/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games', 'LESSOPEN': '| /usr/bin/lesspipe %s', '_': '/users/masix/dtest/bin/pytest', 'PYTEST_CURRENT_TEST': 'materialized_views_test.py::TestMaterializedViews::()::test_view_metadata_cleanup (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-aaujqxvh/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/users/masix/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-aaujqxvh/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:32:58,653 ccm INFO node2: using Java 8 for the current invocation
+05:32:58,732 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/users/masix/cassandra
+05:33:07,254 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 24488
+05:33:07,255 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 24392 node.name= node2 node.pid= 24488
+05:33:17,472 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:23,225 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:25,203 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:25,276 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:33:26,373 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:33:27,590 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:29,104 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:30,177 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:30,248 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:33:31,224 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:32,519 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:33,589 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:33,660 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:33:34,519 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:35,597 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:36,655 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:36,716 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:33:37,954 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+05:33:39,249 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+05:33:39,319 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:33:40,381 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 dc1> discovered
+05:33:42,718 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:33:42,742 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+05:34:09,669 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('2e7e2624-ff81-3577-9089-e6bd37aec0de'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('f9af0106-15d1-302e-b250-1d76a64a3044'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:32:56,345 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:32:56,345 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:34:10,533 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured log teardown -----------------------------
+05:34:09,979 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('2e7e2624-ff81-3577-9089-e6bd37aec0de'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('f9af0106-15d1-302e-b250-1d76a64a3044'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+05:34:10,58 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('2e7e2624-ff81-3577-9089-e6bd37aec0de'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('f9af0106-15d1-302e-b250-1d76a64a3044'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+05:34:10,62 cassandra.cluster WARNING Node 127.0.0.2:9042 is reporting a schema disagreement: {UUID('2e7e2624-ff81-3577-9089-e6bd37aec0de'): [<DefaultEndPoint: 127.0.0.2:9042>], UUID('f9af0106-15d1-302e-b250-1d76a64a3044'): [<DefaultEndPoint: 127.0.0.1:9042>]}
+===Flaky Test Report===
+
+test_view_metadata_cleanup failed (1 runs remaining out of 2).
+	<class 'AssertionError'>
+	Expected nothing from SELECT * FROM system.built_views, but got [['ks1', 'mv1', True], ['ks1', 'mv3', True], ['ks1', 'mv4', True]]
+	[<TracebackEntry /users/masix/cassandra-dtest/materialized_views_test.py:237>, <TracebackEntry /users/masix/cassandra-dtest/materialized_views_test.py:179>, <TracebackEntry /users/masix/cassandra-dtest/tools/assertions.py:149>]
+test_view_metadata_cleanup failed; it passed 0 out of the required 1 times.
+	<class 'AssertionError'>
+	Expected nothing from SELECT * FROM system.built_views, but got [['ks1', 'mv1', True], ['ks1', 'mv3', True], ['ks1', 'mv4', True]]
+	[<TracebackEntry /users/masix/cassandra-dtest/materialized_views_test.py:237>, <TracebackEntry /users/masix/cassandra-dtest/materialized_views_test.py:179>, <TracebackEntry /users/masix/cassandra-dtest/tools/assertions.py:149>]
+
+===End Flaky Test Report===
+========================== 1 failed in 147.12 seconds ==========================
+[msx] rc = 1

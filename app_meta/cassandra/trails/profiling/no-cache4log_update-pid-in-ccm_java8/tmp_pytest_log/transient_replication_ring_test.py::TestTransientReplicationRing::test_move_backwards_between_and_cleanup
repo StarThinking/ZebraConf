@@ -1,0 +1,39 @@
+cassandra transient_replication_ring_test.py::TestTransientReplicationRing::test_move_backwards_between_and_cleanup true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_ring_test.py::TestTransientReplicationRing::test_move_backwards_between_and_cleanup
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_ring_test.py::TestTransientReplicationRing::test_move_backwards_between_and_cleanup 
+-------------------------------- live log setup --------------------------------
+21:11:23,405 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 36749
+21:11:23,406 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 36651 node.name= node1 node.pid= 36749
+21:11:32,384 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 37216
+21:11:32,386 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 37119 node.name= node2 node.pid= 37216
+21:11:41,395 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 37792
+21:11:41,397 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 37694 node.name= node3 node.pid= 37792
+-------------------------------- live log call ---------------------------------
+21:12:55,232 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node4, self.pid= 38437
+21:13:16,340 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+21:13:17,346 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.76 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+21:13:19,151 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.96 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+21:13:23,162 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.4 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+21:13:31,586 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 17.44 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+21:13:40,493 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 40467
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_move_backwards_between_and_cleanup passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 211.86 seconds ==========================
+[msx] rc = 0

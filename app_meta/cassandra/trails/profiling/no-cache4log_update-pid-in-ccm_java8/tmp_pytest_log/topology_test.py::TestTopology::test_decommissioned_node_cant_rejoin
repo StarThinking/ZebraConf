@@ -1,0 +1,32 @@
+cassandra topology_test.py::TestTopology::test_decommissioned_node_cant_rejoin true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is topology_test.py::TestTopology::test_decommissioned_node_cant_rejoin
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+topology_test.py::TestTopology::test_decommissioned_node_cant_rejoin 
+-------------------------------- live log call ---------------------------------
+20:50:09,297 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 5207
+20:50:09,299 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 5110 node.name= node1 node.pid= 5207
+20:50:17,253 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 5672
+20:50:17,254 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 5575 node.name= node2 node.pid= 5672
+20:50:26,264 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 6239
+20:50:26,264 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 6137 node.name= node3 node.pid= 6239
+20:51:45,301 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 7402
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_decommissioned_node_cant_rejoin passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 108.44 seconds ==========================
+[msx] rc = 0

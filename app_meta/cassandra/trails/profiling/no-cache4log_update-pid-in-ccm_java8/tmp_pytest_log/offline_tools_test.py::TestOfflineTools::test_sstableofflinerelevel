@@ -1,0 +1,49 @@
+cassandra offline_tools_test.py::TestOfflineTools::test_sstableofflinerelevel true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is offline_tools_test.py::TestOfflineTools::test_sstableofflinerelevel
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+offline_tools_test.py::TestOfflineTools::test_sstableofflinerelevel 
+-------------------------------- live log call ---------------------------------
+10:16:06,964 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 40830
+10:16:06,965 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 40732 node.name= node1 node.pid= 40830
+10:16:27,421 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 1366
+10:16:27,422 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 1259 node.name= node1 node.pid= 1366
+10:16:59,524 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 2759
+10:16:59,525 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 2663 node.name= node1 node.pid= 2759
+10:17:04,754 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+10:19:34,758 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+10:19:34,759 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:19:35,864 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.8 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:19:37,669 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.44 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:19:42,180 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:19:49,396 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 16.64 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:19:53,9 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 29476
+10:19:53,11 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 29379 node.name= node1 node.pid= 29476
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_sstableofflinerelevel passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 235.28 seconds ==========================
+[msx] rc = 0

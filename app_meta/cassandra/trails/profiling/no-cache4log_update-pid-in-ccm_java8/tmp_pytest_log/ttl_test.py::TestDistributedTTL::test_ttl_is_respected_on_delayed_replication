@@ -1,0 +1,57 @@
+cassandra ttl_test.py::TestDistributedTTL::test_ttl_is_respected_on_delayed_replication true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is ttl_test.py::TestDistributedTTL::test_ttl_is_respected_on_delayed_replication
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+ttl_test.py::TestDistributedTTL::test_ttl_is_respected_on_delayed_replication 
+-------------------------------- live log setup --------------------------------
+22:52:30,372 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 3522
+22:52:30,374 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 3426 node.name= node1 node.pid= 3522
+22:52:39,343 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 3988
+22:52:39,344 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 3891 node.name= node2 node.pid= 3988
+-------------------------------- live log call ---------------------------------
+22:52:52,521 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+22:52:53,526 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.18 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+22:52:55,733 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.72 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+22:52:59,543 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.32 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+22:53:07,963 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 15.2 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+22:53:19,608 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+22:53:19,610 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:53:20,692 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.92 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:53:22,699 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.16 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:53:23,199 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 31.36 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+22:53:26,909 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:53:34,525 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 14.72 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:53:49,258 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 33.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:53:54,570 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 71.04 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+22:54:07,773 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 4802
+22:54:08,53 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+22:54:20,963 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 5312
+22:54:22,525 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_ttl_is_respected_on_delayed_replication passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 114.63 seconds ==========================
+[msx] rc = 0

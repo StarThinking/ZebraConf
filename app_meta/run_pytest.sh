@@ -27,17 +27,19 @@ cassandra_dtest_log='/tmp/my_log.txt'
 rm $cassandra_dtest_log
 
 # run pytest
-rc=1
 cd $project_root_dir
 pytest --log-cli-level=WARN --cassandra-dir=$cassadra_src_dir $the_test
-echo "[msx] rc = $?"
+rc=$?
+echo "[msx] rc = $rc"
 sleep 2
 
 # if save_log enabled, copy output log to dst directory
 if [ "$save_log" == "true" ]; then
     LOG_TIME="$(($(date +%s%N)/1000000))"
-    my_random_name="$the_test"-output_"$LOG_TIME"_"$RANDOM$RANDOM"
+    my_random_name="$the_test"-output_"$LOG_TIME"_"$RANDOM$RANDOM"'.txt'
     mv $cassandra_dtest_log $log_dts_dir/$my_random_name
+    ## append rc
+    echo "rc $rc" >> $log_dts_dir/$my_random_name
 fi
 
 # return exit code of pytest

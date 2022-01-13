@@ -1,0 +1,36 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_add_dc_after_mv_network_replication true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is materialized_views_test.py::TestMaterializedViews::test_add_dc_after_mv_network_replication
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_add_dc_after_mv_network_replication 
+-------------------------------- live log call ---------------------------------
+06:12:46,772 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 22636
+06:12:46,774 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 22538 node.name= node1 node.pid= 22636
+06:12:55,728 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 23101
+06:12:55,730 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23004 node.name= node2 node.pid= 23101
+06:13:04,735 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 23675
+06:13:04,736 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23578 node.name= node3 node.pid= 23675
+06:13:18,509 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+06:15:03,651 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node4, self.pid= 24393
+06:16:26,922 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node5, self.pid= 25294
+06:16:27,181 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+06:16:29,293 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_add_dc_after_mv_network_replication passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 253.48 seconds ==========================
+[msx] rc = 0

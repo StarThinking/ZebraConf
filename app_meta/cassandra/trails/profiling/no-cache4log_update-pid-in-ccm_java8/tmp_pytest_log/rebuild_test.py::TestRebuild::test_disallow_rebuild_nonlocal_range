@@ -1,0 +1,31 @@
+cassandra rebuild_test.py::TestRebuild::test_disallow_rebuild_nonlocal_range true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is rebuild_test.py::TestRebuild::test_disallow_rebuild_nonlocal_range
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+rebuild_test.py::TestRebuild::test_disallow_rebuild_nonlocal_range 
+-------------------------------- live log call ---------------------------------
+12:55:01,500 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 23853
+12:55:01,501 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23756 node.name= node1 node.pid= 23853
+12:55:39,494 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 24322
+12:55:39,495 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 24225 node.name= node2 node.pid= 24322
+12:55:49,482 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 24891
+12:55:49,483 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 24794 node.name= node3 node.pid= 24891
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_disallow_rebuild_nonlocal_range passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 63.23 seconds ===========================
+[msx] rc = 0

@@ -1,0 +1,70 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_interrupt_build_process true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is materialized_views_test.py::TestMaterializedViews::test_interrupt_build_process
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_interrupt_build_process 
+-------------------------------- live log call ---------------------------------
+07:11:34,963 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 35796
+07:11:34,965 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 35700 node.name= node1 node.pid= 35796
+07:12:14,956 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 36262
+07:12:14,958 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 36164 node.name= node2 node.pid= 36262
+07:12:24,974 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 36853
+07:12:24,975 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 36756 node.name= node3 node.pid= 36853
+07:15:02,808 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+07:15:34,278 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+07:15:34,278 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+07:15:35,283 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.1 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+07:15:35,483 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.72 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+07:15:37,287 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+07:15:37,387 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.4 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+07:15:40,795 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.08 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+07:15:41,797 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+07:15:48,913 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 14.88 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+07:15:49,13 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 14.72 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+07:16:03,745 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 32.32 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+07:16:03,845 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 34.24 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+07:16:34,279 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+07:16:34,281 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.3:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+07:16:35,313 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 1.9 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+07:16:36,115 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 67.84 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+07:16:37,217 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 4.24 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+07:16:38,119 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 56.32 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+07:16:41,528 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 8.32 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+07:16:41,604 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 38655
+07:16:41,604 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 38558 node.name= node1 node.pid= 38655
+07:16:49,949 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 16.96 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+07:17:06,986 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 34.56 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+07:17:19,621 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 39121
+07:17:19,622 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 39024 node.name= node2 node.pid= 39121
+07:17:27,640 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 39773
+07:17:27,641 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 39674 node.name= node3 node.pid= 39773
+07:17:36,382 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+07:17:58,624 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_interrupt_build_process passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 452.57 seconds ==========================
+[msx] rc = 0

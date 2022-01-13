@@ -1,0 +1,33 @@
+cassandra gossip_test.py::TestGossip::test_2dc_parallel_startup true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is gossip_test.py::TestGossip::test_2dc_parallel_startup
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+gossip_test.py::TestGossip::test_2dc_parallel_startup 
+-------------------------------- live log call ---------------------------------
+04:19:00,832 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 36151
+04:19:09,974 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 36581
+04:19:19,122 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 37109
+04:19:28,279 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node4, self.pid= 37618
+04:20:45,712 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 38643
+04:20:54,605 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 39074
+04:21:03,542 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 39634
+04:21:13,466 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node4, self.pid= 40176
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_2dc_parallel_startup passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 135.02 seconds ==========================
+[msx] rc = 0

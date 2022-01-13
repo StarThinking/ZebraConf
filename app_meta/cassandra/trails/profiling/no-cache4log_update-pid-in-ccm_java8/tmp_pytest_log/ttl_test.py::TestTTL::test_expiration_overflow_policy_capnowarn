@@ -1,0 +1,35 @@
+cassandra ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+ttl_test.py::TestTTL::test_expiration_overflow_policy_capnowarn 
+-------------------------------- live log setup --------------------------------
+22:44:48,240 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 36904
+22:44:48,241 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 36808 node.name= node1 node.pid= 36904
+-------------------------------- live log call ---------------------------------
+22:44:58,68 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+22:44:59,174 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.7 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:45:00,878 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.44 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:45:05,150 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 37529
+22:45:05,151 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 37431 node.name= node1 node.pid= 37529
+22:45:05,391 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.52 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:45:15,246 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_expiration_overflow_policy_capnowarn passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 29.03 seconds ===========================
+[msx] rc = 0

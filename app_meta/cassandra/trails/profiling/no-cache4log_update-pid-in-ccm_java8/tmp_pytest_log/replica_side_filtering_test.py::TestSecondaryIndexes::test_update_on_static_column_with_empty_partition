@@ -1,0 +1,45 @@
+cassandra replica_side_filtering_test.py::TestSecondaryIndexes::test_update_on_static_column_with_empty_partition true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is replica_side_filtering_test.py::TestSecondaryIndexes::test_update_on_static_column_with_empty_partition
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+replica_side_filtering_test.py::TestSecondaryIndexes::test_update_on_static_column_with_empty_partition 
+-------------------------------- live log call ---------------------------------
+14:21:07,236 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 23547
+14:21:07,237 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23451 node.name= node1 node.pid= 23547
+14:21:16,209 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 24011
+14:21:16,210 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23915 node.name= node2 node.pid= 24011
+14:21:35,719 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+14:21:42,870 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 402, in cassandra.pool.HostConnection.__init__
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+14:21:42,872 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+14:21:44,77 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.2 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+14:21:46,284 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.8 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+14:21:50,94 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.88 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+14:21:50,811 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 24975
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_update_on_static_column_with_empty_partition passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 46.18 seconds ===========================
+[msx] rc = 0
