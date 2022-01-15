@@ -21,7 +21,7 @@ if [ $# -ne 1 ]; then echo 'wrong: [parameter]'; exit -1; fi
 parameter=$1
 
 max_line=1 # default, the first line
-para_value_list_dir='./para_value_list'
+para_value_list_dir='/users/masix/vm_images/ZebraConf/app_meta/cassandra/para_value_list'
 function find_max_value_line {
     #para_value_list_dir='/root/data_store_sdb/hconf_result_fse/para_value_list'
     local pv_line_num=$(grep -r ^"$parameter " $para_value_list_dir | wc -l)
@@ -63,28 +63,31 @@ done
 # for check
 #exit 0
 
-final_root_dir=/root/vm_images/ZebraConf/test_gen/prerun_1.0/
+final_root_dir='/users/masix/vm_images/ZebraConf/app_meta/cassandra/prerun'
 unable_id_suffix="unidentifiable"
-unable_id=1
+unable_id=0
 
 #for p in hdfs hbase yarn mapreduce hadoop-tools
-for p in hdfs
+for p in cassandra
 do
     logs=$(grep -r ^"$parameter " $final_root_dir/$p/ultimate | awk -F '-ultimate-meta.txt' '{print $1"-ultimate-meta.txt"}' | sort -u)
 
     for log in ${logs[@]}
     do
 	#echo "log=$log"
-	# filter this test if its idnetify-cannot.txt contains this parameter
- 	cannot_identify=$(echo $log | awk -F '/ultimate/' '{print $2}' | awk -F '-ultimate-meta.txt' '{print $1"-identify-cannot.txt"}')
-	cannot_identify_log=$(echo "$final_root_dir/$p/identify/""$cannot_identify")
-	unable_id=0
-	if [ ! -f $cannot_identify_log ]; then echo 'ERROR: can not find cannot_identify_log $cannot_identify_log'; exit 1; fi
-	if [ "$(grep ^"$parameter"$ $cannot_identify_log)" != "" ]; then 
-	    #echo "$parameter is not identifiable in test $log"
-	    #continue; 
-	    unable_id=1
-	fi
+        # perform identify filter when identify dir exists
+        if [ -d $final_root_dir/$p/identify ]; then
+	    # filter this test if its idnetify-cannot.txt contains this parameter
+ 	    cannot_identify=$(echo $log | awk -F '/ultimate/' '{print $2}' | awk -F '-ultimate-meta.txt' '{print $1"-identify-cannot.txt"}')
+	    cannot_identify_log=$(echo "$final_root_dir/$p/identify/""$cannot_identify")
+	    #unable_id=0
+	    if [ ! -f $cannot_identify_log ]; then echo 'ERROR: can not find cannot_identify_log $cannot_identify_log'; exit 1; fi
+	    if [ "$(grep ^"$parameter"$ $cannot_identify_log)" != "" ]; then 
+	        #echo "$parameter is not identifiable in test $log"
+	        #continue; 
+	        unable_id=1
+	    fi
+        fi
         
     	the_proj="$p"
         the_test="$(echo $log | awk -F '/ultimate/' '{print $2}' | awk -F '-ultimate-meta.txt' '{print $1}')"
