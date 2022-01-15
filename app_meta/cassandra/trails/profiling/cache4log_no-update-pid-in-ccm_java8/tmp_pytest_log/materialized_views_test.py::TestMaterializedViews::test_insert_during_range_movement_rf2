@@ -1,0 +1,37 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_insert_during_range_movement_rf2 true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is materialized_views_test.py::TestMaterializedViews::test_insert_during_range_movement_rf2
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_insert_during_range_movement_rf2 
+-------------------------------- live log call ---------------------------------
+12:00:02,106 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+12:00:02,108 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 39465 node.name= node1 node.pid= None
+12:00:02,571 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= None
+12:00:02,572 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 39905 node.name= node2 node.pid= None
+12:00:03,10 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= None
+12:00:03,10 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 40361 node.name= node3 node.pid= None
+12:00:28,833 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+12:01:50,199 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node4, self.pid= 695
+12:01:56,470 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+12:01:57,837 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+12:01:59,218 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+12:02:00,545 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_insert_during_range_movement_rf2 passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 124.33 seconds ==========================
+[msx] rc = 0

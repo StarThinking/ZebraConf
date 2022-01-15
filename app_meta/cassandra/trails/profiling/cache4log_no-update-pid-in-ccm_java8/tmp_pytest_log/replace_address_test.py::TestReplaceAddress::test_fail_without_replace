@@ -1,0 +1,37 @@
+cassandra replace_address_test.py::TestReplaceAddress::test_fail_without_replace true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is replace_address_test.py::TestReplaceAddress::test_fail_without_replace
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+replace_address_test.py::TestReplaceAddress::test_fail_without_replace 
+-------------------------------- live log call ---------------------------------
+17:53:40,548 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+17:53:40,550 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 3363 node.name= node1 node.pid= None
+17:53:41,31 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= None
+17:53:41,32 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 3808 node.name= node2 node.pid= None
+17:53:41,483 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= None
+17:53:41,484 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 4272 node.name= node3 node.pid= None
+17:54:05,665 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+17:54:58,790 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 6281
+17:55:05,274 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+17:55:05,964 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 6772
+17:55:06,283 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+17:55:08,88 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 3.96 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_fail_without_replace passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 93.83 seconds ===========================
+[msx] rc = 0

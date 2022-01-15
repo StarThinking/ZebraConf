@@ -1,0 +1,45 @@
+cassandra paxos_test.py::TestPaxos::test_cluster_availability true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is paxos_test.py::TestPaxos::test_cluster_availability
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+paxos_test.py::TestPaxos::test_cluster_availability 
+-------------------------------- live log call ---------------------------------
+16:25:50,642 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+16:25:50,644 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 34380 node.name= node1 node.pid= None
+16:25:51,125 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= None
+16:25:51,127 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 34824 node.name= node2 node.pid= None
+16:25:51,558 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= None
+16:25:51,559 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 35279 node.name= node3 node.pid= None
+16:26:17,341 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+16:26:18,347 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 1.76 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+16:26:20,152 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 4.0 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+16:26:24,163 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 7.52 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+16:26:24,492 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+16:26:25,667 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.76 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+16:26:27,471 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.56 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+16:26:31,79 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.8 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+16:26:31,781 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 16.16 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+16:26:39,900 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 13.92 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+16:26:48,17 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 30.72 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+16:26:53,829 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 34.24 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+16:26:54,584 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 36354
+16:27:10,565 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= 36879
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_cluster_availability passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 82.23 seconds ===========================
+[msx] rc = 0

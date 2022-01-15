@@ -1,0 +1,74 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_view_tombstone true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is materialized_views_test.py::TestMaterializedViews::test_view_tombstone
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_view_tombstone 
+-------------------------------- live log call ---------------------------------
+13:25:07,648 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+13:25:07,650 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 31669 node.name= node1 node.pid= None
+13:25:08,127 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= None
+13:25:08,129 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 32114 node.name= node2 node.pid= None
+13:25:08,578 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= None
+13:25:08,579 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 32574 node.name= node3 node.pid= None
+13:25:37,32 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+13:25:40,530 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:41,925 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:43,361 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:44,716 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:46,29 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:47,358 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:48,673 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:50,1 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:51,311 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:25:51,341 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+13:25:52,348 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.14 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:25:54,554 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.44 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:25:58,63 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 7.92 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:26:00,671 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:26:02,2 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+13:26:05,986 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 18.24 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:26:11,905 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+13:26:11,907 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:26:13,12 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.02 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:26:15,117 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.44 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:26:16,12 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+13:26:16,13 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:26:17,17 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.84 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+13:26:17,947 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 36159
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_view_tombstone passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 73.47 seconds ===========================
+[msx] rc = 0

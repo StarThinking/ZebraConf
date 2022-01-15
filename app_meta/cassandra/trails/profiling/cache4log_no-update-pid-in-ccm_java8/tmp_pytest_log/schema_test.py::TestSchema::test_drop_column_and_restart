@@ -1,0 +1,33 @@
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+21:28:46,602 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+21:28:46,603 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 21244 node.name= node1 node.pid= None
+21:28:57,950 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+21:28:58,955 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.86 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+21:29:00,859 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.08 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+21:29:04,933 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+21:29:04,935 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 21877 node.name= node1 node.pid= None
+21:29:04,971 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 6.96 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 25.49 seconds ===========================
+[msx] rc = 0

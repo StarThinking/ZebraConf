@@ -1,0 +1,38 @@
+cassandra ttl_test.py::TestDistributedTTL::test_ttl_is_respected_on_repair true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is ttl_test.py::TestDistributedTTL::test_ttl_is_respected_on_repair
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+ttl_test.py::TestDistributedTTL::test_ttl_is_respected_on_repair 
+-------------------------------- live log setup --------------------------------
+02:24:39,783 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+02:24:39,785 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 22854 node.name= node1 node.pid= None
+02:24:40,236 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= None
+02:24:40,237 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 23294 node.name= node2 node.pid= None
+-------------------------------- live log call ---------------------------------
+02:25:28,519 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+02:25:28,653 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 24183
+02:25:30,942 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+02:25:37,151 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+02:25:37,152 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+02:25:38,158 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.02 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+02:25:40,263 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.44 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+02:25:44,269 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_ttl_is_respected_on_repair passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 66.16 seconds ===========================
+[msx] rc = 0

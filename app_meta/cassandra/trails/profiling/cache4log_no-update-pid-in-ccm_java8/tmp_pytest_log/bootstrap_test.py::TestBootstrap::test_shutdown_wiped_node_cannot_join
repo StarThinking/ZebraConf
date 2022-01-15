@@ -1,0 +1,37 @@
+cassandra bootstrap_test.py::TestBootstrap::test_shutdown_wiped_node_cannot_join true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is bootstrap_test.py::TestBootstrap::test_shutdown_wiped_node_cannot_join
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+bootstrap_test.py::TestBootstrap::test_shutdown_wiped_node_cannot_join 
+-------------------------------- live log call ---------------------------------
+04:56:42,328 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+04:56:42,329 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 415 node.name= node1 node.pid= None
+04:56:42,800 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= None
+04:56:42,801 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 936 node.name= node2 node.pid= None
+04:56:43,286 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= None
+04:56:43,287 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 1448 node.name= node3 node.pid= None
+04:58:40,40 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node4, self.pid= 2646
+04:58:40,535 cassandra.cluster WARNING Host 127.0.0.4:9042 has been marked down
+04:58:41,594 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.4:9042, scheduling retry in 2.12 seconds: [Errno 111] Tried connecting to [('127.0.0.4', 9042)]. Last error: Connection refused
+04:58:43,799 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.4:9042, scheduling retry in 4.2 seconds: [Errno 111] Tried connecting to [('127.0.0.4', 9042)]. Last error: Connection refused
+04:58:48,10 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.4:9042, scheduling retry in 7.92 seconds: [Errno 111] Tried connecting to [('127.0.0.4', 9042)]. Last error: Connection refused
+04:58:48,585 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node4, self.pid= 3638
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_shutdown_wiped_node_cannot_join passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 134.51 seconds ==========================
+[msx] rc = 0

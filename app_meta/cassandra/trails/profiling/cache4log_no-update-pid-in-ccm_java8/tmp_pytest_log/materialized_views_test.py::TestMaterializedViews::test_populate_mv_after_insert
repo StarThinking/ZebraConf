@@ -1,0 +1,35 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_populate_mv_after_insert true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is materialized_views_test.py::TestMaterializedViews::test_populate_mv_after_insert
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_populate_mv_after_insert 
+-------------------------------- live log call ---------------------------------
+11:23:56,916 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+11:23:56,918 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 1570 node.name= node1 node.pid= None
+11:23:57,386 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= None
+11:23:57,387 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 2021 node.name= node2 node.pid= None
+11:23:57,828 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node3, self.pid= None
+11:23:57,829 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 2483 node.name= node3 node.pid= None
+11:24:27,636 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+11:24:33,307 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+11:24:34,632 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+11:24:35,961 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_populate_mv_after_insert passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 44.92 seconds ===========================
+[msx] rc = 0

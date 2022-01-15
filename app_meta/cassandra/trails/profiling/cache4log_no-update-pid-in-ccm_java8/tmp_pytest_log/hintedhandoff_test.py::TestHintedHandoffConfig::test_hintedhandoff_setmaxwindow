@@ -1,0 +1,62 @@
+cassandra hintedhandoff_test.py::TestHintedHandoffConfig::test_hintedhandoff_setmaxwindow true true
+log_dts_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is hintedhandoff_test.py::TestHintedHandoffConfig::test_hintedhandoff_setmaxwindow
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+hintedhandoff_test.py::TestHintedHandoffConfig::test_hintedhandoff_setmaxwindow 
+-------------------------------- live log call ---------------------------------
+10:23:09,619 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= None
+10:23:09,621 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 18455 node.name= node1 node.pid= None
+10:23:10,89 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= None
+10:23:10,90 ccmlib.cluster WARNING [msx] ccmlib:cluster.py:start() p.pid= 18898 node.name= node2 node.pid= None
+10:23:51,795 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 20441
+10:24:27,264 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node1, self.pid= 21102
+10:24:33,187 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+10:24:39,557 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+10:24:41,163 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+10:24:42,268 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.9 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+10:24:44,173 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.32 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+10:24:48,584 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 9.12 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+10:24:55,559 ccmlib.node WARNING [msx] ccmlib:node.py:start(), self.name= node2, self.pid= 22667
+10:24:57,805 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 14.88 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+10:25:02,504 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+10:25:02,505 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:25:03,188 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+10:25:03,189 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:25:03,610 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.08 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_hintedhandoff_setmaxwindow passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 116.34 seconds ==========================
+[msx] rc = 0
