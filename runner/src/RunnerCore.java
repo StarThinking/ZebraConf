@@ -6,15 +6,16 @@ import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.lang.ProcessBuilder.Redirect;
 
 public class RunnerCore {
     protected static String systemRootDir = System.getenv("ZEBRACONF_HOME");
     protected static BufferedWriter runLogWriter = null;
 
     /* shared files */
-    private static String testResultDirName = systemRootDir + "shared/test_results";
-    private static String vvModeFileName = systemRootDir + "shared/reconf_vvmode";
-    private static String hListFileName = systemRootDir + "shared/reconf_h_list";
+    private static String testResultDirName = systemRootDir + "/runner/shared/test_results";
+    private static String vvModeFileName = systemRootDir + "/runner/shared/reconf_vvmode";
+    private static String hListFileName = systemRootDir + "/runner/shared/reconf_h_list";
 
     public enum RETURN {
         SUCCEED,FAIL
@@ -85,7 +86,8 @@ public class RunnerCore {
 
         public boolean isValid() {
             if (!proj.equals("hdfs") && !proj.equals("yarn") && !proj.equals("mapreduce") &&
-                !proj.equals("hadoop-tools") && !proj.equals("hbase") && !proj.equals("flink")) {
+                !proj.equals("hadoop-tools") && !proj.equals("hbase") && !proj.equals("flink") &&
+                !proj.equals("cassandra")) {
         	    System.out.println("ERROR: wrong proj " + proj);
         	    return false;
             }
@@ -170,12 +172,31 @@ public class RunnerCore {
         int exitCode = -1;
         boolean isTimeout = false;
 	long startTime = 0, endTime = 0, totalTime = 0;
-	String cloneLogFlag="false";
+        String cloneLogFlag = "";
+        String systemLogSavingDir = "";
+
+        if (tr.proj.equals("cassandra")) {
+	    cloneLogFlag = "true";
+            systemLogSavingDir = "true";
+        } else {
+	    cloneLogFlag = "false";
+            systemLogSavingDir = "false";
+        }
         Process process = null;
         //String systemLogSavingDir = "/root/reconf_test_gen/target";
-        String systemLogSavingDir = "false";
         ProcessBuilder builder = new ProcessBuilder();
-        builder.command(systemRootDir + "/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir, cloneLogFlag);
+        
+        // temporarally direct to console
+        if (cloneLogFlag.equals("true") && tr.proj.equals("cassandra")) {
+            builder.redirectOutput(Redirect.INHERIT);
+            builder.redirectError(Redirect.INHERIT);
+        }
+
+        if (tr.proj.equals("cassandra")) {
+            builder.command(systemRootDir + "/app_meta/run_pytest.sh", tr.proj, tr.u_test, systemLogSavingDir, cloneLogFlag);
+        } else  {   
+            builder.command(systemRootDir + "/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir, cloneLogFlag);
+        }
 	// set start time
 	startTime = System.nanoTime();
         process = builder.start();
@@ -199,11 +220,14 @@ public class RunnerCore {
        
         List<TestResult> testResultList = new ArrayList<TestResult>();
         testResultList.add(tr);
-        updateTestResult(testResultList);
-
-        // override result with cmd exit code
-        if ((exitCode == 0 && tr.ret == RETURN.FAIL) || (exitCode != 0 && tr.ret == RETURN.SUCCEED)) {
-            System.out.println("WARN: conflict exitCode = " + exitCode + " but tr.result = " + tr.ret);
+        
+        // skip updating test result from log with Cassandra
+        if (!tr.proj.equals("cassandra")) {
+            updateTestResult(testResultList);
+            // override result with cmd exit code
+            if ((exitCode == 0 && tr.ret == RETURN.FAIL) || (exitCode != 0 && tr.ret == RETURN.SUCCEED)) {
+                System.out.println("WARN: conflict exitCode = " + exitCode + " but tr.result = " + tr.ret);
+            }
         }
        
         // update test result

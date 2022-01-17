@@ -16,7 +16,7 @@ log_dts_dir="$ZEBRACONF_HOME"'/app_meta/logs'
 echo "log_dts_dir = $log_dts_dir"
 if [ "$save_log" == "true" ] && [ ! -d $log_dts_dir ]; then
     echo "$log_dts_dir not exisited"
-    exit -1
+    mkdir $log_dts_dir
 fi
 
 echo "the_test is $the_test"
@@ -24,7 +24,9 @@ echo "$verbose_enable" > $ZEBRACONF_HOME/app_meta/lib/enable
 
 # delete old log
 cassandra_dtest_log='/tmp/my_log.txt'
+cassandra_dtest_pid_log='/tmp/my_id.txt'
 rm $cassandra_dtest_log
+rm $cassandra_dtest_pid_log
 
 # run pytest
 cd $project_root_dir
