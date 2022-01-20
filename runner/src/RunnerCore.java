@@ -176,8 +176,8 @@ public class RunnerCore {
         String systemLogSavingDir = "";
 
         if (tr.proj.equals("cassandra")) {
-	    cloneLogFlag = "true";
-            systemLogSavingDir = "true";
+	    cloneLogFlag = "false";
+            systemLogSavingDir = "false";
         } else {
 	    cloneLogFlag = "false";
             systemLogSavingDir = "false";

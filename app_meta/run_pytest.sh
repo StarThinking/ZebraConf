@@ -24,13 +24,12 @@ echo "$verbose_enable" > $ZEBRACONF_HOME/app_meta/lib/enable
 
 # delete old log
 cassandra_dtest_log='/tmp/my_log.txt'
-cassandra_dtest_pid_log='/tmp/my_id.txt'
 rm $cassandra_dtest_log
-rm $cassandra_dtest_pid_log
+rm /tmp/my_*_id.txt
 
 # run pytest
 cd $project_root_dir
-pytest --log-cli-level=WARN --cassandra-dir=$cassadra_src_dir $the_test
+pytest --timeout=1200 --log-cli-level=WARN --cassandra-dir=$cassadra_src_dir $the_test
 rc=$?
 echo "[msx] rc = $rc"
 sleep 2
