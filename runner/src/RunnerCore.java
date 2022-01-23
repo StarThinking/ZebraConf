@@ -172,31 +172,32 @@ public class RunnerCore {
         int exitCode = -1;
         boolean isTimeout = false;
 	long startTime = 0, endTime = 0, totalTime = 0;
+        String verbose_enable = "";
         String cloneLogFlag = "";
-        String systemLogSavingDir = "";
 
         if (tr.proj.equals("cassandra")) {
 	    cloneLogFlag = "false";
-            systemLogSavingDir = "false";
+            verbose_enable = "false";
         } else {
 	    cloneLogFlag = "false";
-            systemLogSavingDir = "false";
+            verbose_enable = "false";
         }
         Process process = null;
-        //String systemLogSavingDir = "/root/reconf_test_gen/target";
+        //String verbose_enable = "/root/reconf_test_gen/target";
         ProcessBuilder builder = new ProcessBuilder();
         
         // temporarally direct to console
-        if (cloneLogFlag.equals("true") && tr.proj.equals("cassandra")) {
+        if (tr.proj.equals("cassandra")) { /*cloneLogFlag.equals("true")*/
             builder.redirectOutput(Redirect.INHERIT);
             builder.redirectError(Redirect.INHERIT);
         }
 
         if (tr.proj.equals("cassandra")) {
-            builder.command(systemRootDir + "/app_meta/run_pytest.sh", tr.proj, tr.u_test, systemLogSavingDir, cloneLogFlag);
+            builder.command(systemRootDir + "/app_meta/run_pytest.sh", tr.proj, tr.u_test, verbose_enable, cloneLogFlag);
         } else  {   
-            builder.command(systemRootDir + "/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, systemLogSavingDir, cloneLogFlag);
+            builder.command(systemRootDir + "/app_meta/run_mvn_test.sh", tr.proj, tr.u_test, verbose_enable, cloneLogFlag);
         }
+
 	// set start time
 	startTime = System.nanoTime();
         process = builder.start();

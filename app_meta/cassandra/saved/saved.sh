@@ -14,4 +14,7 @@ comm -23 parameters.txt complex_option.txt | while read i; do convert_key="$(ech
 cat cass_yaml_file.html | grep 'a class="anchor" href="#' | awk -F 'a class="anchor" href="#' '{print $2}' | awk -F '"' '{print $1}'
 
 # get certain type of parameters
-for i in $(cat parameters.txt); do grep " $i " ~/cassandra/src/java/org/apache/cassandra/config/Config.java | grep public | grep 'boolean\|Boolean'; done | awk -F ' = ' '{print $1}' | awk '{print $NF}'
+for i in $(cat parameters.txt); do grep " $i \| $i;" ~/cassandra/src/java/org/apache/cassandra/config/Config.java | grep public | grep ' int \| Integer '; done | awk -F ' = ' '{print $1}' | awk '{print $NF}' | awk -F ';' '{print $1}' > int.txt
+
+# check those remaining parameters
+comm -23 parameters.txt by_type_all.txt | while read i; do echo $i; grep " $i \| $i;" ~/cassandra/src/java/org/apache/cassandra/config/Config.java; echo ''; done
