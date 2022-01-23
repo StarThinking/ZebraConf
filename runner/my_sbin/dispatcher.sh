@@ -57,14 +57,14 @@ do
 
         echo ${entry_list[$entry_cursor]}
         force_fill
-        sleep 10
+        sleep 2
         
         IFS=$' '
         ~/vm_images/ZebraConf/runner/run_heter_conf_test.sh ${entry_list[$entry_cursor]}
 	IFS=$'\n'
 
         force_fill
-        sleep 10
+        sleep 2
         entry_cursor=$(( entry_cursor + 1 ))
     fi
 done

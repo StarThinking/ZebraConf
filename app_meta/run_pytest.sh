@@ -13,6 +13,13 @@ project_root_dir=$(cat "$ZEBRACONF_HOME"/app_meta/"$the_project"/project_root_di
 cassadra_src_dir='/users/masix/cassandra'
 
 log_dts_dir="$ZEBRACONF_HOME"'/app_meta/logs'
+timeout_value=1200
+
+function force_fill {
+    ps aux | grep -ie CassandraDaemon | grep java | awk '{print $2}' | xargs kill -9 &> /dev/null
+    jps | grep -v 'Jps' | grep -v 'HConfRunner' | awk '{print $1}' | xargs kill -9 &> /dev/null
+}
+
 echo "log_dts_dir = $log_dts_dir"
 if [ "$save_log" == "true" ] && [ ! -d $log_dts_dir ]; then
     echo "$log_dts_dir not exisited"
@@ -28,11 +35,14 @@ rm $cassandra_dtest_log
 rm /tmp/my_*_id.txt
 
 # run pytest
+force_fill
+sleep 10
 cd $project_root_dir
-pytest --timeout=1200 --log-cli-level=WARN --cassandra-dir=$cassadra_src_dir $the_test
+pytest --timeout=$timeout_value --log-cli-level=WARN --cassandra-dir=$cassadra_src_dir $the_test
 rc=$?
 echo "[msx] rc = $rc"
-sleep 2
+force_fill
+sleep 10
 
 # if save_log enabled, copy output log to dst directory
 if [ "$save_log" == "true" ]; then
