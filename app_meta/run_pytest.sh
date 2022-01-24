@@ -12,7 +12,7 @@ save_log=$4
 project_root_dir=$(cat "$ZEBRACONF_HOME"/app_meta/"$the_project"/project_root_dir.txt)
 cassadra_src_dir='/users/masix/cassandra'
 
-log_dts_dir="$ZEBRACONF_HOME"'/app_meta/logs'
+log_dst_dir="$ZEBRACONF_HOME"'/app_meta/logs'
 timeout_value=1200
 
 function force_fill {
@@ -20,10 +20,10 @@ function force_fill {
     jps | grep -v 'Jps' | grep -v 'HConfRunner' | awk '{print $1}' | xargs kill -9 &> /dev/null
 }
 
-echo "log_dts_dir = $log_dts_dir"
-if [ "$save_log" == "true" ] && [ ! -d $log_dts_dir ]; then
-    echo "$log_dts_dir not exisited"
-    mkdir $log_dts_dir
+echo "log_dst_dir = $log_dst_dir"
+if [ "$save_log" == "true" ] && [ ! -d $log_dst_dir ]; then
+    echo "$log_dst_dir not exisited"
+    mkdir $log_dst_dir
 fi
 
 echo "the_test is $the_test"
@@ -48,9 +48,10 @@ sleep 10
 if [ "$save_log" == "true" ]; then
     LOG_TIME="$(($(date +%s%N)/1000000))"
     my_random_name="$the_test"-output_"$LOG_TIME"_"$RANDOM$RANDOM"'.txt'
-    mv $cassandra_dtest_log $log_dts_dir/$my_random_name
+    echo "mv $cassandra_dtest_log $log_dst_dir/$my_random_name"
+    mv $cassandra_dtest_log $log_dst_dir/$my_random_name
     ## append rc
-    echo "rc $rc" >> $log_dts_dir/$my_random_name
+    echo "rc $rc" >> $log_dst_dir/$my_random_name
 fi
 
 # return exit code of pytest
