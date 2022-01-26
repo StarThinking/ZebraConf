@@ -1,0 +1,80 @@
+cassandra replace_address_test.py::TestReplaceAddress::test_restart_failed_replace_with_reset_resume_state false true
+log_dst_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is replace_address_test.py::TestReplaceAddress::test_restart_failed_replace_with_reset_resume_state
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python3
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+replace_address_test.py::TestReplaceAddress::test_restart_failed_replace_with_reset_resume_state 
+-------------------------------- live log call ---------------------------------
+23:06:24,958 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+23:07:13,113 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+23:07:13,114 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+23:07:14,98 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.3:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 402, in cassandra.pool.HostConnection.__init__
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:14,102 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+23:07:14,120 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 1.7 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:14,223 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 2.04 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:15,121 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 2.16 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:15,833 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 3.4 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:16,334 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 3.96 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:17,329 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 3.72 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:19,242 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 8.8 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:20,345 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 8.72 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:21,141 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 6.8 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:27,960 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 18.24 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:28,66 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 13.6 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:29,69 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 14.24 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:41,702 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 35.84 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:43,407 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 35.2 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:07:46,208 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 32.64 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:08:17,604 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 55.68 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:08:18,706 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 61.44 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:08:18,898 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 54.4 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:09:13,338 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 147.2 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:09:13,346 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 116.48 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:09:20,164 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 115.2 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+23:09:57,359 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+23:09:57,960 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+23:09:58,453 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+23:09:58,562 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.18 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:09:59,64 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.8 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:09:59,656 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.1 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:00,768 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:00,868 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.4 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:01,762 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.0 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:04,277 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 9.2 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:05,280 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.24 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:05,772 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:12,991 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 16.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:13,502 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 15.04 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:13,602 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 13.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:10:14,99 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+23:10:15,197 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.28 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:10:17,503 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 3.84 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:10:21,413 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 7.52 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_restart_failed_replace_with_reset_resume_state passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 258.54 seconds ==========================
+[msx] rc = 0
+mv /tmp/my_log.txt /users/masix/vm_images/ZebraConf/app_meta/logs/replace_address_test.py::TestReplaceAddress::test_restart_failed_replace_with_reset_resume_state-output_1643087432216_2350817476.txt

@@ -1,0 +1,69 @@
+cassandra replica_side_filtering_test.py::TestSecondaryIndexes::test_complementary_update_with_limit_and_rows_between false true
+log_dst_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is replica_side_filtering_test.py::TestSecondaryIndexes::test_complementary_update_with_limit_and_rows_between
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python3
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+replica_side_filtering_test.py::TestSecondaryIndexes::test_complementary_update_with_limit_and_rows_between 
+-------------------------------- live log call ---------------------------------
+23:44:25,418 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 402, in cassandra.pool.HostConnection.__init__
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:44:25,422 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+23:44:26,530 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.26 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:44:28,839 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.0 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:44:32,851 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.32 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:44:42,565 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 402, in cassandra.pool.HostConnection.__init__
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:44:42,567 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+23:44:43,722 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+23:44:43,724 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:44:43,774 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.02 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:44:44,930 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.92 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:44:45,881 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.68 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:44:46,937 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.4 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:44:49,592 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 9.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:44:51,349 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.24 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+23:44:55,417 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_complementary_update_with_limit_and_rows_between passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 60.58 seconds ===========================
+[msx] rc = 0
+mv /tmp/my_log.txt /users/masix/vm_images/ZebraConf/app_meta/logs/replica_side_filtering_test.py::TestSecondaryIndexes::test_complementary_update_with_limit_and_rows_between-output_1643089507100_304217442.txt

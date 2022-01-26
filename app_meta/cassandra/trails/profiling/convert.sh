@@ -12,8 +12,9 @@ gets=( "$(cat $log | grep $'zbGet')" )
 for get in ${gets[@]}
 do
     get_pid=$(echo "$get" | awk '{print $2}')
-    get_parameter=$(echo "$get" | awk '{print $3}')
-    get_value=$(echo "$get" | awk '{print $4}')
+    get_compoenet_id=$(echo "$get" | awk '{print $3}')
+    get_parameter=$(echo "$get" | awk '{print $4}')
+    get_value=$(echo "$get" | awk '{print $5}')
     component_type=0
     daemon_id=0
     client_id=0
@@ -47,10 +48,13 @@ do
     done
     
     if [ $component_type -eq 1 ]; then
+        #echo "$get_parameter Daemon.$daemon_id $get_compoenet_id $get_value"
         echo "$get_parameter Daemon.$daemon_id $get_value"
     elif [ $component_type -eq 2 ]; then
+        #echo "$get_parameter Client.$client_id $get_compoenet_id $get_value"
         echo "$get_parameter Client.$client_id $get_value"
     elif [ $component_type -eq 3 ]; then
+        #echo "$get_parameter Tool.$tool_id $get_compoenet_id $get_value"
         echo "$get_parameter Tool.$tool_id $get_value"
     else
         echo "ERROR: cannot identify $get_pid"

@@ -1,0 +1,68 @@
+cassandra materialized_views_test.py::TestMaterializedViews::test_view_tombstone false true
+log_dst_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is materialized_views_test.py::TestMaterializedViews::test_view_tombstone
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python3
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+materialized_views_test.py::TestMaterializedViews::test_view_tombstone 
+-------------------------------- live log call ---------------------------------
+23:33:26,305 cassandra.protocol WARNING Server warning: Materialized views are experimental and are not recommended for production use.
+23:33:28,806 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:30,412 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:32,70 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:33,490 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:34,916 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:36,364 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:37,816 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:39,237 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:40,648 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:40,694 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+23:33:41,803 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.92 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:33:43,811 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.36 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:33:48,224 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 8.8 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:33:50,156 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:51,618 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+23:33:57,54 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 14.88 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:34:00,381 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+23:34:00,382 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:34:01,588 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:34:03,393 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.12 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:34:04,898 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+23:34:04,899 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/users/masix/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:34:05,904 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.14 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_view_tombstone passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 66.08 seconds ===========================
+[msx] rc = 0
+mv /tmp/my_log.txt /users/masix/vm_images/ZebraConf/app_meta/logs/materialized_views_test.py::TestMaterializedViews::test_view_tombstone-output_1643088859076_33061697.txt
