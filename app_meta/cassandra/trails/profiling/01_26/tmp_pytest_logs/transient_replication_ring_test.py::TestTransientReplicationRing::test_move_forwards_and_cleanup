@@ -1,0 +1,31 @@
+cassandra transient_replication_ring_test.py::TestTransientReplicationRing::test_move_forwards_and_cleanup false true
+log_dst_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_ring_test.py::TestTransientReplicationRing::test_move_forwards_and_cleanup
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python3
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_ring_test.py::TestTransientReplicationRing::test_move_forwards_and_cleanup 
+-------------------------------- live log call ---------------------------------
+23:18:30,49 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+23:18:31,58 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.18 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:18:33,266 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.32 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:18:37,679 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 9.2 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+23:18:46,908 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 13.92 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_move_forwards_and_cleanup passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 188.67 seconds ==========================
+[msx] rc = 0
+mv /tmp/my_log.txt /users/masix/vm_images/ZebraConf/app_meta/logs/transient_replication_ring_test.py::TestTransientReplicationRing::test_move_forwards_and_cleanup-output_1643174410773_1773316511.txt

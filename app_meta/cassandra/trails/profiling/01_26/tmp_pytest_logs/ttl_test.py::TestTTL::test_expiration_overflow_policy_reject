@@ -1,0 +1,31 @@
+cassandra ttl_test.py::TestTTL::test_expiration_overflow_policy_reject false true
+log_dst_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is ttl_test.py::TestTTL::test_expiration_overflow_policy_reject
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python3
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+ttl_test.py::TestTTL::test_expiration_overflow_policy_reject 
+-------------------------------- live log call ---------------------------------
+22:07:28,7 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+22:07:29,214 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.16 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:07:31,420 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.28 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:07:35,741 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 6.8 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+22:07:43,101 cassandra.protocol WARNING Server warning: Aggregation query used without partition key
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_expiration_overflow_policy_reject passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 23.83 seconds ===========================
+[msx] rc = 0
+mv /tmp/my_log.txt /users/masix/vm_images/ZebraConf/app_meta/logs/ttl_test.py::TestTTL::test_expiration_overflow_policy_reject-output_1643170073788_2002111759.txt

@@ -4,9 +4,9 @@
 IFS=$'\n'
 log=$1
 
-daemon_pids=( $(cat $log | grep $'init daemon ' | awk '{print $NF}') )
-client_pids=( $(cat $log | grep $'init client ' | awk '{print $NF}') )
-tool_pids=( $(cat $log | grep $'init tool ' | awk '{print $NF}') )
+daemon_pids=( $(cat $log | grep $'init CassandraDaemon ' | awk '{print $NF}') )
+client_pids=( $(cat $log | grep $'init Client ' | awk '{print $NF}') )
+tool_pids=( $(cat $log | grep $'init Tool ' | awk '{print $NF}') )
 gets=( "$(cat $log | grep $'zbGet')" )
 
 for get in ${gets[@]}
@@ -48,14 +48,14 @@ do
     done
     
     if [ $component_type -eq 1 ]; then
-        #echo "$get_parameter Daemon.$daemon_id $get_compoenet_id $get_value"
-        echo "$get_parameter Daemon.$daemon_id $get_value"
+        echo "$get_parameter CassandraDaemon.$daemon_id $get_compoenet_id $get_value"
+        #echo "$get_parameter Daemon.$daemon_id $get_value"
     elif [ $component_type -eq 2 ]; then
-        #echo "$get_parameter Client.$client_id $get_compoenet_id $get_value"
-        echo "$get_parameter Client.$client_id $get_value"
+        echo "$get_parameter Client.$client_id $get_compoenet_id $get_value"
+        #echo "$get_parameter Client.$client_id $get_value"
     elif [ $component_type -eq 3 ]; then
-        #echo "$get_parameter Tool.$tool_id $get_compoenet_id $get_value"
-        echo "$get_parameter Tool.$tool_id $get_value"
+        echo "$get_parameter Tool.$tool_id $get_compoenet_id $get_value"
+        #echo "$get_parameter Tool.$tool_id $get_value"
     else
         echo "ERROR: cannot identify $get_pid"
     fi

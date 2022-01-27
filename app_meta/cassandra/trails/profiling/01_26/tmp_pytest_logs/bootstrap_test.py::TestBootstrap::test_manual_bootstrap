@@ -1,0 +1,52 @@
+cassandra bootstrap_test.py::TestBootstrap::test_manual_bootstrap false true
+log_dst_dir = /users/masix/vm_images/ZebraConf/app_meta/logs
+the_test is bootstrap_test.py::TestBootstrap::test_manual_bootstrap
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /users/masix/dtest/bin/python3
+cachedir: .pytest_cache
+rootdir: /users/masix/cassandra-dtest, inifile: pytest.ini
+plugins: timeout-1.4.2, repeat-0.9.1, flaky-3.7.0
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+bootstrap_test.py::TestBootstrap::test_manual_bootstrap PASSED           [100%]
+===Flaky Test Report===
+
+test_manual_bootstrap failed (1 runs remaining out of 2).
+	<class 'ccmlib.node.ToolError'>
+	Subprocess ['nodetool', '-h', 'localhost', '-p', '7300', 'repair'] exited with non-zero status; exit status: 2; 
+stdout: [2022-01-25 21:31:55,639] Starting repair command #1 (e46fdfe0-7e60-11ec-bcfb-79208de00472), repairing keyspace keyspace1 with repair options (parallelism: parallel, primary range: false, incremental: true, job threads: 1, ColumnFamilies: [], dataCenters: [], hosts: [], previewKind: NONE, # of ranges: 2, pull repair: false, force repair: false, optimise streams: false, ignore unreplicated keyspaces: false)
+Exception occurred during clean-up. java.lang.reflect.UndeclaredThrowableException
+Cassandra has shutdown.
+; 
+stderr: error: [2022-01-25 21:32:00,943] JMX connection closed. You should check server log for repair status of keyspace keyspace1(Subsequent keyspaces are not going to be repaired).
+-- StackTrace --
+java.io.IOException: [2022-01-25 21:32:00,943] JMX connection closed. You should check server log for repair status of keyspace keyspace1(Subsequent keyspaces are not going to be repaired).
+	at org.apache.cassandra.tools.RepairRunner.handleConnectionFailed(RepairRunner.java:115)
+	at org.apache.cassandra.utils.progress.jmx.JMXNotificationProgressListener.handleNotification(JMXNotificationProgressListener.java:86)
+	at javax.management.NotificationBroadcasterSupport.handleNotification(NotificationBroadcasterSupport.java:275)
+	at javax.management.NotificationBroadcasterSupport$SendNotifJob.run(NotificationBroadcasterSupport.java:352)
+	at javax.management.NotificationBroadcasterSupport$1.execute(NotificationBroadcasterSupport.java:337)
+	at javax.management.NotificationBroadcasterSupport.sendNotification(NotificationBroadcasterSupport.java:248)
+	at javax.management.remote.rmi.RMIConnector.sendNotification(RMIConnector.java:441)
+	at javax.management.remote.rmi.RMIConnector.access$1200(RMIConnector.java:121)
+	at javax.management.remote.rmi.RMIConnector$RMIClientCommunicatorAdmin.gotIOException(RMIConnector.java:1531)
+	at javax.management.remote.rmi.RMIConnector$RMINotifClient.fetchNotifs(RMIConnector.java:1352)
+	at com.sun.jmx.remote.internal.ClientNotifForwarder$NotifFetcher.fetchOneNotif(ClientNotifForwarder.java:655)
+	at com.sun.jmx.remote.internal.ClientNotifForwarder$NotifFetcher.fetchNotifs(ClientNotifForwarder.java:607)
+	at com.sun.jmx.remote.internal.ClientNotifForwarder$NotifFetcher.doRun(ClientNotifForwarder.java:471)
+	at com.sun.jmx.remote.internal.ClientNotifForwarder$NotifFetcher.run(ClientNotifForwarder.java:452)
+	at com.sun.jmx.remote.internal.ClientNotifForwarder$LinearExecutor$1.run(ClientNotifForwarder.java:108)
+
+
+	[<TracebackEntry /users/masix/cassandra-dtest/bootstrap_test.py:519>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/node.py:1549>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/node.py:1005>, <TracebackEntry /users/masix/dtest/lib/python3.6/site-packages/ccmlib/node.py:2305>]
+test_manual_bootstrap passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 141.32 seconds ==========================
+[msx] rc = 0
+mv /tmp/my_log.txt /users/masix/vm_images/ZebraConf/app_meta/logs/bootstrap_test.py::TestBootstrap::test_manual_bootstrap-output_1643171602621_624427864.txt
