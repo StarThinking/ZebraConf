@@ -16,7 +16,7 @@ log_dst_dir="$ZEBRACONF_HOME"'/app_meta/logs'
 timeout_value=1200
 
 function force_fill {
-    ps aux | grep -ie CassandraDaemon | grep java | awk '{print $2}' | xargs kill -9 &> /dev/null
+    ps aux | grep -ie CassandraDaemon | grep java | grep -v 'HConfRunner' | awk '{print $2}' | xargs kill -9 &> /dev/null
     jps | grep -v 'Jps' | grep -v 'HConfRunner' | awk '{print $1}' | xargs kill -9 &> /dev/null
 }
 

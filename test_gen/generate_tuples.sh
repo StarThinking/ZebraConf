@@ -63,7 +63,7 @@ done
 # for check
 #exit 0
 
-final_root_dir='/users/masix/vm_images/ZebraConf/app_meta/cassandra/prerun'
+final_root_dir='/users/masix/vm_images/ZebraConf/app_meta/cassandra/profiling/01_26/prerun/'
 unable_id_suffix="unidentifiable"
 unable_id=0
 
@@ -100,7 +100,7 @@ do
         #echo ""
         
 	#value_used=( $(cat $log | grep ^"$parameter " | awk '{print $3}' | sort -u | grep -v null | head -n 1) )       
-	value_used=( $(cat $log | grep ^"$parameter " | awk '{print $3}' | sort -u | head -n 1) )       
+	value_used=( $(cat $log | grep ^"$parameter " | awk '{print $3}' | sort -u | tail -n 1) )       
 	
 	# let the index-1 value be the default value, if the used value is invalid
 	if [[ "$value_used" == *'Ljava.lang.String'* ]]; then 
