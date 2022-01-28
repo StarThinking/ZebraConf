@@ -100,8 +100,8 @@ do
         #echo ""
         
 	#value_used=( $(cat $log | grep ^"$parameter " | awk '{print $3}' | sort -u | grep -v null | head -n 1) )       
-	value_used=( $(cat $log | grep ^"$parameter " | awk '{print $3}' | sort -u | tail -n 1) )       
-	
+	value_used=( $(cat $log | grep ^"$parameter " | awk '{print $3}' | tail -n 1) )       
+
 	# let the index-1 value be the default value, if the used value is invalid
 	if [[ "$value_used" == *'Ljava.lang.String'* ]]; then 
 	    v_list[0]="${v_list[1]}"
