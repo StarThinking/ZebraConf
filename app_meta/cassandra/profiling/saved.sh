@@ -4,4 +4,5 @@ for i in *; do echo $i; ~/vm_images/ZebraConf/app_meta/cassandra/trails/profilin
 # do convert to generate prerun data (do not do sort -u, as we need to know the order for values of 'component.id, para')
 for i in *; do mypath="$(echo $i | awk -F '-output' '{print $1}')-ultimate-meta.txt"; ../../convert.sh $i | awk '{print $1" "$2" "$3}' | sed -r '/^\s*$/d'  >  ../cassandra/ultimate/$mypath; done
 
-pids=(); for p in $(cat ../app_meta/cassandra/parameter/boolean.txt ); do ./generate_tuples.sh $p > ~/testing_tuples/boolean/"$p".txt & pids+=($!); done; for id in ${pids[@]}; do wait $id; echo "$id done"; done
+# generate tuples
+pids=(); for p in $(comm -23 ../app_meta/cassandra/parameter/current_all.txt  ../app_meta/cassandra/parameter/no_interested.txt); do ./generate_tuples.sh $p > ~/testing_tuples/"$p".txt & pids+=($!); done; for id in ${pids[@]}; do wait $id; echo "$id done"; done
