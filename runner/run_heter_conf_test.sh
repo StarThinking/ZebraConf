@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ~/.profile
+
 if [ $# -lt 3 ]; then
     echo "./run_heter_conf_test.sh [suite] [u_test] [[para@@@component@@@point@@@v1@@@v2]%%%[...]]"
     exit -1

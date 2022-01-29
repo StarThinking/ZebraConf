@@ -1,13 +1,14 @@
 #!/bin/bash
 
+source ~/.profile
+
 if [ $# -ne 0 ]; then echo 'ERROR: ./dispatcher.sh'; exit -1; fi
 
 IFS=$'\n' 
-entry_list=( $(cat ~/vm_images/ZebraConf/runner/task.txt) )
+entry_list=( $(cat "$ZEBRACONF_HOME"/runner/task.txt) )
 entry_list_length=${#entry_list[@]}
 entry_cursor=0
 echo "task size = $entry_list_length"
-cmd='echo ~/vm_images/ZebraConf/runner/run_heter_conf_test.sh ${entry_list[$entry_cursor]}'
 
 function is_busy {
     daemon_num=$(ps aux | grep -ie CassandraDaemon | grep java | wc -l)
@@ -60,7 +61,7 @@ do
         sleep 2
         
         IFS=$' '
-        ~/vm_images/ZebraConf/runner/run_heter_conf_test.sh ${entry_list[$entry_cursor]}
+        "$ZEBRACONF_HOME"/runner/run_heter_conf_test.sh ${entry_list[$entry_cursor]}
 	IFS=$'\n'
 
         force_fill
