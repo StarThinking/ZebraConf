@@ -10,7 +10,7 @@ verbose_enable=$3
 save_log=$4
 
 project_root_dir=$(cat "$ZEBRACONF_HOME"/app_meta/"$the_project"/project_root_dir.txt)
-cassadra_src_dir='/home/masix/cassandra'
+cassadra_src_dir='/root/cassandra'
 
 log_dst_dir="$ZEBRACONF_HOME"'/app_meta/logs'
 timeout_value=1200
