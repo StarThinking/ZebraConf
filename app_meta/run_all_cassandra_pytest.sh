@@ -1,3 +1,12 @@
 #!/bin/bash
 
-for test in $(cat $1); do echo $test; time ./run_pytest.sh cassandra $test false true &> tmp_pytest_logs/$test; done
+source ~/.profile
+
+rm -rf "$ZEBRACONF_HOME"/app_meta/tmp_pytest_logs 
+mkdir "$ZEBRACONF_HOME"/app_meta/tmp_pytest_logs 
+
+for test in $(cat "$ZEBRACONF_HOME"/runner/task.txt)
+do
+    echo $test
+    time "$ZEBRACONF_HOME"/app_meta/run_pytest.sh cassandra $test false true &> "$ZEBRACONF_HOME"/app_meta/tmp_pytest_logs/$test
+done
