@@ -4,6 +4,7 @@ source ~/.profile
 
 rm -rf "$ZEBRACONF_HOME"/app_meta/tmp_pytest_logs 
 mkdir "$ZEBRACONF_HOME"/app_meta/tmp_pytest_logs 
+echo none > "$ZEBRACONF_HOME"/runner/shared/reconf_vvmode
 
 for test in $(cat "$ZEBRACONF_HOME"/runner/task.txt)
 do
