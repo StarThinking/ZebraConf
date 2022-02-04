@@ -10,6 +10,7 @@ yarn_proj_tests=( $(cat $base_dir/yarn/about_test/CORRECT_TESTS.txt))
 mapreduce_proj_tests=( $(cat $base_dir/mapreduce/about_test/CORRECT_TESTS.txt)) 
 hadoop_tools_proj_tests=( $(cat $base_dir/hadoop-tools/about_test/CORRECT_TESTS.txt)) 
 flink_proj_tests=( $(cat $base_dir/flink/about_test/CORRECT_TESTS.txt)) 
+cassandra_proj_tests=( $(cat $base_dir/cassandra/test_suite/all_test_func_level.txt)) 
 echo "---tests used in a proj(unit test suite)---"
 echo "# of hdfs_proj_tests: ${#hdfs_proj_tests[@]}"
 echo "# of hbase_proj_tests: ${#hbase_proj_tests[@]}"
@@ -17,6 +18,7 @@ echo "# of yarn_proj_tests: ${#yarn_proj_tests[@]}"
 echo "# of mapreduce_proj_tests: ${#mapreduce_proj_tests[@]}"
 echo "# of hadoop_tools_proj_tests: ${#hadoop_tools_proj_tests[@]}"
 echo "# of flink_proj_tests: ${#flink_proj_tests[@]}"
+echo "# of cassandra_proj_tests: ${#cassandra_proj_tests[@]}"
 echo ""
 
 # application specific parameters
@@ -25,6 +27,7 @@ hbase_specific_paras=( $(cat $base_dir/hbase/all_parameters.txt) )
 yarn_specific_paras=( $(cat $base_dir/yarn/all_parameters.txt) )
 mapreduce_specific_paras=( $(cat $base_dir/mapreduce/all_parameters.txt) )
 flink_specific_paras=( $(cat $base_dir/flink/all_parameters.txt) )
+cassandra_specific_paras=( $(cat $base_dir/cassandra/parameter/parameters.txt) )
 common_specific_paras=( $(cat $base_dir/hadoop-common/all_parameters_xml.txt) )
 echo "---application specific parameters---"
 echo "# of hdfs_specific_paras: ${#hdfs_specific_paras[@]}"
@@ -32,6 +35,7 @@ echo "# of hbase_specific_paras: ${#hbase_specific_paras[@]}"
 echo "# of yarn_specific_paras: ${#yarn_specific_paras[@]}"
 echo "# of mapreduce_specific_paras: ${#mapreduce_specific_paras[@]}"
 echo "# of flink_specific_paras: ${#flink_specific_paras[@]}"
+echo "# of cassandra_specific_paras: ${#cassandra_specific_paras[@]}"
 echo ""
 
 # application specific nodes
@@ -40,12 +44,14 @@ hbase_specific_nodes=('HRegionServer' 'HMaster' 'RESTServer' 'ThriftServer')
 yarn_specific_nodes=('ResourceManager' 'NodeManager' 'ApplicationHistoryServer')
 mapreduce_specific_nodes=('MapTaskRun' 'ReduceTaskRun' 'JobHistoryServer')
 flink_specific_nodes=('TaskManager' 'JobManager')
+cassandra_specific_nodes=('CassandraDaemon' 'Client' 'Tool')
 echo "---application specific nodes---"
 echo "# of hdfs_specific_nodes: ${#hdfs_specific_nodes[@]}"
 echo "# of hbase_specific_nodes: ${#hbase_specific_nodes[@]}"
 echo "# of yarn_specific_nodes: ${#yarn_specific_nodes[@]}"
 echo "# of mapreduce_specific_nodes: ${#mapreduce_specific_nodes[@]}"
 echo "# of flink_specific_nodes: ${#flink_specific_nodes[@]}"
+echo "# of cassandra_specific_nodes: ${#cassandra_specific_nodes[@]}"
 echo ""
 
 # parameters involved in project
@@ -61,6 +67,7 @@ mapreduce_proj_paras=( $(echo ${hdfs_specific_paras[@]} ${common_specific_paras[
 hadoop_tools_proj_paras=( $(echo ${hdfs_specific_paras[@]} ${common_specific_paras[@]} ${yarn_specific_paras[@]} ${mapreduce_specific_paras[@]} | tr ' ' '\n' | sort -u) )
 # flink = all
 flink_proj_paras=( $(echo ${hdfs_specific_paras[@]} ${common_specific_paras[@]} ${yarn_specific_paras[@]} ${mapreduce_specific_paras[@]} ${hbase_specific_paras[@]} ${flink_specific_paras[@]} | tr ' ' '\n' | sort -u) )
+cassandra_proj_paras=( $(echo ${cassandra_specific_paras[@]} | tr ' ' '\n' | sort -u) )
 
 echo "---parameters used in a proj(unit test suite)---"
 echo "hdfs_proj_paras = ${#hdfs_proj_paras[@]}"
@@ -69,6 +76,7 @@ echo "yarn_proj_paras = ${#yarn_proj_paras[@]}"
 echo "mapreduce_proj_paras = ${#mapreduce_proj_paras[@]}"
 echo "hadoop_tools_proj_paras = ${#hadoop_tools_proj_paras[@]}"
 echo "flink_proj_paras = ${#flink_proj_paras[@]}"
+echo "cassandra_proj_paras = ${#cassandra_proj_paras[@]}"
 echo ""
 
 # nodes involved in project
@@ -84,6 +92,7 @@ mapreduce_proj_nodes=( $(echo ${hdfs_specific_nodes[@]} ${yarn_specific_nodes[@]
 hadoop_tools_proj_nodes=( $(echo ${hdfs_specific_nodes[@]} ${yarn_specific_nodes[@]} ${mapreduce_specific_nodes[@]} | tr ' ' '\n' | sort -u) )
 # flink = all
 flink_proj_nodes=( $(echo ${hdfs_specific_nodes[@]} ${yarn_specific_nodes[@]} ${mapreduce_specific_nodes[@]} ${hbase_specific_nodes[@]} ${flink_specific_nodes[@]}| tr ' ' '\n' | sort -u) )
+cassandra_proj_nodes=( $(echo ${cassandra_specific_nodes[@]} | tr ' ' '\n' | sort -u) )
 
 echo "---nodes used in a proj(unit test suite)---"
 echo "hdfs_proj_nodes = ${#hdfs_proj_nodes[@]}"
@@ -92,14 +101,16 @@ echo "yarn_proj_nodes = ${#yarn_proj_nodes[@]}"
 echo "mapreduce_proj_nodes = ${#mapreduce_proj_nodes[@]}"
 echo "hadoop_tools_proj_nodes = ${#hadoop_tools_proj_nodes[@]}"
 echo "flink_proj_nodes = ${#flink_proj_nodes[@]}"
+echo "cassandra_proj_nodes = ${#cassandra_proj_nodes[@]}"
 echo ""
 
 # start calculate
 v2_assign_combination=3
 echo "v2_assign_combination constabt is 3"
-para_value_list_dir=/root/vm_images/ZebraConf/test_gen/para_value_list/
+para_value_list_dir=/root/vm_images/ZebraConf/app_meta/cassandra/para_value_list
 
-for my_project in hdfs hbase yarn mapreduce hadoop_tools flink
+#for my_project in hdfs hbase yarn mapreduce hadoop_tools flink
+for my_project in cassandra
 do
     echo ">>>>>> calculating testing tuples for $my_project:"
     sum_of_v_pairs_num=0

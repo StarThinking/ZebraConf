@@ -21,7 +21,7 @@ if [ $# -ne 1 ]; then echo 'wrong: [parameter]'; exit -1; fi
 parameter=$1
 
 max_line=1 # default, the first line
-para_value_list_dir='/users/masix/vm_images/ZebraConf/app_meta/cassandra/para_value_list'
+para_value_list_dir='/root/vm_images/ZebraConf/app_meta/cassandra/para_value_list'
 function find_max_value_line {
     #para_value_list_dir='/root/data_store_sdb/hconf_result_fse/para_value_list'
     local pv_line_num=$(grep -r ^"$parameter " $para_value_list_dir | wc -l)
@@ -63,7 +63,7 @@ done
 # for check
 #exit 0
 
-final_root_dir='/users/masix/vm_images/ZebraConf/app_meta/cassandra/profiling/01_26/prerun/'
+final_root_dir='/root/vm_images/ZebraConf/app_meta/cassandra/profiling/01_26/prerun/'
 unable_id_suffix="unidentifiable"
 unable_id=0
 

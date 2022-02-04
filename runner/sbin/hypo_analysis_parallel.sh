@@ -1,14 +1,17 @@
 #!/bin/bash
 
+source ~/.profile
+
 if [ $# -ne 2 ]; then
     echo "./hypo_analysis.sh [file_prefix] [cf]..."
     exit -1
 fi
 
-classpath=/root/parameter_test_controller/target/:/root/parameter_test_controller/src/lib/commons-math3-3.6.1.jar
+classpath="$ZEBRACONF_HOME"/runner/target/:"$ZEBRACONF_HOME"/runner/lib/commons-math3-3.6.1.jar
 
 prefix=$1
-hypo_files=$(find /root/parameter_test_controller/target/ -name *"_hypothesis_"* | grep -F "$prefix")
+cf=$2
+hypo_files=$(find /proj/postman-PG0/masix/pytest/run_01_30/single_hypo/ -name *"_hypothesis_"* | grep -F "$prefix")
 
 sum_v1v2_num=0
 sum_v1v2_failed=0
@@ -37,7 +40,6 @@ if [ $sum_v1v1v2v2_failed -gt $sum_v1v2_failed ]; then
     exit 0;
 fi
 
-cf=$2
 output=$(java -cp $classpath HypoAnalysis $sum_v1v2_num $sum_v1v2_failed $sum_v1v1v2v2_num $sum_v1v1v2v2_failed $cf)
 echo $output
 #if [ "$output" == "null_hypothesis is false" ]; then
