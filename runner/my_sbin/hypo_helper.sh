@@ -26,6 +26,7 @@ cd $result_dir
 for i in *
 do 
     p_and_c="$($extract $i 'para')@@@$($extract $i 'comp')"
+    echo "$p_and_c"
     if [ ! -d $p_and_c ]; then 
 	mkdir $p_and_c
     fi
