@@ -1,0 +1,36 @@
+mesg: ttyname failed: Inappropriate ioctl for device
+cassandra rebuild_test.py::TestRebuild::test_rebuild_ranges false true
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is rebuild_test.py::TestRebuild::test_rebuild_ranges
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+rebuild_test.py::TestRebuild::test_rebuild_ranges 
+-------------------------------- live log call ---------------------------------
+10:23:32,594 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+10:23:33,171 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+10:23:39,53 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+10:23:40,260 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.96 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:23:42,266 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.2 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:23:46,476 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.84 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:23:54,396 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 17.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:24:12,242 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 29.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+10:24:42,20 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 57.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_rebuild_ranges passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 170.21 seconds ==========================
+[msx] rc = 0
+mv /tmp/my_log.txt /root/vm_images/ZebraConf/app_meta/logs/rebuild_test.py::TestRebuild::test_rebuild_ranges-output_1644056701037_1529219658.txt

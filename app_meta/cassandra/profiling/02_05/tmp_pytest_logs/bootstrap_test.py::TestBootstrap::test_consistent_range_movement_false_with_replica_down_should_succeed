@@ -1,0 +1,35 @@
+mesg: ttyname failed: Inappropriate ioctl for device
+cassandra bootstrap_test.py::TestBootstrap::test_consistent_range_movement_false_with_replica_down_should_succeed false true
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is bootstrap_test.py::TestBootstrap::test_consistent_range_movement_false_with_replica_down_should_succeed
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+bootstrap_test.py::TestBootstrap::test_consistent_range_movement_false_with_replica_down_should_succeed 
+-------------------------------- live log call ---------------------------------
+08:51:51,467 cassandra.protocol WARNING Server warning: When increasing replication factor you need to run a full (-full) repair to distribute the data.
+08:51:51,945 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+08:51:53,68 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.24 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:51:55,376 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.32 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:51:59,790 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 7.52 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:52:07,334 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 14.88 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:52:22,277 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 31.36 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:52:53,663 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 66.56 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_consistent_range_movement_false_with_replica_down_should_succeed passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 106.30 seconds ==========================
+[msx] rc = 0
+mv /tmp/my_log.txt /root/vm_images/ZebraConf/app_meta/logs/bootstrap_test.py::TestBootstrap::test_consistent_range_movement_false_with_replica_down_should_succeed-output_1644051193527_139414094.txt

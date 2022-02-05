@@ -1,0 +1,31 @@
+mesg: ttyname failed: Inappropriate ioctl for device
+cassandra nodetool_test.py::TestNodetool::test_describecluster_more_information_three_datacenters false true
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is nodetool_test.py::TestNodetool::test_describecluster_more_information_three_datacenters
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+nodetool_test.py::TestNodetool::test_describecluster_more_information_three_datacenters 
+-------------------------------- live log call ---------------------------------
+08:54:20,691 cassandra.protocol WARNING Server warning: Your replication factor 5 for keyspace ks1 is higher than the number of nodes 2 for datacenter dc2
+08:54:20,693 cassandra.protocol WARNING Server warning: Your replication factor 3 for keyspace ks1 is higher than the number of nodes 1 for datacenter dc1
+08:54:21,973 cassandra.protocol WARNING Server warning: Your replication factor 5 for keyspace ks2 is higher than the number of nodes 2 for datacenter dc2
+08:54:21,974 cassandra.protocol WARNING Server warning: Your replication factor 3 for keyspace ks2 is higher than the number of nodes 1 for datacenter dc1
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_describecluster_more_information_three_datacenters passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 33.65 seconds ===========================
+[msx] rc = 0
+mv /tmp/my_log.txt /root/vm_images/ZebraConf/app_meta/logs/nodetool_test.py::TestNodetool::test_describecluster_more_information_three_datacenters-output_1644051281699_2995632256.txt

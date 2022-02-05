@@ -1,0 +1,31 @@
+mesg: ttyname failed: Inappropriate ioctl for device
+cassandra batch_test.py::TestBatch::test_acknowledged_by_batchlog_not_set_when_batchlog_write_fails false true
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is batch_test.py::TestBatch::test_acknowledged_by_batchlog_not_set_when_batchlog_write_fails
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+batch_test.py::TestBatch::test_acknowledged_by_batchlog_not_set_when_batchlog_write_fails 
+-------------------------------- live log call ---------------------------------
+08:27:01,488 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+08:27:01,489 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+08:27:02,495 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 1.92 seconds: [Errno 111] Tried connecting to [('127.0.0.2', 9042)]. Last error: Connection refused
+08:27:02,496 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.3:9042, scheduling retry in 2.02 seconds: [Errno 111] Tried connecting to [('127.0.0.3', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_acknowledged_by_batchlog_not_set_when_batchlog_write_fails passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 42.08 seconds ===========================
+[msx] rc = 0
+mv /tmp/my_log.txt /root/vm_images/ZebraConf/app_meta/logs/batch_test.py::TestBatch::test_acknowledged_by_batchlog_not_set_when_batchlog_write_fails-output_1644049634579_552330177.txt

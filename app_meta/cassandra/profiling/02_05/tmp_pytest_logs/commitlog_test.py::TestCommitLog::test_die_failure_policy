@@ -1,0 +1,72 @@
+mesg: ttyname failed: Inappropriate ioctl for device
+cassandra commitlog_test.py::TestCommitLog::test_die_failure_policy false true
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is commitlog_test.py::TestCommitLog::test_die_failure_policy
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+commitlog_test.py::TestCommitLog::test_die_failure_policy FAILED         [100%]
+
+=================================== FAILURES ===================================
+____________________ TestCommitLog.test_die_failure_policy _____________________
+
+self = <commitlog_test.TestCommitLog object at 0x7f38e4096a58>
+
+    def test_die_failure_policy(self):
+        """
+            Test the die commitlog failure policy
+            """
+        self.prepare(configuration={
+            'commit_failure_policy': 'die'
+        })
+    
+        self._provoke_commitlog_failure()
+        failure = self.node1.grep_log(r"ERROR \[COMMIT-LOG-ALLOCATOR\].+JVM state determined to be unstable.  Exiting forcefully")
+        logger.debug(failure)
+>       assert failure, "Cannot find the commitlog failure message in logs"
+E       AssertionError: Cannot find the commitlog failure message in logs
+E       assert []
+
+commitlog_test.py:384: AssertionError
+---------------------------- Captured stdout setup -----------------------------
+09:53:58,816 ccm DEBUG Log-watching thread starting.
+09:53:58,821 ccm DEBUG using balanced tokens for non-vnode cluster
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+09:53:58,560 conftest INFO Starting execution of test_die_failure_policy at 2022-02-05 09:53:58.560902
+09:53:58,720 dtest_setup INFO cluster ccm directory: /tmp/dtest-dntvv6fj
+----------------------------- Captured stdout call -----------------------------
+09:53:59,696 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '04a42001b39f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '3', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'commitlog_test.py::TestCommitLog::()::test_die_failure_policy (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-dntvv6fj/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-dntvv6fj/test/node1/conf'}
+09:53:59,697 ccm INFO node1: using Java 8 for the current invocation
+09:53:59,916 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '04a42001b39f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '3', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'commitlog_test.py::TestCommitLog::()::test_die_failure_policy (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-dntvv6fj/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-dntvv6fj/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+09:53:59,917 ccm INFO node1: using Java 8 for the current invocation
+09:54:00,24 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+09:53:59,696 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '04a42001b39f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '3', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'commitlog_test.py::TestCommitLog::()::test_die_failure_policy (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-dntvv6fj/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-dntvv6fj/test/node1/conf'}
+09:53:59,697 ccm INFO node1: using Java 8 for the current invocation
+09:53:59,916 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '04a42001b39f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '3', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'commitlog_test.py::TestCommitLog::()::test_die_failure_policy (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-dntvv6fj/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-dntvv6fj/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+09:53:59,917 ccm INFO node1: using Java 8 for the current invocation
+09:54:00,24 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+09:55:27,285 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_die_failure_policy failed and was not selected for rerun.
+	<class 'AssertionError'>
+	Cannot find the commitlog failure message in logs
+assert []
+	[<TracebackEntry /root/cassandra-dtest/commitlog_test.py:384>]
+
+===End Flaky Test Report===
+========================== 1 failed in 92.61 seconds ===========================
+[msx] rc = 1
+mv /tmp/my_log.txt /root/vm_images/ZebraConf/app_meta/logs/commitlog_test.py::TestCommitLog::test_die_failure_policy-output_1644054941069_1541611987.txt

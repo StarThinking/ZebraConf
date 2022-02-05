@@ -1,0 +1,30 @@
+mesg: ttyname failed: Inappropriate ioctl for device
+cassandra paxos_test.py::TestPaxos::test_contention_many_threads false true
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is paxos_test.py::TestPaxos::test_contention_many_threads
+rm: cannot remove '/tmp/my_log.txt': No such file or directory
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+paxos_test.py::TestPaxos::test_contention_many_threads 
+-------------------------------- live log call ---------------------------------
+09:49:22,680 cassandra.cluster WARNING Cluster.__init__ called with contact_points specified, but load-balancing policies are not specified in some ExecutionProfiles. In the next major version, this will raise an error; please specify a load-balancing policy. (contact_points = ['127.0.0.1'], EPs without explicit LBPs = ('EXEC_PROFILE_DEFAULT',))
+09:49:22,702 cassandra.cluster WARNING Downgrading core protocol version from 66 to 65 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+09:49:22,708 cassandra.cluster WARNING Downgrading core protocol version from 65 to 5 for 127.0.0.1:9042. To avoid this, it is best practice to explicitly set Cluster(protocol_version) to the version supported by your cluster. http://datastax.github.io/python-driver/api/cassandra/cluster.html#cassandra.cluster.Cluster.protocol_version
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_contention_many_threads passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 45.11 seconds ===========================
+[msx] rc = 0
+mv /tmp/my_log.txt /root/vm_images/ZebraConf/app_meta/logs/paxos_test.py::TestPaxos::test_contention_many_threads-output_1644054593488_540922905.txt
