@@ -1,0 +1,915 @@
+WARN  [main] 2022-02-08 17:22:58,667 DatabaseDescriptor.java:209 - [msx] Printing stack trace:
+WARN  [main] 2022-02-08 17:22:58,670 DatabaseDescriptor.java:213 - 	at org.apache.cassandra.config.DatabaseDescriptor.daemonInitialization(DatabaseDescriptor.java:210)
+WARN  [main] 2022-02-08 17:22:58,671 DatabaseDescriptor.java:213 - 	at org.apache.cassandra.config.DatabaseDescriptor.daemonInitialization(DatabaseDescriptor.java:203)
+WARN  [main] 2022-02-08 17:22:58,671 DatabaseDescriptor.java:213 - 	at org.apache.cassandra.service.CassandraDaemon.applyConfig(CassandraDaemon.java:821)
+WARN  [main] 2022-02-08 17:22:58,671 DatabaseDescriptor.java:213 - 	at org.apache.cassandra.service.CassandraDaemon.activate(CassandraDaemon.java:757)
+WARN  [main] 2022-02-08 17:22:58,671 DatabaseDescriptor.java:213 - 	at org.apache.cassandra.service.CassandraDaemon.main(CassandraDaemon.java:892)
+INFO  [main] 2022-02-08 17:22:58,675 YamlConfigurationLoader.java:97 - Configuration location: file:/tmp/dtest-4fwk1my5/test/node1/conf/cassandra.yaml
+DEBUG [main] 2022-02-08 17:22:58,677 YamlConfigurationLoader.java:116 - Loading settings from file:/tmp/dtest-4fwk1my5/test/node1/conf/cassandra.yaml
+INFO  [main] 2022-02-08 17:22:59,172 Config.java:839 - Node configuration:[allocate_tokens_for_keyspace=null; allocate_tokens_for_local_replication_factor=3; audit_logging_options=AuditLogOptions{enabled=false, logger='BinAuditLogger', included_keyspaces='', excluded_keyspaces='system,system_schema,system_virtual_schema', included_categories='', excluded_categories='', included_users='', excluded_users='', audit_logs_dir='/tmp/dtest-4fwk1my5/test/node1/logs/audit/', archive_command='', roll_cycle='HOURLY', block=true, max_queue_weight=268435456, max_log_size=17179869184}; authenticator=org.apache.cassandra.auth.PasswordAuthenticator; authorizer=org.apache.cassandra.auth.CassandraAuthorizer; auto_bootstrap=false; auto_optimise_full_repair_streams=false; auto_optimise_inc_repair_streams=false; auto_optimise_preview_repair_streams=false; auto_snapshot=true; autocompaction_on_startup_enabled=true; automatic_sstable_upgrade=false; back_pressure_enabled=false; back_pressure_strategy=null; batch_size_fail_threshold_in_kb=50; batch_size_warn_threshold_in_kb=5; batchlog_replay_throttle_in_kb=1024; block_for_peers_in_remote_dcs=false; block_for_peers_timeout_in_secs=10; broadcast_address=null; broadcast_rpc_address=null; buffer_pool_use_heap_if_exhausted=false; cache_load_timeout_seconds=30; cas_contention_timeout_in_ms=1000; cdc_enabled=false; cdc_free_space_check_interval_ms=250; cdc_raw_directory=/tmp/dtest-4fwk1my5/test/node1/cdc_raw; cdc_total_space_in_mb=0; check_for_duplicate_rows_during_compaction=true; check_for_duplicate_rows_during_reads=true; client_encryption_options=<REDACTED>; cluster_name=test; column_index_cache_size_in_kb=2; column_index_size_in_kb=64; commit_failure_policy=stop; commitlog_compression=null; commitlog_directory=/tmp/dtest-4fwk1my5/test/node1/commitlogs; commitlog_max_compression_buffers_in_pool=3; commitlog_periodic_queue_size=-1; commitlog_segment_size_in_mb=32; commitlog_sync=periodic; commitlog_sync_batch_window_in_ms=NaN; commitlog_sync_group_window_in_ms=NaN; commitlog_sync_period_in_ms=10000; commitlog_total_space_in_mb=null; compaction_large_partition_warning_threshold_mb=100; compaction_throughput_mb_per_sec=64; componentId=1; componentType=CassandraDaemon; concurrent_compactors=null; concurrent_counter_writes=32; concurrent_materialized_view_builders=1; concurrent_materialized_view_writes=32; concurrent_reads=32; concurrent_replicates=null; concurrent_validations=0; concurrent_writes=32; consecutive_message_errors_threshold=1; corrupted_tombstone_strategy=exception; counter_cache_keys_to_save=2147483647; counter_cache_save_period=7200; counter_cache_size_in_mb=null; counter_write_request_timeout_in_ms=5000; credentials_cache_max_entries=1000; credentials_update_interval_in_ms=-1; credentials_validity_in_ms=2000; cross_node_timeout=true; data_file_directories=[Ljava.lang.String;@1ca3b418; diagnostic_events_enabled=false; disk_access_mode=auto; disk_failure_policy=stop; disk_optimization_estimate_percentile=0.95; disk_optimization_page_cross_chance=0.1; disk_optimization_strategy=ssd; dynamic_snitch=true; dynamic_snitch_badness_threshold=1.0; dynamic_snitch_reset_interval_in_ms=600000; dynamic_snitch_update_interval_in_ms=100; enable_drop_compact_storage=false; enable_materialized_views=false; enable_sasi_indexes=false; enable_scripted_user_defined_functions=false; enable_transient_replication=false; enable_user_defined_functions=false; enable_user_defined_functions_threads=true; endpoint_snitch=org.apache.cassandra.locator.PropertyFileSnitch; file_cache_enabled=false; file_cache_round_up=null; file_cache_size_in_mb=null; flush_compression=fast; full_query_logging_options=FullQueryLoggerOptions{log_dir='', archive_command='', roll_cycle='HOURLY', block=true, max_queue_weight=268435456, max_log_size=17179869184}; gc_log_threshold_in_ms=200; gc_warn_threshold_in_ms=1000; hinted_handoff_disabled_datacenters=[]; hinted_handoff_enabled=true; hinted_handoff_throttle_in_kb=1024; hints_compression=null; hints_directory=/tmp/dtest-4fwk1my5/test/node1/hints; hints_flush_period_in_ms=10000; ideal_consistency_level=null; incremental_backups=false; index_summary_capacity_in_mb=null; index_summary_resize_interval_in_minutes=60; initial_range_tombstone_list_allocation_size=1; initial_token=-9223372036854775808; inter_dc_stream_throughput_outbound_megabits_per_sec=200; inter_dc_tcp_nodelay=false; internode_application_receive_queue_capacity_in_bytes=4194304; internode_application_receive_queue_reserve_endpoint_capacity_in_bytes=134217728; internode_application_receive_queue_reserve_global_capacity_in_bytes=536870912; internode_application_send_queue_capacity_in_bytes=4194304; internode_application_send_queue_reserve_endpoint_capacity_in_bytes=134217728; internode_application_send_queue_reserve_global_capacity_in_bytes=536870912; internode_authenticator=null; internode_compression=dc; internode_max_message_size_in_bytes=null; internode_socket_receive_buffer_size_in_bytes=0; internode_socket_send_buffer_size_in_bytes=0; internode_streaming_tcp_user_timeout_in_ms=300000; internode_tcp_connect_timeout_in_ms=2000; internode_tcp_user_timeout_in_ms=30000; key_cache_keys_to_save=2147483647; key_cache_migrate_during_compaction=true; key_cache_save_period=14400; key_cache_size_in_mb=null; keyspace_count_warn_threshold=40; listen_address=127.0.0.1; listen_interface=null; listen_interface_prefer_ipv6=false; listen_on_broadcast_address=false; local_system_data_file_directory=null; max_concurrent_automatic_sstable_upgrades=1; max_hint_window_in_ms=10800000; max_hints_delivery_threads=2; max_hints_file_size_in_mb=128; max_mutation_size_in_kb=null; max_streaming_retries=3; max_value_size_in_mb=256; memtable_allocation_type=heap_buffers; memtable_cleanup_threshold=null; memtable_flush_writers=0; memtable_heap_space_in_mb=null; memtable_offheap_space_in_mb=null; min_free_space_per_drive_in_mb=50; native_transport_allow_older_protocols=true; native_transport_flush_in_batches_legacy=false; native_transport_idle_timeout_in_ms=0; native_transport_max_concurrent_connections=-1; native_transport_max_concurrent_connections_per_ip=-1; native_transport_max_concurrent_requests_in_bytes=-1; native_transport_max_concurrent_requests_in_bytes_per_ip=-1; native_transport_max_frame_size_in_mb=256; native_transport_max_negotiable_protocol_version=null; native_transport_max_threads=128; native_transport_port=9042; native_transport_port_ssl=null; native_transport_receive_queue_capacity_in_bytes=1048576; network_authorizer=org.apache.cassandra.auth.CassandraNetworkAuthorizer; networking_cache_size_in_mb=null; num_tokens=1; partitioner=org.apache.cassandra.dht.Murmur3Partitioner; periodic_commitlog_sync_lag_block_in_ms=null; permissions_cache_max_entries=1000; permissions_update_interval_in_ms=-1; permissions_validity_in_ms=2000; phi_convict_threshold=5.0; prepared_statements_cache_size_mb=null; range_request_timeout_in_ms=15000; range_tombstone_list_growth_factor=1.5; read_request_timeout_in_ms=15000; reject_repair_compaction_threshold=2147483647; repair_command_pool_full_strategy=queue; repair_command_pool_size=0; repair_session_max_tree_depth=null; repair_session_space_in_mb=null; repaired_data_tracking_for_partition_reads_enabled=true; repaired_data_tracking_for_range_reads_enabled=true; report_unconfirmed_repaired_data_mismatches=true; request_timeout_in_ms=15000; role_manager=org.apache.cassandra.auth.CassandraRoleManager; roles_cache_max_entries=1000; roles_update_interval_in_ms=-1; roles_validity_in_ms=2000; row_cache_class_name=org.apache.cassandra.cache.OHCProvider; row_cache_keys_to_save=2147483647; row_cache_save_period=0; row_cache_size_in_mb=0; rpc_address=127.0.0.1; rpc_interface=null; rpc_interface_prefer_ipv6=false; rpc_keepalive=true; saved_caches_directory=/tmp/dtest-4fwk1my5/test/node1/saved_caches; seed_provider=org.apache.cassandra.locator.SimpleSeedProvider{seeds=127.0.0.1:7000}; server_encryption_options=<REDACTED>; slow_query_log_timeout_in_ms=500; snapshot_before_compaction=false; snapshot_links_per_second=0; snapshot_on_duplicate_row_detection=false; snapshot_on_repaired_data_mismatch=false; ssl_storage_port=7001; sstable_preemptive_open_interval_in_mb=50; start_native_transport=true; storage_port=7000; stream_entire_sstables=true; stream_throughput_outbound_megabits_per_sec=200; streaming_connections_per_host=1; streaming_keep_alive_period_in_secs=300; table_count_warn_threshold=150; tombstone_failure_threshold=100000; tombstone_warn_threshold=1000; tracetype_query_ttl=86400; tracetype_repair_ttl=604800; transparent_data_encryption_options=org.apache.cassandra.config.TransparentDataEncryptionOptions@58cbafc2; trickle_fsync=false; trickle_fsync_interval_in_kb=10240; truncate_request_timeout_in_ms=15000; unlogged_batch_across_partitions_warn_threshold=10; use_offheap_merkle_trees=true; user_defined_function_fail_timeout=1500; user_defined_function_warn_timeout=500; user_function_timeout_policy=die; validation_preview_purge_head_start_in_sec=3600; windows_timer_interval=1; write_request_timeout_in_ms=15000]
+DEBUG [main] 2022-02-08 17:22:59,173 DatabaseDescriptor.java:459 - Syncing log with a period of 10000
+INFO  [main] 2022-02-08 17:22:59,177 DatabaseDescriptor.java:467 - DiskAccessMode 'auto' determined to be mmap, indexAccessMode is mmap
+INFO  [main] 2022-02-08 17:22:59,179 DatabaseDescriptor.java:528 - Global memtable on-heap threshold is enabled at 123MB
+INFO  [main] 2022-02-08 17:22:59,180 DatabaseDescriptor.java:532 - Global memtable off-heap threshold is enabled at 123MB
+WARN  [main] 2022-02-08 17:22:59,203 DatabaseDescriptor.java:881 - [msx] maxMessageSize == null
+WARN  [main] 2022-02-08 17:22:59,204 DatabaseDescriptor.java:885 - [msx] internode_application_receive_queue_reserve_endpoint_capacity_in_bytes = 4096
+WARN  [main] 2022-02-08 17:22:59,204 DatabaseDescriptor.java:886 - [msx] internode_application_send_queue_reserve_endpoint_capacity_in_bytes = 134217728
+WARN  [main] 2022-02-08 17:22:59,204 DatabaseDescriptor.java:887 - [msx] conf.internode_max_message_size_in_bytes = 4096
+DEBUG [main] 2022-02-08 17:22:59,308 YamlConfigurationLoader.java:116 - Loading settings from file:/tmp/dtest-4fwk1my5/test/node1/conf/cassandra.yaml
+DEBUG [main] 2022-02-08 17:22:59,339 SSLFactory.java:384 - Initializing hot reloading SSLContext
+WARN  [main] 2022-02-08 17:22:59,350 CassandraDaemon.java:233 - [msx] setup(): componentType = CassandraDaemon, componentId = 1
+INFO  [main] 2022-02-08 17:22:59,378 JMXServerUtils.java:271 - Configured JMX server at: service:jmx:rmi://127.0.0.1/jndi/rmi://127.0.0.1:7100/jmxrmi
+INFO  [main] 2022-02-08 17:22:59,384 CassandraDaemon.java:628 - Hostname: fcf827a90b29:7000:7001
+INFO  [main] 2022-02-08 17:22:59,384 CassandraDaemon.java:635 - JVM vendor/version: OpenJDK 64-Bit Server VM/1.8.0_312
+INFO  [main] 2022-02-08 17:22:59,385 CassandraDaemon.java:636 - Heap size: 495.000MiB/495.000MiB
+INFO  [main] 2022-02-08 17:22:59,385 CassandraDaemon.java:641 - Code Cache Non-heap memory: init = 2555904(2496K) used = 8454976(8256K) committed = 8519680(8320K) max = 251658240(245760K)
+INFO  [main] 2022-02-08 17:22:59,385 CassandraDaemon.java:641 - Metaspace Non-heap memory: init = 0(0K) used = 24364456(23793K) committed = 24866816(24284K) max = -1(-1K)
+INFO  [main] 2022-02-08 17:22:59,385 CassandraDaemon.java:641 - Compressed Class Space Non-heap memory: init = 0(0K) used = 2824840(2758K) committed = 3006464(2936K) max = 1073741824(1048576K)
+INFO  [main] 2022-02-08 17:22:59,385 CassandraDaemon.java:641 - Par Eden Space Heap memory: init = 41943040(40960K) used = 41943040(40960K) committed = 41943040(40960K) max = 41943040(40960K)
+INFO  [main] 2022-02-08 17:22:59,386 CassandraDaemon.java:641 - Par Survivor Space Heap memory: init = 5242880(5120K) used = 5242880(5120K) committed = 5242880(5120K) max = 5242880(5120K)
+INFO  [main] 2022-02-08 17:22:59,386 CassandraDaemon.java:641 - CMS Old Gen Heap memory: init = 471859200(460800K) used = 4303032(4202K) committed = 471859200(460800K) max = 471859200(460800K)
+INFO  [main] 2022-02-08 17:22:59,386 CassandraDaemon.java:643 - Classpath: /tmp/dtest-4fwk1my5/test/node1/conf:/root/cassandra/build/apache-cassandra-4.0.2-SNAPSHOT.jar:/root/cassandra/lib/HdrHistogram-2.1.9.jar:/root/cassandra/lib/ST4-4.0.8.jar:/root/cassandra/lib/airline-0.8.jar:/root/cassandra/lib/antlr-runtime-3.5.2.jar:/root/cassandra/lib/asm-7.1.jar:/root/cassandra/lib/caffeine-2.5.6.jar:/root/cassandra/lib/cassandra-driver-core-3.11.0-shaded.jar:/root/cassandra/lib/chronicle-bytes-2.20.111.jar:/root/cassandra/lib/chronicle-core-2.20.126.jar:/root/cassandra/lib/chronicle-queue-5.20.123.jar:/root/cassandra/lib/chronicle-threads-2.20.111.jar:/root/cassandra/lib/chronicle-wire-2.20.117.jar:/root/cassandra/lib/commons-cli-1.1.jar:/root/cassandra/lib/commons-codec-1.9.jar:/root/cassandra/lib/commons-lang3-3.11.jar:/root/cassandra/lib/commons-math3-3.2.jar:/root/cassandra/lib/concurrent-trees-2.4.0.jar:/root/cassandra/lib/ecj-4.6.1.jar:/root/cassandra/lib/guava-27.0-jre.jar:/root/cassandra/lib/high-scale-lib-1.0.6.jar:/root/cassandra/lib/hppc-0.8.1.jar:/root/cassandra/lib/j2objc-annotations-1.3.jar:/root/cassandra/lib/jackson-annotations-2.12.5.jar:/root/cassandra/lib/jackson-core-2.12.5.jar:/root/cassandra/lib/jackson-databind-2.12.5.jar:/root/cassandra/lib/jamm-0.3.2.jar:/root/cassandra/lib/java-cup-runtime-11b-20160615.jar:/root/cassandra/lib/javax.inject-1.jar:/root/cassandra/lib/jbcrypt-0.4.jar:/root/cassandra/lib/jcl-over-slf4j-1.7.25.jar:/root/cassandra/lib/jcommander-1.30.jar:/root/cassandra/lib/jctools-core-3.1.0.jar:/root/cassandra/lib/jflex-1.8.2.jar:/root/cassandra/lib/jna-5.6.0.jar:/root/cassandra/lib/json-simple-1.1.jar:/root/cassandra/lib/jvm-attach-api-1.5.jar:/root/cassandra/lib/log4j-over-slf4j-1.7.25.jar:/root/cassandra/lib/logback-classic-1.2.3.jar:/root/cassandra/lib/logback-core-1.2.3.jar:/root/cassandra/lib/lz4-java-1.8.0.jar:/root/cassandra/lib/metrics-core-3.1.5.jar:/root/cassandra/lib/metrics-jvm-3.1.5.jar:/root/cassandra/lib/metrics-logback-3.1.5.jar:/root/cassandra/lib/mxdump-0.14.jar:/root/cassandra/lib/netty-all-4.1.58.Final.jar:/root/cassandra/lib/netty-tcnative-boringssl-static-2.0.36.Final.jar:/root/cassandra/lib/ohc-core-0.5.1.jar:/root/cassandra/lib/ohc-core-j8-0.5.1.jar:/root/cassandra/lib/psjava-0.1.19.jar:/root/cassandra/lib/reporter-config-base-3.0.3.jar:/root/cassandra/lib/reporter-config3-3.0.3.jar:/root/cassandra/lib/sigar-1.6.4.jar:/root/cassandra/lib/sjk-cli-0.14.jar:/root/cassandra/lib/sjk-core-0.14.jar:/root/cassandra/lib/sjk-json-0.14.jar:/root/cassandra/lib/sjk-stacktrace-0.14.jar:/root/cassandra/lib/slf4j-api-1.7.25.jar:/root/cassandra/lib/snakeyaml-1.26.jar:/root/cassandra/lib/snappy-java-1.1.2.6.jar:/root/cassandra/lib/snowball-stemmer-1.3.0.581.1.jar:/root/cassandra/lib/stream-2.5.2.jar:/root/cassandra/lib/zstd-jni-1.5.0-4.jar:/root/cassandra/lib/jsr223/*/*.jar::/root/cassandra/lib/jamm-0.3.2.jar
+INFO  [main] 2022-02-08 17:22:59,386 CassandraDaemon.java:645 - JVM Arguments: [-ea, -da:net.openhft..., -XX:+UseThreadPriorities, -XX:+HeapDumpOnOutOfMemoryError, -Xss256k, -XX:+AlwaysPreTouch, -XX:-UseBiasedLocking, -XX:+UseTLAB, -XX:+ResizeTLAB, -XX:+UseNUMA, -XX:+PerfDisableSharedMem, -Djava.net.preferIPv4Stack=true, -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=2100, -XX:ThreadPriorityPolicy=42, -XX:+UseParNewGC, -XX:+UseConcMarkSweepGC, -XX:+CMSParallelRemarkEnabled, -XX:SurvivorRatio=8, -XX:MaxTenuringThreshold=1, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:CMSWaitDuration=10000, -XX:+CMSParallelInitialMarkEnabled, -XX:+CMSEdenChunksRecordAlways, -XX:+CMSClassUnloadingEnabled, -XX:+PrintGCDetails, -XX:+PrintGCDateStamps, -XX:+PrintHeapAtGC, -XX:+PrintTenuringDistribution, -XX:+PrintGCApplicationStoppedTime, -XX:+PrintPromotionFailure, -XX:+UseGCLogFileRotation, -XX:NumberOfGCLogFiles=10, -XX:GCLogFileSize=10M, -Xloggc:/tmp/dtest-4fwk1my5/test/node1/logs/gc.log, -Xms500M, -Xmx500M, -Xmn50M, -XX:+UseCondCardMark, -XX:CompileCommandFile=/tmp/dtest-4fwk1my5/test/node1/conf/hotspot_compiler, -javaagent:/root/cassandra/lib/jamm-0.3.2.jar, -Dcassandra.jmx.local.port=7100, -Dcom.sun.management.jmxremote.authenticate=false, -Dcom.sun.management.jmxremote.password.file=/etc/cassandra/jmxremote.password, -Djava.library.path=/root/cassandra/lib/sigar-bin, -XX:-PerfDisableSharedMem, -Dcassandra.migration_task_wait_in_seconds=4, -Dcassandra.libjemalloc=-, -XX:OnOutOfMemoryError=kill -9 %p, -Dlogback.configurationFile=logback.xml, -Dcassandra.logdir=/root/cassandra/logs, -Dcassandra.storagedir=/root/cassandra/data, -Dcassandra-pidfile=/tmp/dtest-4fwk1my5/test/node1/cassandra.pid, -Dcassandra.join_ring=True, -Dcassandra.logdir=/tmp/dtest-4fwk1my5/test/node1/logs, -Dcassandra.boot_without_jna=true]
+WARN  [main] 2022-02-08 17:22:59,442 NativeLibrary.java:201 - Unable to lock JVM memory (ENOMEM). This can result in part of the JVM being swapped out, especially with mmapped I/O enabled. Increase RLIMIT_MEMLOCK.
+DEBUG [main] 2022-02-08 17:22:59,474 AbstractCommitLogService.java:117 - Will update the commitlog markers every 100ms and flush every 10000ms
+INFO  [main] 2022-02-08 17:22:59,509 MonotonicClock.java:202 - Scheduling approximate time conversion task with an interval of 10000 milliseconds
+INFO  [main] 2022-02-08 17:22:59,511 MonotonicClock.java:338 - Scheduling approximate time-check task with a precision of 2 milliseconds
+INFO  [main] 2022-02-08 17:22:59,512 StartupChecks.java:145 - jemalloc preload explicitly disabled
+WARN  [main] 2022-02-08 17:22:59,512 StartupChecks.java:187 - JMX is not enabled to receive remote connections. Please see cassandra-env.sh for more info.
+INFO  [main] 2022-02-08 17:22:59,515 SigarLibrary.java:44 - Initializing SIGAR library
+WARN  [main] 2022-02-08 17:22:59,527 SigarLibrary.java:174 - Cassandra server running in degraded mode. Is swap disabled? : false,  Address space adequate? : true,  nofile limit adequate? : true, nproc limit adequate? : true 
+WARN  [main] 2022-02-08 17:22:59,528 StartupChecks.java:329 - Maximum number of memory map areas per process (vm.max_map_count) 65530 is too low, recommended value: 1048575, you can change it with sysctl.
+DEBUG [main] 2022-02-08 17:22:59,536 StartupChecks.java:345 - Checking directory /tmp/dtest-4fwk1my5/test/node1/data0
+DEBUG [main] 2022-02-08 17:22:59,541 StartupChecks.java:345 - Checking directory /tmp/dtest-4fwk1my5/test/node1/data1
+DEBUG [main] 2022-02-08 17:22:59,541 StartupChecks.java:345 - Checking directory /tmp/dtest-4fwk1my5/test/node1/data2
+DEBUG [main] 2022-02-08 17:22:59,541 StartupChecks.java:345 - Checking directory /tmp/dtest-4fwk1my5/test/node1/commitlogs
+DEBUG [main] 2022-02-08 17:22:59,542 StartupChecks.java:345 - Checking directory /tmp/dtest-4fwk1my5/test/node1/saved_caches
+DEBUG [main] 2022-02-08 17:22:59,542 StartupChecks.java:345 - Checking directory /tmp/dtest-4fwk1my5/test/node1/hints
+INFO  [main] 2022-02-08 17:23:00,129 Keyspace.java:386 - Creating replication strategy system params KeyspaceParams{durable_writes=true, replication=ReplicationParams{class=org.apache.cassandra.locator.LocalStrategy}}
+DEBUG [main] 2022-02-08 17:23:00,146 Keyspace.java:390 - New replication settings for keyspace system - invalidating disk boundary caches
+INFO  [main] 2022-02-08 17:23:00,169 ColumnFamilyStore.java:385 - Initializing system.IndexInfo
+DEBUG [main] 2022-02-08 17:23:00,919 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.IndexInfo
+DEBUG [main] 2022-02-08 17:23:00,929 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:00,930 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.IndexInfo
+INFO  [main] 2022-02-08 17:23:01,058 ColumnFamilyStore.java:385 - Initializing system.batches
+INFO  [main] 2022-02-08 17:23:01,067 ColumnFamilyStore.java:385 - Initializing system.paxos
+DEBUG [main] 2022-02-08 17:23:01,068 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.paxos
+DEBUG [main] 2022-02-08 17:23:01,069 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,069 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=1, directoriesVersion=0} for system.paxos
+INFO  [main] 2022-02-08 17:23:01,077 ColumnFamilyStore.java:385 - Initializing system.local
+DEBUG [main] 2022-02-08 17:23:01,078 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.local
+DEBUG [main] 2022-02-08 17:23:01,078 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,078 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.local
+INFO  [main] 2022-02-08 17:23:01,084 ColumnFamilyStore.java:385 - Initializing system.peers_v2
+DEBUG [main] 2022-02-08 17:23:01,085 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.peers_v2
+DEBUG [main] 2022-02-08 17:23:01,085 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,085 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.peers_v2
+INFO  [main] 2022-02-08 17:23:01,090 ColumnFamilyStore.java:385 - Initializing system.peers
+DEBUG [main] 2022-02-08 17:23:01,091 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.peers
+DEBUG [main] 2022-02-08 17:23:01,091 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,091 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.peers
+INFO  [main] 2022-02-08 17:23:01,096 ColumnFamilyStore.java:385 - Initializing system.peer_events_v2
+DEBUG [main] 2022-02-08 17:23:01,097 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.peer_events_v2
+DEBUG [main] 2022-02-08 17:23:01,097 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,097 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.peer_events_v2
+INFO  [main] 2022-02-08 17:23:01,102 ColumnFamilyStore.java:385 - Initializing system.peer_events
+DEBUG [main] 2022-02-08 17:23:01,103 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.peer_events
+DEBUG [main] 2022-02-08 17:23:01,103 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,103 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.peer_events
+INFO  [main] 2022-02-08 17:23:01,109 ColumnFamilyStore.java:385 - Initializing system.compaction_history
+DEBUG [main] 2022-02-08 17:23:01,110 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.compaction_history
+DEBUG [main] 2022-02-08 17:23:01,110 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,110 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=1, directoriesVersion=0} for system.compaction_history
+INFO  [main] 2022-02-08 17:23:01,116 ColumnFamilyStore.java:385 - Initializing system.sstable_activity
+DEBUG [main] 2022-02-08 17:23:01,116 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.sstable_activity
+DEBUG [main] 2022-02-08 17:23:01,116 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,116 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.sstable_activity
+INFO  [main] 2022-02-08 17:23:01,121 ColumnFamilyStore.java:385 - Initializing system.size_estimates
+DEBUG [main] 2022-02-08 17:23:01,122 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.size_estimates
+DEBUG [main] 2022-02-08 17:23:01,122 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,122 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.size_estimates
+INFO  [main] 2022-02-08 17:23:01,126 ColumnFamilyStore.java:385 - Initializing system.table_estimates
+DEBUG [main] 2022-02-08 17:23:01,127 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.table_estimates
+DEBUG [main] 2022-02-08 17:23:01,127 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,127 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.table_estimates
+INFO  [main] 2022-02-08 17:23:01,132 ColumnFamilyStore.java:385 - Initializing system.available_ranges_v2
+DEBUG [main] 2022-02-08 17:23:01,133 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.available_ranges_v2
+DEBUG [main] 2022-02-08 17:23:01,133 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,133 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.available_ranges_v2
+INFO  [main] 2022-02-08 17:23:01,138 ColumnFamilyStore.java:385 - Initializing system.available_ranges
+DEBUG [main] 2022-02-08 17:23:01,138 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.available_ranges
+DEBUG [main] 2022-02-08 17:23:01,139 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,139 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.available_ranges
+INFO  [main] 2022-02-08 17:23:01,143 ColumnFamilyStore.java:385 - Initializing system.transferred_ranges_v2
+DEBUG [main] 2022-02-08 17:23:01,144 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.transferred_ranges_v2
+DEBUG [main] 2022-02-08 17:23:01,144 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,144 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.transferred_ranges_v2
+INFO  [main] 2022-02-08 17:23:01,149 ColumnFamilyStore.java:385 - Initializing system.transferred_ranges
+DEBUG [main] 2022-02-08 17:23:01,150 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.transferred_ranges
+DEBUG [main] 2022-02-08 17:23:01,150 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,150 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.transferred_ranges
+INFO  [main] 2022-02-08 17:23:01,155 ColumnFamilyStore.java:385 - Initializing system.view_builds_in_progress
+DEBUG [main] 2022-02-08 17:23:01,156 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.view_builds_in_progress
+DEBUG [main] 2022-02-08 17:23:01,156 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,156 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.view_builds_in_progress
+INFO  [main] 2022-02-08 17:23:01,162 ColumnFamilyStore.java:385 - Initializing system.built_views
+DEBUG [main] 2022-02-08 17:23:01,162 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.built_views
+DEBUG [main] 2022-02-08 17:23:01,163 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,163 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system.built_views
+INFO  [main] 2022-02-08 17:23:01,170 ColumnFamilyStore.java:385 - Initializing system.prepared_statements
+DEBUG [main] 2022-02-08 17:23:01,172 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.prepared_statements
+DEBUG [main] 2022-02-08 17:23:01,172 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,173 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=1, directoriesVersion=0} for system.prepared_statements
+INFO  [main] 2022-02-08 17:23:01,187 ColumnFamilyStore.java:385 - Initializing system.repairs
+DEBUG [main] 2022-02-08 17:23:01,188 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.repairs
+DEBUG [main] 2022-02-08 17:23:01,188 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,188 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=1, directoriesVersion=0} for system.repairs
+INFO  [main] 2022-02-08 17:23:01,406 QueryProcessor.java:120 - Initialized prepared statement caches with 10 MB
+INFO  [main] 2022-02-08 17:23:01,535 Keyspace.java:386 - Creating replication strategy system_schema params KeyspaceParams{durable_writes=true, replication=ReplicationParams{class=org.apache.cassandra.locator.LocalStrategy}}
+DEBUG [main] 2022-02-08 17:23:01,535 Keyspace.java:390 - New replication settings for keyspace system_schema - invalidating disk boundary caches
+INFO  [main] 2022-02-08 17:23:01,538 ColumnFamilyStore.java:385 - Initializing system_schema.keyspaces
+DEBUG [main] 2022-02-08 17:23:01,539 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.keyspaces
+DEBUG [main] 2022-02-08 17:23:01,539 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,539 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.keyspaces
+INFO  [main] 2022-02-08 17:23:01,544 ColumnFamilyStore.java:385 - Initializing system_schema.tables
+DEBUG [main] 2022-02-08 17:23:01,546 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.tables
+DEBUG [main] 2022-02-08 17:23:01,546 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,546 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.tables
+INFO  [main] 2022-02-08 17:23:01,550 ColumnFamilyStore.java:385 - Initializing system_schema.columns
+DEBUG [main] 2022-02-08 17:23:01,551 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.columns
+DEBUG [main] 2022-02-08 17:23:01,551 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,551 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.columns
+INFO  [main] 2022-02-08 17:23:01,556 ColumnFamilyStore.java:385 - Initializing system_schema.triggers
+DEBUG [main] 2022-02-08 17:23:01,556 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.triggers
+DEBUG [main] 2022-02-08 17:23:01,556 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,556 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.triggers
+INFO  [main] 2022-02-08 17:23:01,561 ColumnFamilyStore.java:385 - Initializing system_schema.dropped_columns
+DEBUG [main] 2022-02-08 17:23:01,561 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.dropped_columns
+DEBUG [main] 2022-02-08 17:23:01,562 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,562 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.dropped_columns
+INFO  [main] 2022-02-08 17:23:01,606 ColumnFamilyStore.java:385 - Initializing system_schema.views
+DEBUG [main] 2022-02-08 17:23:01,607 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.views
+DEBUG [main] 2022-02-08 17:23:01,607 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,607 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.views
+INFO  [main] 2022-02-08 17:23:01,613 ColumnFamilyStore.java:385 - Initializing system_schema.types
+DEBUG [main] 2022-02-08 17:23:01,614 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.types
+DEBUG [main] 2022-02-08 17:23:01,615 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,615 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.types
+INFO  [main] 2022-02-08 17:23:01,628 ColumnFamilyStore.java:385 - Initializing system_schema.functions
+DEBUG [main] 2022-02-08 17:23:01,630 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.functions
+DEBUG [main] 2022-02-08 17:23:01,630 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,630 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.functions
+INFO  [main] 2022-02-08 17:23:01,638 ColumnFamilyStore.java:385 - Initializing system_schema.aggregates
+DEBUG [main] 2022-02-08 17:23:01,639 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.aggregates
+DEBUG [main] 2022-02-08 17:23:01,639 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,639 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.aggregates
+INFO  [main] 2022-02-08 17:23:01,646 ColumnFamilyStore.java:385 - Initializing system_schema.indexes
+DEBUG [main] 2022-02-08 17:23:01,647 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.indexes
+DEBUG [main] 2022-02-08 17:23:01,647 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 1)
+DEBUG [main] 2022-02-08 17:23:01,648 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} for system_schema.indexes
+INFO  [main] 2022-02-08 17:23:01,744 SystemKeyspaceMigrator40.java:76 - system.peers_v2 table was empty, migrating legacy system.peers, if this fails you should fix the issue and then truncate system.peers_v2 to have it try again.
+INFO  [main] 2022-02-08 17:23:01,754 SystemKeyspaceMigrator40.java:100 - Migrating rows from legacy system.peers to system.peers_v2
+INFO  [main] 2022-02-08 17:23:01,758 SystemKeyspaceMigrator40.java:119 - Migrated 0 rows from legacy system.peers to system.peers_v2
+INFO  [main] 2022-02-08 17:23:01,759 SystemKeyspaceMigrator40.java:129 - system.peer_events_v2 table was empty, migrating legacy system.peer_events to system.peer_events_v2
+INFO  [main] 2022-02-08 17:23:01,760 SystemKeyspaceMigrator40.java:152 - Migrated 0 rows from legacy system.peer_events to system.peer_events_v2
+INFO  [main] 2022-02-08 17:23:01,760 SystemKeyspaceMigrator40.java:162 - system.transferred_ranges_v2 table was empty, migrating legacy system.transferred_ranges to system.transferred_ranges_v2
+INFO  [main] 2022-02-08 17:23:01,762 SystemKeyspaceMigrator40.java:190 - Migrated 0 rows from legacy system.transferred_ranges to system.transferred_ranges_v2
+INFO  [main] 2022-02-08 17:23:01,762 SystemKeyspaceMigrator40.java:200 - system.available_ranges_v2 table was empty, migrating legacy system.available_ranges to system.available_ranges_v2
+INFO  [main] 2022-02-08 17:23:01,763 SystemKeyspaceMigrator40.java:226 - Migrated 0 rows from legacy system.available_ranges to system.available_ranges_v2
+INFO  [main] 2022-02-08 17:23:01,763 StorageService.java:844 - Populating token metadata from system tables
+WARN  [main] 2022-02-08 17:23:01,764 StorageService.java:845 - [msx] Populating token metadata from system tables
+INFO  [main] 2022-02-08 17:23:01,777 StorageService.java:838 - Token metadata: 
+DEBUG [main] 2022-02-08 17:23:01,820 CassandraDaemon.java:328 - opening keyspace system_schema
+DEBUG [main] 2022-02-08 17:23:01,820 CassandraDaemon.java:328 - opening keyspace system
+INFO  [main] 2022-02-08 17:23:01,823 CacheService.java:103 - Initializing key cache with capacity of 24 MBs.
+INFO  [main] 2022-02-08 17:23:01,840 CacheService.java:125 - Initializing row cache with capacity of 0 MBs
+INFO  [main] 2022-02-08 17:23:01,842 CacheService.java:154 - Initializing counter cache with capacity of 12 MBs
+INFO  [main] 2022-02-08 17:23:01,844 CacheService.java:165 - Scheduling counter cache save to every 7200 seconds (going to save all keys).
+INFO  [main] 2022-02-08 17:23:01,872 CommitLog.java:168 - No commitlog files found; skipping replay
+INFO  [main] 2022-02-08 17:23:01,873 StorageService.java:844 - Populating token metadata from system tables
+WARN  [main] 2022-02-08 17:23:01,873 StorageService.java:845 - [msx] Populating token metadata from system tables
+INFO  [main] 2022-02-08 17:23:01,877 StorageService.java:838 - Token metadata: 
+INFO  [main] 2022-02-08 17:23:01,995 ColumnFamilyStore.java:2252 - Truncating system.size_estimates
+INFO  [main] 2022-02-08 17:23:02,057 ColumnFamilyStore.java:2289 - Truncating system.size_estimates with truncatedAt=1644340982011
+INFO  [main] 2022-02-08 17:23:02,097 ColumnFamilyStore.java:878 - Enqueuing flush of local: 2.169KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:02,217 Memtable.java:469 - Writing Memtable-local@1932225156(0.419KiB serialized bytes, 3 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:02,221 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-1-big-Data.db (0.214KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=31189)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:02,460 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb_txn_flush_c4c82140-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:02,483 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-1-big-Data.db')] (1 sstables, 5.873KiB), biggest 5.873KiB, smallest 5.873KiB
+INFO  [main] 2022-02-08 17:23:02,490 ColumnFamilyStore.java:2316 - Truncate of system.size_estimates is complete
+INFO  [main] 2022-02-08 17:23:02,490 ColumnFamilyStore.java:2252 - Truncating system.table_estimates
+INFO  [main] 2022-02-08 17:23:02,491 ColumnFamilyStore.java:2289 - Truncating system.table_estimates with truncatedAt=1644340982491
+INFO  [main] 2022-02-08 17:23:02,493 ColumnFamilyStore.java:878 - Enqueuing flush of local: 0.575KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:02,545 Memtable.java:469 - Writing Memtable-local@1208728288(0.091KiB serialized bytes, 1 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:02,546 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-2-big-Data.db (0.063KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=31300)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:02,720 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb_txn_flush_c5043fe0-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:02,734 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-2-big-Data.db')] (1 sstables, 4.972KiB), biggest 4.972KiB, smallest 4.972KiB
+INFO  [main] 2022-02-08 17:23:02,734 ColumnFamilyStore.java:2316 - Truncate of system.table_estimates is complete
+INFO  [main] 2022-02-08 17:23:02,740 QueryProcessor.java:164 - Preloaded 0 prepared statements
+WARN  [main] 2022-02-08 17:23:02,741 StorageService.java:730 - [msx] initServer(): componentType = CassandraDaemon, componentId = 1
+INFO  [main] 2022-02-08 17:23:02,741 StorageService.java:736 - Cassandra version: 4.0.2-SNAPSHOT
+INFO  [main] 2022-02-08 17:23:02,741 StorageService.java:737 - CQL version: 3.4.5
+INFO  [main] 2022-02-08 17:23:02,742 StorageService.java:738 - Native protocol supported versions: 3/v3, 4/v4, 5/v5, 6/v6-beta (default: 5/v5)
+INFO  [main] 2022-02-08 17:23:02,776 IndexSummaryManager.java:84 - Initializing index summary manager with a memory pool size of 24 MB and a resize interval of 60 minutes
+WARN  [main] 2022-02-08 17:23:02,777 StorageService.java:755 - [msx] Loading persisted ring state
+INFO  [main] 2022-02-08 17:23:02,777 StorageService.java:756 - Loading persisted ring state
+INFO  [main] 2022-02-08 17:23:02,777 StorageService.java:844 - Populating token metadata from system tables
+WARN  [main] 2022-02-08 17:23:02,777 StorageService.java:845 - [msx] Populating token metadata from system tables
+INFO  [main] 2022-02-08 17:23:02,802 BufferPools.java:49 - Global buffer pool limit is 123.000MiB for chunk-cache and 30.000MiB for networking
+DEBUG [main] 2022-02-08 17:23:02,906 SocketFactory.java:153 - using netty EPOLL event loop for pool prefix Messaging-AcceptLoop
+DEBUG [main] 2022-02-08 17:23:02,941 SocketFactory.java:153 - using netty EPOLL event loop for pool prefix Messaging-EventLoop
+DEBUG [main] 2022-02-08 17:23:02,965 SocketFactory.java:153 - using netty EPOLL event loop for pool prefix Streaming-EventLoop
+INFO  [main] 2022-02-08 17:23:03,008 InboundConnectionInitiator.java:127 - Listening on address: (/127.0.0.1:7000), nic: lo, encryption: unencrypted
+WARN  [main] 2022-02-08 17:23:03,127 SystemKeyspace.java:1130 - No host ID found, created 5cccac57-941f-4919-b4f5-0f3723a916e3 (Note: This should happen exactly once per node).
+DEBUG [main] 2022-02-08 17:23:03,129 StorageService.java:648 - Starting shadow gossip round to check for endpoint collision
+DEBUG [main] 2022-02-08 17:23:03,129 YamlConfigurationLoader.java:116 - Loading settings from file:/tmp/dtest-4fwk1my5/test/node1/conf/cassandra.yaml
+DEBUG [main] 2022-02-08 17:23:03,140 YamlConfigurationLoader.java:116 - Loading settings from file:/tmp/dtest-4fwk1my5/test/node1/conf/cassandra.yaml
+INFO  [main] 2022-02-08 17:23:03,149 StorageService.java:652 - Unable to gossip with any peers but continuing anyway since node is in its own seed list
+INFO  [main] 2022-02-08 17:23:03,155 StorageService.java:968 - Starting up server gossip
+INFO  [main] 2022-02-08 17:23:03,158 ColumnFamilyStore.java:878 - Enqueuing flush of local: 0.583KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:03,282 Memtable.java:469 - Writing Memtable-local@2006884347(0.079KiB serialized bytes, 2 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:03,283 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-3-big-Data.db (0.048KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=31464)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:03,590 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb_txn_flush_c5699160-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:03,604 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-3-big-Data.db')] (1 sstables, 4.945KiB), biggest 4.945KiB, smallest 4.945KiB
+DEBUG [main] 2022-02-08 17:23:03,604 YamlConfigurationLoader.java:116 - Loading settings from file:/tmp/dtest-4fwk1my5/test/node1/conf/cassandra.yaml
+DEBUG [main] 2022-02-08 17:23:03,629 StorageService.java:2414 - Ignoring application state DC from /127.0.0.1:7000 because it is not a member in token metadata
+DEBUG [main] 2022-02-08 17:23:03,629 StorageService.java:2414 - Ignoring application state RACK from /127.0.0.1:7000 because it is not a member in token metadata
+DEBUG [main] 2022-02-08 17:23:03,634 StorageService.java:2414 - Ignoring application state SCHEMA from /127.0.0.1:7000 because it is not a member in token metadata
+WARN  [main] 2022-02-08 17:23:03,640 StorageService.java:802 - [msx] componentType = CassandraDaemon, componentId = 1
+WARN  [main] 2022-02-08 17:23:03,640 StorageService.java:803 - [msx] joinRing = true
+DEBUG [main] 2022-02-08 17:23:03,645 YamlConfigurationLoader.java:116 - Loading settings from file:/tmp/dtest-4fwk1my5/test/node1/conf/cassandra.yaml
+DEBUG [main] 2022-02-08 17:23:03,656 StorageService.java:1050 - Bootstrap variables: false false false true
+WARN  [main] 2022-02-08 17:23:03,656 StorageService.java:1072 - [msx] shouldBootstrap is false
+WARN  [main] 2022-02-08 17:23:03,661 StorageService.java:1076 - [msx] bootstrapTokens isEmpty
+INFO  [main] 2022-02-08 17:23:03,663 BootStrapper.java:194 - tokens manually specified as [-9223372036854775808]
+INFO  [MigrationStage:1] 2022-02-08 17:23:03,698 ColumnFamilyStore.java:878 - Enqueuing flush of columns: 200.082KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:03,747 Memtable.java:469 - Writing Memtable-columns@1487980474(41.994KiB serialized bytes, 277 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:03,768 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/columns-24101c25a2ae3af787c1b40ee1aca33f/nb-1-big-Data.db (20.847KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42090)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:03,970 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/columns-24101c25a2ae3af787c1b40ee1aca33f/nb_txn_flush_c5bc1e30-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:03,984 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/columns-24101c25a2ae3af787c1b40ee1aca33f/nb-1-big-Data.db')] (1 sstables, 12.083KiB), biggest 12.083KiB, smallest 12.083KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:03,985 ColumnFamilyStore.java:878 - Enqueuing flush of dropped_columns: 1.079KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:04,032 Memtable.java:469 - Writing Memtable-dropped_columns@1355299821(0.120KiB serialized bytes, 3 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:04,033 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/dropped_columns-5e7583b5f3f43af19a39b7e1d6f5f11f/nb-1-big-Data.db (0.097KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+INFO  [Messaging-EventLoop-3-1] 2022-02-08 17:23:04,193 InboundConnectionInitiator.java:464 - /127.0.0.2:7000(/127.0.0.1:41786)->/127.0.0.1:7000-URGENT_MESSAGES-dd760d6f messaging connection established, version = 12, framing = LZ4, encryption = unencrypted
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:04,197 Message.java:656 - [msx] size = 67
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:04,197 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+DEBUG [GossipStage:1] 2022-02-08 17:23:04,203 Gossiper.java:1627 - Shadow request received, adding all states
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:04,213 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/dropped_columns-5e7583b5f3f43af19a39b7e1d6f5f11f/nb_txn_flush_c5e7c210-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:04,226 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/dropped_columns-5e7583b5f3f43af19a39b7e1d6f5f11f/nb-1-big-Data.db')] (1 sstables, 5.208KiB), biggest 5.208KiB, smallest 5.208KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:04,227 ColumnFamilyStore.java:878 - Enqueuing flush of triggers: 0.511KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:04,274 Memtable.java:469 - Writing Memtable-triggers@1166104494(0.016KiB serialized bytes, 2 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:04,276 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/triggers-4df70b666b05325195a132b54005fd48/nb-1-big-Data.db (0.048KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+INFO  [Messaging-EventLoop-3-4] 2022-02-08 17:23:04,300 OutboundConnection.java:1156 - /127.0.0.1:7000(/127.0.0.1:55742)->/127.0.0.2:7000-URGENT_MESSAGES-aea57e2a successfully connected, version = 12, framing = LZ4, encryption = unencrypted
+INFO  [ScheduledTasks:1] 2022-02-08 17:23:04,304 TokenMetadata.java:525 - Updating topology for all endpoints that have changed
+DEBUG [ScheduledTasks:1] 2022-02-08 17:23:04,306 StorageService.java:2414 - Ignoring application state DC from /127.0.0.1:7000 because it is not a member in token metadata
+DEBUG [ScheduledTasks:1] 2022-02-08 17:23:04,306 StorageService.java:2414 - Ignoring application state RACK from /127.0.0.1:7000 because it is not a member in token metadata
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:04,449 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/triggers-4df70b666b05325195a132b54005fd48/nb_txn_flush_c60caf30-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:04,462 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.triggers.
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:04,462 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.triggers
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:04,463 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:04,464 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system_schema.triggers
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:04,465 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/triggers-4df70b666b05325195a132b54005fd48/nb-1-big-Data.db')] (1 sstables, 4.971KiB), biggest 4.971KiB, smallest 4.971KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:04,466 ColumnFamilyStore.java:878 - Enqueuing flush of types: 0.511KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,467 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.types.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,467 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.types
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,467 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,468 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system_schema.types
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:04,516 Memtable.java:469 - Writing Memtable-types@1180920226(0.016KiB serialized bytes, 2 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:04,517 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/types-5a8b1ca866023f77a0459273d308917a/nb-1-big-Data.db (0.048KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:04,697 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/types-5a8b1ca866023f77a0459273d308917a/nb_txn_flush_c6317540-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:04,710 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/types-5a8b1ca866023f77a0459273d308917a/nb-1-big-Data.db')] (1 sstables, 4.931KiB), biggest 4.931KiB, smallest 4.931KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:04,711 ColumnFamilyStore.java:878 - Enqueuing flush of functions: 0.511KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,711 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.functions.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,712 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.functions
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,712 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,712 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system_schema.functions
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:04,776 Memtable.java:469 - Writing Memtable-functions@405863363(0.016KiB serialized bytes, 2 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:04,778 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/functions-96489b7980be3e14a70166a0b9159450/nb-1-big-Data.db (0.048KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:04,962 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/functions-96489b7980be3e14a70166a0b9159450/nb_txn_flush_c656d790-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:04,976 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/functions-96489b7980be3e14a70166a0b9159450/nb-1-big-Data.db')] (1 sstables, 5.055KiB), biggest 5.055KiB, smallest 5.055KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:04,977 ColumnFamilyStore.java:878 - Enqueuing flush of aggregates: 0.511KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,978 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.aggregates.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,978 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.aggregates
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,978 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:04,979 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system_schema.aggregates
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:05,030 Memtable.java:469 - Writing Memtable-aggregates@154578043(0.016KiB serialized bytes, 2 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:05,031 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/aggregates-924c55872e3a345bb10c12f37c1ba895/nb-1-big-Data.db (0.048KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:05,295 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/aggregates-924c55872e3a345bb10c12f37c1ba895/nb_txn_flush_c67f6e30-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:05,321 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/aggregates-924c55872e3a345bb10c12f37c1ba895/nb-1-big-Data.db')] (1 sstables, 5.055KiB), biggest 5.055KiB, smallest 5.055KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:05,322 ColumnFamilyStore.java:878 - Enqueuing flush of indexes: 0.511KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:05,322 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.indexes.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:05,322 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.indexes
+DEBUG [MigrationStage:1] 2022-02-08 17:23:05,323 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:05,323 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system_schema.indexes
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:05,453 Memtable.java:469 - Writing Memtable-indexes@1187358420(0.016KiB serialized bytes, 2 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:05,454 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/indexes-0feb57ac311f382fba6d9024d305702f/nb-1-big-Data.db (0.048KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+DEBUG [ScheduledTasks:1] 2022-02-08 17:23:05,636 StorageService.java:2414 - Ignoring application state LOAD from /127.0.0.1:7000 because it is not a member in token metadata
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:05,665 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/indexes-0feb57ac311f382fba6d9024d305702f/nb_txn_flush_c6b3ebb0-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:05,690 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/indexes-0feb57ac311f382fba6d9024d305702f/nb-1-big-Data.db')] (1 sstables, 4.971KiB), biggest 4.971KiB, smallest 4.971KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:05,691 ColumnFamilyStore.java:878 - Enqueuing flush of tables: 92.656KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:05,691 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.tables.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:05,692 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.tables
+DEBUG [MigrationStage:1] 2022-02-08 17:23:05,692 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:05,692 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system_schema.tables
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:05,787 Memtable.java:469 - Writing Memtable-tables@464976343(28.858KiB serialized bytes, 42 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:05,792 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/tables-afddfb9dbc1e30688056eed6c302ba09/nb-1-big-Data.db (17.879KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:06,094 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/tables-afddfb9dbc1e30688056eed6c302ba09/nb_txn_flush_c6ec60d0-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:06,108 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/tables-afddfb9dbc1e30688056eed6c302ba09/nb-1-big-Data.db')] (1 sstables, 9.880KiB), biggest 9.880KiB, smallest 9.880KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:06,108 ColumnFamilyStore.java:878 - Enqueuing flush of views: 0.511KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:06,109 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.views.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:06,109 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.views
+DEBUG [MigrationStage:1] 2022-02-08 17:23:06,109 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:06,110 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system_schema.views
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:06,217 Memtable.java:469 - Writing Memtable-views@71825281(0.016KiB serialized bytes, 2 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:06,217 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/views-9786ac1cdd583201a7cdad556410c985/nb-1-big-Data.db (0.048KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:06,531 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/views-9786ac1cdd583201a7cdad556410c985/nb_txn_flush_c72c01e0-8903-11ec-a290-bf85eeb51992.log 
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,545 Message.java:656 - [msx] size = 82
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,545 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,553 Message.java:656 - [msx] size = 248
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,554 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:06,556 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/views-9786ac1cdd583201a7cdad556410c985/nb-1-big-Data.db')] (1 sstables, 4.931KiB), biggest 4.931KiB, smallest 4.931KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:06,557 ColumnFamilyStore.java:878 - Enqueuing flush of keyspaces: 3.243KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:06,558 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.keyspaces.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:06,558 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.keyspaces
+DEBUG [MigrationStage:1] 2022-02-08 17:23:06,558 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:06,558 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system_schema.keyspaces
+INFO  [GossipStage:1] 2022-02-08 17:23:06,560 Gossiper.java:1364 - Node /127.0.0.2:7000 is now part of the cluster
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,568 StorageService.java:2414 - Ignoring application state SCHEMA from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,568 StorageService.java:2414 - Ignoring application state DC from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,568 StorageService.java:2414 - Ignoring application state RACK from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,568 StorageService.java:2414 - Ignoring application state RELEASE_VERSION from /127.0.0.2:7000 because it is not a member in token metadata
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,568 Message.java:656 - [msx] size = 11
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,568 StorageService.java:2414 - Ignoring application state RPC_ADDRESS from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,569 StorageService.java:2414 - Ignoring application state NET_VERSION from /127.0.0.2:7000 because it is not a member in token metadata
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,568 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,569 StorageService.java:2414 - Ignoring application state HOST_ID from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,569 StorageService.java:2414 - Ignoring application state NATIVE_ADDRESS_AND_PORT from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,569 StorageService.java:2414 - Ignoring application state SSTABLE_VERSIONS from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:06,570 Gossiper.java:1311 - removing expire time for endpoint : /127.0.0.2:7000
+INFO  [GossipStage:1] 2022-02-08 17:23:06,570 Gossiper.java:1312 - InetAddress /127.0.0.2:7000 is now UP
+WARN  [GossipTasks:1] 2022-02-08 17:23:06,635 FailureDetector.java:319 - Not marking nodes down due to local pause of 5177491363ns > 5000000000ns
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,637 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,638 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,647 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:06,647 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:06,665 Memtable.java:469 - Writing Memtable-keyspaces@942593542(0.673KiB serialized bytes, 7 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:06,667 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-1-big-Data.db (0.556KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42098)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:06,979 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb_txn_flush_c77084f0-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:07,005 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-1-big-Data.db')] (1 sstables, 5.396KiB), biggest 5.396KiB, smallest 5.396KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,095 Keyspace.java:386 - Creating replication strategy system_auth params KeyspaceParams{durable_writes=true, replication=ReplicationParams{class=org.apache.cassandra.locator.SimpleStrategy, replication_factor=1}}
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,095 Keyspace.java:390 - New replication settings for keyspace system_auth - invalidating disk boundary caches
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,099 ColumnFamilyStore.java:385 - Initializing system_auth.network_permissions
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,100 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.network_permissions
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,100 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,101 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_auth.network_permissions
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,107 ColumnFamilyStore.java:385 - Initializing system_auth.resource_role_permissons_index
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,107 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.resource_role_permissons_index
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,108 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,108 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_auth.resource_role_permissons_index
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,114 ColumnFamilyStore.java:385 - Initializing system_auth.role_members
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,114 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.role_members
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,115 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,115 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_auth.role_members
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,120 ColumnFamilyStore.java:385 - Initializing system_auth.role_permissions
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,121 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.role_permissions
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,122 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,122 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_auth.role_permissions
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,127 ColumnFamilyStore.java:385 - Initializing system_auth.roles
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,128 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.roles
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,128 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,128 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_auth.roles
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,138 Keyspace.java:386 - Creating replication strategy system_distributed params KeyspaceParams{durable_writes=true, replication=ReplicationParams{class=org.apache.cassandra.locator.SimpleStrategy, replication_factor=3}}
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,138 Keyspace.java:390 - New replication settings for keyspace system_distributed - invalidating disk boundary caches
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,141 ColumnFamilyStore.java:385 - Initializing system_distributed.parent_repair_history
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,142 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_distributed.parent_repair_history
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,142 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,142 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_distributed.parent_repair_history
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,143 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,144 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,144 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,144 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,144 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,144 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,149 ColumnFamilyStore.java:385 - Initializing system_distributed.repair_history
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,150 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_distributed.repair_history
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,150 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,150 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_distributed.repair_history
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,150 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,150 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,150 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,150 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,151 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,151 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,155 ColumnFamilyStore.java:385 - Initializing system_distributed.view_build_status
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,156 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_distributed.view_build_status
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,156 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,156 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_distributed.view_build_status
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,162 Keyspace.java:386 - Creating replication strategy system_traces params KeyspaceParams{durable_writes=true, replication=ReplicationParams{class=org.apache.cassandra.locator.SimpleStrategy, replication_factor=2}}
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,162 Keyspace.java:390 - New replication settings for keyspace system_traces - invalidating disk boundary caches
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,167 ColumnFamilyStore.java:385 - Initializing system_traces.events
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,169 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_traces.events
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,169 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,169 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_traces.events
+INFO  [MigrationStage:1] 2022-02-08 17:23:07,174 ColumnFamilyStore.java:385 - Initializing system_traces.sessions
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,175 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_traces.sessions
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,175 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,175 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} for system_traces.sessions
+DEBUG [MigrationStage:1] 2022-02-08 17:23:07,218 StorageService.java:2414 - Ignoring application state SCHEMA from /127.0.0.1:7000 because it is not a member in token metadata
+INFO  [main] 2022-02-08 17:23:07,219 StorageService.java:1648 - JOINING: Finish joining ring
+INFO  [main] 2022-02-08 17:23:07,225 ColumnFamilyStore.java:878 - Enqueuing flush of local: 0.604KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [main] 2022-02-08 17:23:07,226 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.local.
+DEBUG [main] 2022-02-08 17:23:07,226 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.local
+DEBUG [main] 2022-02-08 17:23:07,226 DiskBoundaryManager.java:94 - Got local ranges [] (ringVersion = 2)
+DEBUG [main] 2022-02-08 17:23:07,226 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} for system.local
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:07,316 Memtable.java:469 - Writing Memtable-local@1404445905(0.084KiB serialized bytes, 3 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:07,316 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-4-big-Data.db (0.058KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42254)
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:07,549 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:07,550 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:07,558 Message.java:656 - [msx] size = 52
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:07,558 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+DEBUG [GossipStage:1] 2022-02-08 17:23:07,563 StorageService.java:2414 - Ignoring application state LOAD from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipTasks:1] 2022-02-08 17:23:07,637 FailureDetector.java:325 - Still not marking nodes down due to local pause
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:07,639 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:07,640 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:07,660 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb_txn_flush_c7d672b0-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:07,686 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-4-big-Data.db')] (1 sstables, 4.955KiB), biggest 4.955KiB, smallest 4.955KiB
+DEBUG [main] 2022-02-08 17:23:07,693 StorageService.java:305 - Setting tokens to [-9223372036854775808]
+WARN  [main] 2022-02-08 17:23:07,693 StorageService.java:306 - [msx] SystemKeyspace.updateTokens 1
+INFO  [main] 2022-02-08 17:23:07,704 ColumnFamilyStore.java:878 - Enqueuing flush of local: 0.563KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:07,776 Memtable.java:469 - Writing Memtable-local@2137134897(0.075KiB serialized bytes, 1 ops, 0%/0% of on/off-heap limit), flushed range = (null, null]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:07,777 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-5-big-Data.db (0.048KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=42347)
+INFO  [MemtableFlushWriter:1] 2022-02-08 17:23:08,126 LogTransaction.java:240 - Unfinished transaction log, deleting /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb_txn_flush_c81f3b80-8903-11ec-a290-bf85eeb51992.log 
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:08,151 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-5-big-Data.db')] (1 sstables, 4.944KiB), biggest 4.944KiB, smallest 4.944KiB
+DEBUG [main] 2022-02-08 17:23:08,163 StorageService.java:2414 - Ignoring application state TOKENS from /127.0.0.1:7000 because it is not a member in token metadata
+DEBUG [main] 2022-02-08 17:23:08,163 StorageService.java:2799 - Node /127.0.0.1:7000 state NORMAL, token [-9223372036854775808]
+DEBUG [main] 2022-02-08 17:23:08,165 StorageService.java:2712 - New node /127.0.0.1:7000 at token -9223372036854775808
+WARN  [main] 2022-02-08 17:23:08,171 StorageService.java:2751 - [msx] SystemKeyspace.updateTokens 4
+DEBUG [main] 2022-02-08 17:23:08,174 StorageService.java:2799 - Node /127.0.0.1:7000 state NORMAL, token [-9223372036854775808]
+INFO  [main] 2022-02-08 17:23:08,174 StorageService.java:2802 - Node /127.0.0.1:7000 state jump to NORMAL
+WARN  [main] 2022-02-08 17:23:08,175 StorageService.java:2751 - [msx] SystemKeyspace.updateTokens 4
+DEBUG [main] 2022-02-08 17:23:08,175 StorageService.java:1650 - NORMAL
+INFO  [main] 2022-02-08 17:23:08,185 AuthCache.java:215 - (Re)initializing CredentialsCache (validity period/update interval/max entries) (2000/2000/1000)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,193 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.types.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,193 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.columns.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,193 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.indexes.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,193 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.types
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,193 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.columns
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,193 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.indexes
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,197 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,197 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,197 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [main] 2022-02-08 17:23:08,198 AuditLogManager.java:75 - Audit logging is disabled.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,202 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.types
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,202 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.indexes
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,202 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.columns
+INFO  [main] 2022-02-08 17:23:08,203 StartupClusterConnectivityChecker.java:111 - Blocking coordination until only a single peer is DOWN in the local datacenter, timeout=10s
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,208 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.keyspaces.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,208 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.dropped_columns.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,208 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.aggregates.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,208 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.dropped_columns
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,208 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.aggregates
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,208 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,208 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,208 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.dropped_columns
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,208 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.aggregates
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,209 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.triggers.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.triggers
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.keyspaces
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,209 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.tables.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.tables
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.triggers
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.keyspaces
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,209 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.tables
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,210 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.views.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,210 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.views
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,210 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.functions.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,210 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,210 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.functions
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,210 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.compaction_history.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,210 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.views
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,210 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,210 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.compaction_history
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,210 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_schema.functions
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,210 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,211 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.IndexInfo.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,211 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.IndexInfo
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,211 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,211 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.repairs.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,211 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.IndexInfo
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,211 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.repairs
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,211 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.size_estimates.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,211 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,211 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.size_estimates
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,212 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,212 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.repairs
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,212 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.compaction_history
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,212 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.size_estimates
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,212 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.table_estimates.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,212 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.table_estimates
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,212 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.paxos.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,212 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.paxos
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,212 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.built_views.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,212 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,213 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.built_views
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,213 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,213 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.table_estimates
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,213 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,213 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.paxos
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,213 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.built_views
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,213 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.peer_events.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,213 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.peer_events
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,213 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.peers_v2.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,214 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.peers_v2
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,214 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,214 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,214 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.peer_events
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,214 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.peers_v2
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,214 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.peers.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,214 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.peer_events_v2.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.peers
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.peer_events_v2
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.peers
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,215 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.transferred_ranges.
+INFO  [main] 2022-02-08 17:23:08,215 StartupClusterConnectivityChecker.java:166 - Ensured sufficient healthy connections with [] after 5 milliseconds
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.transferred_ranges
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.peer_events_v2
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,215 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.transferred_ranges_v2.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.transferred_ranges_v2
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,215 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.view_builds_in_progress.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,215 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.view_builds_in_progress
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.transferred_ranges_v2
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.transferred_ranges
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,216 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.local.
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.local
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.view_builds_in_progress
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,216 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.sstable_activity.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.sstable_activity
+DEBUG [CompactionExecutor:3] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.local
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,216 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.available_ranges_v2.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,216 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.available_ranges_v2
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,217 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,217 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,217 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.available_ranges_v2
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,217 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.sstable_activity
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,217 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.available_ranges.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,217 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.available_ranges
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,218 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system.prepared_statements.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,218 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system.prepared_statements
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,218 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+INFO  [Messaging-EventLoop-3-3] 2022-02-08 17:23:08,217 OutboundConnection.java:1156 - /127.0.0.1:7000(/127.0.0.1:55746)->/127.0.0.2:7000-LARGE_MESSAGES-ec3638f5 successfully connected, version = 12, framing = LZ4, encryption = unencrypted
+INFO  [Messaging-EventLoop-3-2] 2022-02-08 17:23:08,217 OutboundConnection.java:1156 - /127.0.0.1:7000(/127.0.0.1:55744)->/127.0.0.2:7000-SMALL_MESSAGES-f9e41b65 successfully connected, version = 12, framing = LZ4, encryption = unencrypted
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,218 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,218 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.available_ranges
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,218 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=1, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system.prepared_statements
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,219 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_auth.roles.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,219 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.roles
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,219 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_auth.role_members.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,219 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.role_members
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,222 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,222 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,222 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_auth.roles
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,222 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_auth.role_members
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,223 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_auth.resource_role_permissons_index.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,223 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_auth.network_permissions.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,223 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.network_permissions
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,223 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.resource_role_permissons_index
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,223 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,224 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,224 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_auth.resource_role_permissons_index
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,224 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_auth.network_permissions
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,225 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_auth.role_permissions.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,225 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_distributed.parent_repair_history.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,225 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_auth.role_permissions
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,225 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_distributed.parent_repair_history
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,225 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,225 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,226 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_auth.role_permissions
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,225 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_distributed.parent_repair_history
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,226 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,226 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,226 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+INFO  [Messaging-EventLoop-3-5] 2022-02-08 17:23:08,227 InboundConnectionInitiator.java:464 - /127.0.0.2:7000(/127.0.0.1:41794)->/127.0.0.1:7000-SMALL_MESSAGES-120baa41 messaging connection established, version = 12, framing = LZ4, encryption = unencrypted
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,227 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_distributed.repair_history.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,227 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_distributed.repair_history
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,227 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,227 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,228 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_distributed.repair_history
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,228 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,228 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,228 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,228 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,228 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,228 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,228 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:08,228 Message.java:656 - [msx] size = 11
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,228 TimeWindowCompactionStrategy.java:71 - Disabling tombstone compactions for TWCS
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,228 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_distributed.view_build_status.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,228 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_distributed.view_build_status
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:08,228 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,229 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_traces.sessions.
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,229 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_traces.sessions
+INFO  [CompactionExecutor:3] 2022-02-08 17:23:08,229 CompactionTask.java:150 - Compacting (c86da9a0-8903-11ec-a290-bf85eeb51992) [/tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-2-big-Data.db:level=0, /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-1-big-Data.db:level=0, /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-3-big-Data.db:level=0, /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-5-big-Data.db:level=0, /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-4-big-Data.db:level=0, ]
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,229 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,229 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,229 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_distributed.view_build_status
+DEBUG [CompactionExecutor:1] 2022-02-08 17:23:08,229 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_traces.sessions
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,230 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_traces.events.
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,230 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_traces.events
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,230 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 5)
+DEBUG [CompactionExecutor:2] 2022-02-08 17:23:08,230 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=null, ringVersion=2, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=5, directoriesVersion=0} for system_traces.events
+INFO  [Messaging-EventLoop-3-6] 2022-02-08 17:23:08,231 InboundConnectionInitiator.java:464 - /127.0.0.2:7000(/127.0.0.1:41796)->/127.0.0.1:7000-LARGE_MESSAGES-a561cf95 messaging connection established, version = 12, framing = LZ4, encryption = unencrypted
+INFO  [main] 2022-02-08 17:23:08,235 NativeTransportService.java:130 - Using Netty Version: [netty-buffer=netty-buffer-4.1.58.Final.10b03e6, netty-codec=netty-codec-4.1.58.Final.10b03e6, netty-codec-dns=netty-codec-dns-4.1.58.Final.10b03e6, netty-codec-haproxy=netty-codec-haproxy-4.1.58.Final.10b03e6, netty-codec-http=netty-codec-http-4.1.58.Final.10b03e6, netty-codec-http2=netty-codec-http2-4.1.58.Final.10b03e6, netty-codec-memcache=netty-codec-memcache-4.1.58.Final.10b03e6, netty-codec-mqtt=netty-codec-mqtt-4.1.58.Final.10b03e6, netty-codec-redis=netty-codec-redis-4.1.58.Final.10b03e6, netty-codec-smtp=netty-codec-smtp-4.1.58.Final.10b03e6, netty-codec-socks=netty-codec-socks-4.1.58.Final.10b03e6, netty-codec-stomp=netty-codec-stomp-4.1.58.Final.10b03e6, netty-codec-xml=netty-codec-xml-4.1.58.Final.10b03e6, netty-common=netty-common-4.1.58.Final.10b03e6, netty-handler=netty-handler-4.1.58.Final.10b03e6, netty-handler-proxy=netty-handler-proxy-4.1.58.Final.10b03e6, netty-resolver=netty-resolver-4.1.58.Final.10b03e6, netty-resolver-dns=netty-resolver-dns-4.1.58.Final.10b03e6, netty-resolver-dns-native-macos=netty-resolver-dns-native-macos-4.1.58.Final.10b03e65f1, netty-transport=netty-transport-4.1.58.Final.10b03e6, netty-transport-native-epoll=netty-transport-native-epoll-4.1.58.Final.10b03e6, netty-transport-native-kqueue=netty-transport-native-kqueue-4.1.58.Final.10b03e65f1, netty-transport-native-unix-common=netty-transport-native-unix-common-4.1.58.Final.10b03e6, netty-transport-rxtx=netty-transport-rxtx-4.1.58.Final.10b03e6, netty-transport-sctp=netty-transport-sctp-4.1.58.Final.10b03e6, netty-transport-udt=netty-transport-udt-4.1.58.Final.10b03e6]
+WARN  [Messaging-EventLoop-3-6] 2022-02-08 17:23:08,238 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-6] 2022-02-08 17:23:08,239 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [main] 2022-02-08 17:23:08,274 NativeTransportService.java:68 - Netty using native Epoll event loop
+INFO  [main] 2022-02-08 17:23:08,314 PipelineConfigurator.java:124 - Using Netty Version: [netty-buffer=netty-buffer-4.1.58.Final.10b03e6, netty-codec=netty-codec-4.1.58.Final.10b03e6, netty-codec-dns=netty-codec-dns-4.1.58.Final.10b03e6, netty-codec-haproxy=netty-codec-haproxy-4.1.58.Final.10b03e6, netty-codec-http=netty-codec-http-4.1.58.Final.10b03e6, netty-codec-http2=netty-codec-http2-4.1.58.Final.10b03e6, netty-codec-memcache=netty-codec-memcache-4.1.58.Final.10b03e6, netty-codec-mqtt=netty-codec-mqtt-4.1.58.Final.10b03e6, netty-codec-redis=netty-codec-redis-4.1.58.Final.10b03e6, netty-codec-smtp=netty-codec-smtp-4.1.58.Final.10b03e6, netty-codec-socks=netty-codec-socks-4.1.58.Final.10b03e6, netty-codec-stomp=netty-codec-stomp-4.1.58.Final.10b03e6, netty-codec-xml=netty-codec-xml-4.1.58.Final.10b03e6, netty-common=netty-common-4.1.58.Final.10b03e6, netty-handler=netty-handler-4.1.58.Final.10b03e6, netty-handler-proxy=netty-handler-proxy-4.1.58.Final.10b03e6, netty-resolver=netty-resolver-4.1.58.Final.10b03e6, netty-resolver-dns=netty-resolver-dns-4.1.58.Final.10b03e6, netty-resolver-dns-native-macos=netty-resolver-dns-native-macos-4.1.58.Final.10b03e65f1, netty-transport=netty-transport-4.1.58.Final.10b03e6, netty-transport-native-epoll=netty-transport-native-epoll-4.1.58.Final.10b03e6, netty-transport-native-kqueue=netty-transport-native-kqueue-4.1.58.Final.10b03e65f1, netty-transport-native-unix-common=netty-transport-native-unix-common-4.1.58.Final.10b03e6, netty-transport-rxtx=netty-transport-rxtx-4.1.58.Final.10b03e6, netty-transport-sctp=netty-transport-sctp-4.1.58.Final.10b03e6, netty-transport-udt=netty-transport-udt-4.1.58.Final.10b03e6]
+INFO  [main] 2022-02-08 17:23:08,314 PipelineConfigurator.java:125 - Starting listening for CQL clients on /127.0.0.1:9042 (unencrypted)...
+INFO  [main] 2022-02-08 17:23:08,319 CassandraDaemon.java:785 - Startup complete
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:08,553 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:08,553 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:08,595 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:08,595 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+DEBUG [GossipTasks:1] 2022-02-08 17:23:08,638 FailureDetector.java:325 - Still not marking nodes down due to local pause
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:08,641 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:08,641 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [CompactionExecutor:3] 2022-02-08 17:23:08,950 CompactionTask.java:241 - Compacted (c86da9a0-8903-11ec-a290-bf85eeb51992) 5 sstables to [/tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-6-big,] to level=0.  0.444KiB to 0.303KiB (~68% of original) in 717ms.  Read Throughput = 0.619KiB/s, Write Throughput = 0.422KiB/s, Row Throughput = ~2/s.  5 total partitions merged to 1.  Partition merge counts were {5:1, }
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:08,955 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-5-big
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:08,958 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-4-big
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:08,960 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-2-big
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:08,962 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-1-big
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:08,964 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system/local-7ad54392bcdd35a684174e047860b377/nb-3-big
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:09,554 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:09,554 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:09,558 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:09,559 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+DEBUG [GossipTasks:1] 2022-02-08 17:23:09,639 FailureDetector.java:325 - Still not marking nodes down due to local pause
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:09,642 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:09,642 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:10,555 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:10,556 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:10,560 Message.java:656 - [msx] size = 196
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:10,560 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+DEBUG [GossipStage:1] 2022-02-08 17:23:10,561 StorageService.java:2414 - Ignoring application state TOKENS from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:10,561 StorageService.java:2414 - Ignoring application state SCHEMA from /127.0.0.2:7000 because it is not a member in token metadata
+DEBUG [GossipStage:1] 2022-02-08 17:23:10,561 StorageService.java:2799 - Node /127.0.0.2:7000 state NORMAL, token [-9223372036854775708]
+DEBUG [GossipStage:1] 2022-02-08 17:23:10,575 StorageService.java:2712 - New node /127.0.0.2:7000 at token -9223372036854775708
+WARN  [GossipStage:1] 2022-02-08 17:23:10,585 StorageService.java:2751 - [msx] SystemKeyspace.updateTokens 4
+DEBUG [GossipTasks:1] 2022-02-08 17:23:10,641 FailureDetector.java:325 - Still not marking nodes down due to local pause
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:10,643 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:10,643 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:11,558 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:11,559 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:11,563 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:11,563 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:11,645 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:11,645 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:12,561 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:12,561 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:12,565 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:12,566 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:12,646 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:12,647 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:13,562 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:13,563 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:13,567 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:13,568 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:13,648 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:13,648 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:14,564 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:14,564 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:14,568 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:14,569 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:14,649 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:14,649 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:15,565 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:15,566 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:15,570 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:15,570 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:15,650 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:15,651 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:16,567 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:16,567 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:16,571 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:16,571 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:16,652 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:16,652 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:17,568 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:17,569 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:17,572 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:17,573 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:17,653 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:17,654 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:18,279 Message.java:656 - [msx] size = 17
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:18,280 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:18,284 Message.java:656 - [msx] size = 12
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:18,284 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-6] 2022-02-08 17:23:18,284 Message.java:656 - [msx] size = 12
+WARN  [Messaging-EventLoop-3-6] 2022-02-08 17:23:18,285 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [OptionalTasks:1] 2022-02-08 17:23:18,427 FBUtilities.java:379 - Trigger directory doesn't exist, please create it and try again.
+INFO  [OptionalTasks:1] 2022-02-08 17:23:18,469 CassandraRoleManager.java:339 - Created default superuser role 'cassandra'
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:18,570 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:18,571 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:18,576 Message.java:656 - [msx] size = 49
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:18,576 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:18,655 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:18,655 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [Native-Transport-Requests-1] 2022-02-08 17:23:19,356 AuthCache.java:215 - (Re)initializing PermissionsCache (validity period/update interval/max entries) (2000/2000/1000)
+INFO  [Native-Transport-Requests-1] 2022-02-08 17:23:19,359 AuthCache.java:215 - (Re)initializing NetworkAuthCache (validity period/update interval/max entries) (2000/2000/1000)
+INFO  [Native-Transport-Requests-1] 2022-02-08 17:23:19,362 AuthCache.java:215 - (Re)initializing RolesCache (validity period/update interval/max entries) (2000/2000/1000)
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:19,571 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:19,572 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:19,575 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:19,575 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [MigrationStage:1] 2022-02-08 17:23:19,622 NetworkTopologyStrategy.java:88 - Configured datacenter replicas are dc2:rf(1), dc1:rf(1)
+INFO  [MigrationStage:1] 2022-02-08 17:23:19,624 NetworkTopologyStrategy.java:88 - Configured datacenter replicas are dc2:rf(1), dc1:rf(1)
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,639 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in columns
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,639 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in dropped_columns
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,639 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in triggers
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,640 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in types
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,640 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in functions
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,640 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in aggregates
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,640 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in indexes
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,640 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in tables
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:19,640 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in views
+INFO  [MigrationStage:1] 2022-02-08 17:23:19,641 ColumnFamilyStore.java:878 - Enqueuing flush of keyspaces: 0.646KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:19,641 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.keyspaces.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:19,641 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.keyspaces
+DEBUG [MigrationStage:1] 2022-02-08 17:23:19,642 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 6)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:19,643 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=6, directoriesVersion=0} for system_schema.keyspaces
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:19,656 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:19,657 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:19,698 Memtable.java:469 - Writing Memtable-keyspaces@1151470755(0.151KiB serialized bytes, 1 ops, 0%/0% of on/off-heap limit), flushed range = (min(-9223372036854775808), max(9223372036854775807)]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:19,700 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-2-big-Data.db (0.124KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=44365)
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:19,886 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-2-big-Data.db')] (1 sstables, 5.173KiB), biggest 5.173KiB, smallest 5.173KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:19,887 Keyspace.java:386 - Creating replication strategy system_auth params KeyspaceParams{durable_writes=true, replication=ReplicationParams{class=org.apache.cassandra.locator.NetworkTopologyStrategy, dc2=1, dc1=1}}
+INFO  [MigrationStage:1] 2022-02-08 17:23:19,887 NetworkTopologyStrategy.java:88 - Configured datacenter replicas are dc2:rf(1), dc1:rf(1)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:19,888 Keyspace.java:390 - New replication settings for keyspace system_auth - invalidating disk boundary caches
+INFO  [Native-Transport-Requests-12] 2022-02-08 17:23:19,914 NetworkTopologyStrategy.java:88 - Configured datacenter replicas are dc2:rf(1), dc1:rf(1)
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:20,576 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:20,578 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:20,595 Message.java:656 - [msx] size = 81
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:20,595 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:20,658 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:20,658 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [MigrationStage:1] 2022-02-08 17:23:20,781 NetworkTopologyStrategy.java:88 - Configured datacenter replicas are dc2:rf(1), dc1:rf(1)
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,790 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in columns
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,790 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in dropped_columns
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,791 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in triggers
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,791 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in types
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,791 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in functions
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,791 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in aggregates
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,791 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in indexes
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,792 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in tables
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:20,792 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in views
+INFO  [MigrationStage:1] 2022-02-08 17:23:20,792 ColumnFamilyStore.java:878 - Enqueuing flush of keyspaces: 0.637KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:20,846 Memtable.java:469 - Writing Memtable-keyspaces@175271127(0.151KiB serialized bytes, 1 ops, 0%/0% of on/off-heap limit), flushed range = (min(-9223372036854775808), max(9223372036854775807)]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:20,847 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-3-big-Data.db (0.115KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=44809)
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:21,029 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-3-big-Data.db')] (1 sstables, 5.127KiB), biggest 5.127KiB, smallest 5.127KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:21,029 Keyspace.java:386 - Creating replication strategy ks params KeyspaceParams{durable_writes=true, replication=ReplicationParams{class=org.apache.cassandra.locator.NetworkTopologyStrategy, dc2=1, dc1=1}}
+INFO  [MigrationStage:1] 2022-02-08 17:23:21,030 NetworkTopologyStrategy.java:88 - Configured datacenter replicas are dc2:rf(1), dc1:rf(1)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,030 Keyspace.java:390 - New replication settings for keyspace ks - invalidating disk boundary caches
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,078 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,079 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,080 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,080 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,080 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,081 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,081 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,082 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,498 Message.java:656 - [msx] size = 28
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,499 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,506 Message.java:656 - [msx] size = 17
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,506 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,523 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:21,524 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:21,577 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:21,578 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:21,583 Message.java:656 - [msx] size = 81
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:21,584 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:21,659 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:21,660 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [MigrationStage:1] 2022-02-08 17:23:21,748 NetworkTopologyStrategy.java:88 - Configured datacenter replicas are dc2:rf(1), dc1:rf(1)
+INFO  [MigrationStage:1] 2022-02-08 17:23:21,755 ColumnFamilyStore.java:878 - Enqueuing flush of columns: 1.635KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,756 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.columns.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,756 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.columns
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,757 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 6)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,757 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=6, directoriesVersion=0} for system_schema.columns
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:21,809 Memtable.java:469 - Writing Memtable-columns@1744847332(0.256KiB serialized bytes, 2 ops, 0%/0% of on/off-heap limit), flushed range = (min(-9223372036854775808), max(9223372036854775807)]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:21,810 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/columns-24101c25a2ae3af787c1b40ee1aca33f/nb-2-big-Data.db (0.099KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=46549)
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:21,997 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/columns-24101c25a2ae3af787c1b40ee1aca33f/nb-2-big-Data.db')] (1 sstables, 5.219KiB), biggest 5.219KiB, smallest 5.219KiB
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:21,997 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in dropped_columns
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:21,998 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in triggers
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:21,998 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in types
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:21,998 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in functions
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:21,998 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in aggregates
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:21,998 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in indexes
+INFO  [MigrationStage:1] 2022-02-08 17:23:21,998 ColumnFamilyStore.java:878 - Enqueuing flush of tables: 2.484KiB (0%) on-heap, 0.000KiB (0%) off-heap
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,998 CompactionStrategyManager.java:519 - Recreating compaction strategy - disk boundaries are out of date for system_schema.tables.
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,999 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for system_schema.tables
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,999 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775808])] (ringVersion = 6)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:21,999 DiskBoundaryManager.java:58 - Updating boundaries from DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=5, directoriesVersion=0} to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}], positions=[max(9223372036854775807)], ringVersion=6, directoriesVersion=0} for system_schema.tables
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:22,075 Memtable.java:469 - Writing Memtable-tables@120850506(0.687KiB serialized bytes, 1 ops, 0%/0% of on/off-heap limit), flushed range = (min(-9223372036854775808), max(9223372036854775807)]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:22,076 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/tables-afddfb9dbc1e30688056eed6c302ba09/nb-2-big-Data.db (0.411KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=46557)
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:22,257 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/tables-afddfb9dbc1e30688056eed6c302ba09/nb-2-big-Data.db')] (1 sstables, 6.821KiB), biggest 6.821KiB, smallest 6.821KiB
+DEBUG [MemtablePostFlush:1] 2022-02-08 17:23:22,258 ColumnFamilyStore.java:933 - forceFlush requested but everything is clean in views
+INFO  [MigrationStage:1] 2022-02-08 17:23:22,258 ColumnFamilyStore.java:878 - Enqueuing flush of keyspaces: 0.637KiB (0%) on-heap, 0.000KiB (0%) off-heap
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:22,305 Memtable.java:469 - Writing Memtable-keyspaces@1395116827(0.151KiB serialized bytes, 1 ops, 0%/0% of on/off-heap limit), flushed range = (min(-9223372036854775808), max(9223372036854775807)]
+INFO  [PerDiskMemtableFlushWriter_0:1] 2022-02-08 17:23:22,306 Memtable.java:498 - Completed flushing /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-4-big-Data.db (0.115KiB) for commitlog position CommitLogPosition(segmentId=1644340979498, position=46557)
+DEBUG [MemtableFlushWriter:1] 2022-02-08 17:23:22,487 ColumnFamilyStore.java:1197 - Flushed to [BigTableReader(path='/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-4-big-Data.db')] (1 sstables, 5.127KiB), biggest 5.127KiB, smallest 5.127KiB
+INFO  [MigrationStage:1] 2022-02-08 17:23:22,487 Keyspace.java:386 - Creating replication strategy ks params KeyspaceParams{durable_writes=true, replication=ReplicationParams{class=org.apache.cassandra.locator.NetworkTopologyStrategy, dc2=1, dc1=1}}
+INFO  [MigrationStage:1] 2022-02-08 17:23:22,488 NetworkTopologyStrategy.java:88 - Configured datacenter replicas are dc2:rf(1), dc1:rf(1)
+INFO  [CompactionExecutor:1] 2022-02-08 17:23:22,488 CompactionTask.java:150 - Compacting (d0eef070-8903-11ec-a290-bf85eeb51992) [/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-4-big-Data.db:level=0, /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-1-big-Data.db:level=0, /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-3-big-Data.db:level=0, /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-2-big-Data.db:level=0, ]
+INFO  [MigrationStage:1] 2022-02-08 17:23:22,492 ColumnFamilyStore.java:385 - Initializing ks.tbl
+DEBUG [MigrationStage:1] 2022-02-08 17:23:22,493 DiskBoundaryManager.java:55 - Refreshing disk boundary cache for ks.tbl
+DEBUG [MigrationStage:1] 2022-02-08 17:23:22,494 DiskBoundaryManager.java:94 - Got local ranges [Full(/127.0.0.1:7000,(-9223372036854775708,-9223372036854775808]), Full(/127.0.0.1:7000,(-9223372036854775808,-9223372036854775708])] (ringVersion = 6)
+DEBUG [MigrationStage:1] 2022-02-08 17:23:22,495 DiskBoundaryManager.java:58 - Updating boundaries from null to DiskBoundaries{directories=[DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data0}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data1}, DataDirectory{location=/tmp/dtest-4fwk1my5/test/node1/data2}], positions=[max(-3074457345618258603), max(3074457345618258602), max(9223372036854775807)], ringVersion=6, directoriesVersion=0} for ks.tbl
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:22,531 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:22,531 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:22,532 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:22,532 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:22,582 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:22,583 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:22,597 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:22,598 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:22,660 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:22,660 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+INFO  [CompactionExecutor:1] 2022-02-08 17:23:23,034 CompactionTask.java:241 - Compacted (d0eef070-8903-11ec-a290-bf85eeb51992) 4 sstables to [/tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-5-big,] to level=0.  0.618KiB to 0.314KiB (~50% of original) in 543ms.  Read Throughput = 1.138KiB/s, Write Throughput = 0.578KiB/s, Row Throughput = ~12/s.  8 total partitions merged to 6.  Partition merge counts were {1:4, 2:2, }
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:23,034 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-1-big
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:23,038 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-4-big
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:23,041 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-3-big
+INFO  [NonPeriodicTasks:1] 2022-02-08 17:23:23,044 SSTable.java:111 - Deleting sstable: /tmp/dtest-4fwk1my5/test/node1/data0/system_schema/keyspaces-abac5682dea631c5b535b3d6cffd0fb6/nb-2-big
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:23,575 Message.java:656 - [msx] size = 28
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:23,575 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:23,584 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:23,584 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:23,587 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:23,587 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:23,598 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:23,599 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [MigrationStage:1] 2022-02-08 17:23:23,617 OutboundConnection.java:328 - [msx] Message.OversizedMessageException 2
+ERROR [MigrationStage:1] 2022-02-08 17:23:23,620 CassandraDaemon.java:584 - Exception in thread Thread[MigrationStage:1,5,main]
+org.apache.cassandra.net.Message$OversizedMessageException: Message of size 11751 bytes exceeds allowed maximum of 4096 bytes
+	at org.apache.cassandra.net.OutboundConnection.enqueue(OutboundConnection.java:329)
+	at org.apache.cassandra.net.OutboundConnections.enqueue(OutboundConnections.java:84)
+	at org.apache.cassandra.net.MessagingService.doSend(MessagingService.java:338)
+	at org.apache.cassandra.net.OutboundSink.accept(OutboundSink.java:70)
+	at org.apache.cassandra.net.MessagingService.send(MessagingService.java:327)
+	at org.apache.cassandra.net.MessagingService.send(MessagingService.java:314)
+	at org.apache.cassandra.schema.SchemaPullVerbHandler.doVerb(SchemaPullVerbHandler.java:45)
+	at org.apache.cassandra.net.InboundSink.lambda$new$0(InboundSink.java:78)
+	at org.apache.cassandra.net.InboundSink.accept(InboundSink.java:97)
+	at org.apache.cassandra.net.InboundSink.accept(InboundSink.java:45)
+	at org.apache.cassandra.net.InboundMessageHandler$ProcessMessage.run(InboundMessageHandler.java:432)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:23,662 Message.java:656 - [msx] size = 100
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:23,663 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:23,829 Message.java:656 - [msx] size = 28
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:23,829 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,217 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,218 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,219 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,220 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,221 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,221 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,222 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,222 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,227 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,227 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,228 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:24,228 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:24,585 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:24,586 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:24,588 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:24,589 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:24,664 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:24,664 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:25,006 Message.java:656 - [msx] size = 80
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:25,006 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:25,303 Message.java:656 - [msx] size = 11
+WARN  [Messaging-EventLoop-3-5] 2022-02-08 17:23:25,304 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:25,588 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:25,588 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:25,592 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:25,592 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:25,663 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:25,664 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:26,589 Message.java:656 - [msx] size = 97
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:26,590 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:26,593 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:26,593 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:26,665 Message.java:656 - [msx] size = 35
+WARN  [Messaging-EventLoop-3-1] 2022-02-08 17:23:26,665 Message.java:657 - [msx] DatabaseDescriptor.getInternodeMaxMessageSizeInBytes() = 4096
