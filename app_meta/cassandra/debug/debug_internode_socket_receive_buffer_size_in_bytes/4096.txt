@@ -1,0 +1,48 @@
+root@fcf827a90b29:~/cassandra-dtest# pytest --log-cli-level=WARN --cassandra-dir=~/cassandra disk_balance_test.py::TestDiskBalance::test_disk_balance_replace_same_address
+============================================================================ test session starts =============================================================================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 900.0s
+timeout method: signal
+timeout func_only: False
+collected 1 item
+
+disk_balance_test.py::TestDiskBalance::test_disk_balance_replace_same_address
+------------------------------------------------------------------------------- live log call --------------------------------------------------------------------------------
+03:19:34,971 disk_balance_test WARNING [msx] Stopping and removing node2
+03:19:35,502 disk_balance_test WARNING [msx] before node5 starting
+03:21:30,611 disk_balance_test WARNING [msx] Checking replacement node is balanced
+03:21:30,612 disk_balance_test WARNING [msx] assert_balanced begin, new_sums = None, old_sums = None
+03:21:30,613 disk_balance_test WARNING [msx] repeat
+03:21:30,616 disk_balance_test WARNING [msx] sstabledir = ['/tmp/dtest-kd5ikhmw/test/node5/data0/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-2-big-Data.db']
+03:21:30,617 disk_balance_test WARNING [msx] sstable = /tmp/dtest-kd5ikhmw/test/node5/data0/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-2-big-Data.db
+03:21:30,617 disk_balance_test WARNING [msx] assert_balanced middle, new_sums = [1299845], old_sums = None
+03:21:30,618 disk_balance_test WARNING [msx] sstabledir = ['/tmp/dtest-kd5ikhmw/test/node5/data1/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-1-big-Data.db']
+03:21:30,619 disk_balance_test WARNING [msx] sstable = /tmp/dtest-kd5ikhmw/test/node5/data1/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-1-big-Data.db
+03:21:30,619 disk_balance_test WARNING [msx] assert_balanced middle, new_sums = [1299845, 1268374], old_sums = None
+03:21:30,620 disk_balance_test WARNING [msx] sstabledir = ['/tmp/dtest-kd5ikhmw/test/node5/data2/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-4-big-Data.db', '/tmp/dtest-kd5ikhmw/test/node5/data2/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-3-big-Data.db']
+03:21:30,620 disk_balance_test WARNING [msx] sstable = /tmp/dtest-kd5ikhmw/test/node5/data2/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-4-big-Data.db
+03:21:30,621 disk_balance_test WARNING [msx] sstable = /tmp/dtest-kd5ikhmw/test/node5/data2/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-3-big-Data.db
+03:21:30,621 disk_balance_test WARNING [msx] assert_balanced middle, new_sums = [1299845, 1268374, 1309104], old_sums = None
+03:21:32,624 disk_balance_test WARNING [msx] repeat
+03:21:32,626 disk_balance_test WARNING [msx] sstabledir = ['/tmp/dtest-kd5ikhmw/test/node5/data0/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-2-big-Data.db']
+03:21:32,627 disk_balance_test WARNING [msx] sstable = /tmp/dtest-kd5ikhmw/test/node5/data0/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-2-big-Data.db
+03:21:32,627 disk_balance_test WARNING [msx] assert_balanced middle, new_sums = [1299845], old_sums = [1299845, 1268374, 1309104]
+03:21:32,628 disk_balance_test WARNING [msx] sstabledir = ['/tmp/dtest-kd5ikhmw/test/node5/data1/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-1-big-Data.db']
+03:21:32,629 disk_balance_test WARNING [msx] sstable = /tmp/dtest-kd5ikhmw/test/node5/data1/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-1-big-Data.db
+03:21:32,629 disk_balance_test WARNING [msx] assert_balanced middle, new_sums = [1299845, 1268374], old_sums = [1299845, 1268374, 1309104]
+03:21:32,630 disk_balance_test WARNING [msx] sstabledir = ['/tmp/dtest-kd5ikhmw/test/node5/data2/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-4-big-Data.db', '/tmp/dtest-kd5ikhmw/test/node5/data2/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-3-big-Data.db']
+03:21:32,631 disk_balance_test WARNING [msx] sstable = /tmp/dtest-kd5ikhmw/test/node5/data2/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-4-big-Data.db
+03:21:32,631 disk_balance_test WARNING [msx] sstable = /tmp/dtest-kd5ikhmw/test/node5/data2/keyspace1/standard1-da1c3250888d11ecb886f9a9d89316a6/nb-3-big-Data.db
+03:21:32,632 disk_balance_test WARNING [msx] assert_balanced middle, new_sums = [1299845, 1268374, 1309104], old_sums = [1299845, 1268374, 1309104]
+03:21:32,632 disk_balance_test WARNING [msx] new_sums = [1299845, 1268374, 1309104], old_sums = [1299845, 1268374, 1309104]
+PASSED                                                                                                                                                                 [100%]
+===Flaky Test Report===
+
+test_disk_balance_replace_same_address passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================================================================= 1 passed in 187.22 seconds =======================================================================
