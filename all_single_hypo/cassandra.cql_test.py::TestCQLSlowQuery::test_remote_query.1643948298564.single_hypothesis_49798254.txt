@@ -1,0 +1,1626 @@
+my_type=hypothesis
+proj=cassandra
+u_test=cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list[1]=cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+proj: cassandra
+u_test: cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list: cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:03:04,136 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:03:04,173 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('7f51b77a-d7b5-3795-be02-d81484d12ad7'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('7be209db-d9ff-37a3-92f0-d52c45abb095'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:03:14,241 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('7f51b77a-d7b5-3795-be02-d81484d12ad7'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('7be209db-d9ff-37a3-92f0-d52c45abb095'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:05:14,344 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('7f51b77a-d7b5-3795-be02-d81484d12ad7'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('7be209db-d9ff-37a3-92f0-d52c45abb095'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:05:24,410 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('df0658b6-1ebc-38c6-9935-7f95edc2e189'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('9357f539-ebaa-3589-a7f1-59278b2a9a46'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:05:24,698 cassandra.cluster ERROR Exception refreshing schema in response to schema change:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4206, in cassandra.cluster.refresh_schema_and_set_result
+  File "cassandra/cluster.py", line 3686, in cassandra.cluster.ControlConnection._refresh_schema
+  File "cassandra/cluster.py", line 3935, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3975, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3963, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/connection.py", line 1041, in cassandra.connection.Connection.wait_for_responses
+cassandra.connection.ConnectionShutdown: Connection <LibevConnection(140638230770576) 127.0.0.1:9042 (defunct)> is already closed
+05:05:24,698 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:05:25,807 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+05:06:07,301 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('5896222c-77cf-3a34-8ba5-855566e08240'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e8c094d-424b-3d40-9c67-045ad73d4856'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:06:07,328 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:06:17,357 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('5896222c-77cf-3a34-8ba5-855566e08240'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e8c094d-424b-3d40-9c67-045ad73d4856'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:06:27,559 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('5896222c-77cf-3a34-8ba5-855566e08240'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e8c094d-424b-3d40-9c67-045ad73d4856'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:08:27,672 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('5896222c-77cf-3a34-8ba5-855566e08240'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e8c094d-424b-3d40-9c67-045ad73d4856'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:08:37,731 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('cfe3fd90-7ce2-38bd-a858-0b98a5472f14'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('a93dc38a-2979-307f-afc1-3ed2bcb94531'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+
+
+=================================== FAILURES ===================================
+______________________ TestCQLSlowQuery.test_remote_query ______________________
+
+self = <cql_test.TestCQLSlowQuery object at 0x7fe8e3ca6c50>
+
+    def test_remote_query(self):
+        """
+            Check that a query running on a node other than the coordinator is reported as slow:
+    
+            - populate the cluster with 2 nodes
+            - start one node without having it join the ring
+            - start the other one node with slow_query_log_timeout_in_ms set to a small value
+              and the read request timeouts set to a large value (to ensure the query is not aborted) and
+              read_iteration_delay set to a value big enough for the query to exceed slow_query_log_timeout_in_ms
+              (this will cause read queries to take longer than the slow query timeout)
+            - CREATE a table
+            - INSERT 5000 rows on a session on the node that is not a member of the ring
+            - run SELECT statements and check that the slow query messages are present in the debug logs
+              (we cannot check the logs at info level because the no spam logger has unpredictable results)
+    
+            @jira_ticket CASSANDRA-12403
+            """
+        cluster = self.cluster
+        cluster.set_configuration_options(values={'slow_query_log_timeout_in_ms': 1,
+                                                  'request_timeout_in_ms': 120000,
+                                                  'read_request_timeout_in_ms': 120000,
+                                                  'range_request_timeout_in_ms': 120000})
+    
+        cluster.populate(2)
+        node1, node2 = cluster.nodelist()
+    
+        node1.start(wait_for_binary_proto=True, join_ring=False)  # ensure other node executes queries
+        node2.start(wait_for_binary_proto=True,
+                    jvm_args=["-Dcassandra.monitoring_report_interval_ms=10",
+                              "-Dcassandra.test.read_iteration_delay_ms=2"])  # see above for explanation
+    
+        session = self.patient_exclusive_cql_connection(node1)
+    
+>       self._assert_logs_slow_queries(node2, session)
+
+cql_test.py:1108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cql_test.py:1160: in _assert_logs_slow_queries
+    TestCQLSlowQuery._assert_logs_slow_queries_with_skinny_table(node, session)
+cql_test.py:1178: in _assert_logs_slow_queries_with_skinny_table
+    """.format(table))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+5:02:27,337 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:02:27,27 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:02:27.027443
+05:02:27,192 dtest_setup INFO cluster ccm directory: /tmp/dtest-bkk3i_tk
+------------------------------ Captured log call -------------------------------
+05:02:28,634 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-bkk3i_tk/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-bkk3i_tk/test/node1/conf'}
+05:02:28,635 ccm INFO node1: using Java 8 for the current invocation
+05:02:28,840 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-bkk3i_tk/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-bkk3i_tk/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:02:28,841 ccm INFO node1: using Java 8 for the current invocation
+05:02:28,954 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:02:36,710 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-bkk3i_tk/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-bkk3i_tk/test/node2/conf'}
+05:02:36,711 ccm INFO node2: using Java 8 for the current invocation
+05:02:36,923 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-bkk3i_tk/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-bkk3i_tk/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:02:36,924 ccm INFO node2: using Java 8 for the current invocation
+05:02:37,50 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:02:53,763 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:03:04,136 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:03:04,173 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('7f51b77a-d7b5-3795-be02-d81484d12ad7'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('7be209db-d9ff-37a3-92f0-d52c45abb095'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:03:14,241 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('7f51b77a-d7b5-3795-be02-d81484d12ad7'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('7be209db-d9ff-37a3-92f0-d52c45abb095'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:05:14,344 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('7f51b77a-d7b5-3795-be02-d81484d12ad7'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('7be209db-d9ff-37a3-92f0-d52c45abb095'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:05:26,775 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+5:05:29,388 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:05:29,185 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:05:29.184928
+05:05:29,271 dtest_setup INFO cluster ccm directory: /tmp/dtest-5i4nzcd7
+------------------------------ Captured log call -------------------------------
+05:05:30,852 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-5i4nzcd7/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-5i4nzcd7/test/node1/conf'}
+05:05:30,853 ccm INFO node1: using Java 8 for the current invocation
+05:05:31,66 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-5i4nzcd7/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-5i4nzcd7/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:05:31,68 ccm INFO node1: using Java 8 for the current invocation
+05:05:31,186 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:05:38,944 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-5i4nzcd7/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-5i4nzcd7/test/node2/conf'}
+05:05:38,944 ccm INFO node2: using Java 8 for the current invocation
+05:05:39,147 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-5i4nzcd7/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-5i4nzcd7/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:05:39,148 ccm INFO node2: using Java 8 for the current invocation
+05:05:39,266 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:05:56,982 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:06:07,301 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('5896222c-77cf-3a34-8ba5-855566e08240'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e8c094d-424b-3d40-9c67-045ad73d4856'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:06:07,328 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:06:17,357 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('5896222c-77cf-3a34-8ba5-855566e08240'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e8c094d-424b-3d40-9c67-045ad73d4856'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:06:27,559 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('5896222c-77cf-3a34-8ba5-855566e08240'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e8c094d-424b-3d40-9c67-045ad73d4856'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:08:27,672 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('5896222c-77cf-3a34-8ba5-855566e08240'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e8c094d-424b-3d40-9c67-045ad73d4856'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:05:26,775 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:05:26,775 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]05:08:38,71 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_remote_query failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_remote_query failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 371.74 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 393486664397
+---> v1v2 test failed.
+proj: cassandra
+u_test: cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list: cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:09:40,777 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:10:20,53 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 118.80 seconds ==========================
+[msx] rc = 0
+v1v1 running time = 140525317943
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:11:59,356 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:12:35,3 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 111.87 seconds ==========================
+[msx] rc = 0
+v2v2 running time = 133555520125
+---> v1v1 and v2v2 test test suceeded.
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:14:11,572 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('1de8ee9a-be51-3567-8b15-afec9331178f'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3f849329-fc79-3824-bb19-2e262f598ced'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:14:11,585 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:14:21,629 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('1de8ee9a-be51-3567-8b15-afec9331178f'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3f849329-fc79-3824-bb19-2e262f598ced'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:16:21,729 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('1de8ee9a-be51-3567-8b15-afec9331178f'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3f849329-fc79-3824-bb19-2e262f598ced'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:16:31,796 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('84ef3fb4-ee4e-3887-b06c-3a8d35ef5367'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('fb432c43-42d5-386d-b6b2-3ea643b4f77b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:16:32,16 cassandra.cluster ERROR Exception refreshing schema in response to schema change:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4206, in cassandra.cluster.refresh_schema_and_set_result
+  File "cassandra/cluster.py", line 3686, in cassandra.cluster.ControlConnection._refresh_schema
+  File "cassandra/cluster.py", line 3935, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3975, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3963, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/connection.py", line 1041, in cassandra.connection.Connection.wait_for_responses
+cassandra.connection.ConnectionShutdown: Connection <LibevConnection(140421288776760) 127.0.0.1:9042 (defunct)> is already closed
+05:16:32,17 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:16:33,127 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.98 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+05:17:13,952 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('4c02b59f-7233-35cd-82f2-f3554598d9db'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f82c6fc2-0927-3280-ac78-58a8f517c70c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:17:13,960 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:17:24,21 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('4c02b59f-7233-35cd-82f2-f3554598d9db'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f82c6fc2-0927-3280-ac78-58a8f517c70c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:17:34,57 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('4c02b59f-7233-35cd-82f2-f3554598d9db'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f82c6fc2-0927-3280-ac78-58a8f517c70c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:19:34,92 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('4c02b59f-7233-35cd-82f2-f3554598d9db'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f82c6fc2-0927-3280-ac78-58a8f517c70c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+FAILED05:19:44,165 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('77154501-af4f-340b-ae18-55472ee12742'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f621d564-9511-31d4-8651-ae12f6ee0b55'): [<DefaultEndPoint: 127.0.0.2:9042>]} [100%]
+
+=================================== FAILURES ===================================
+______________________ TestCQLSlowQuery.test_remote_query ______________________
+
+self = <cql_test.TestCQLSlowQuery object at 0x7fb6610dd400>
+
+    def test_remote_query(self):
+        """
+            Check that a query running on a node other than the coordinator is reported as slow:
+    
+            - populate the cluster with 2 nodes
+            - start one node without having it join the ring
+            - start the other one node with slow_query_log_timeout_in_ms set to a small value
+              and the read request timeouts set to a large value (to ensure the query is not aborted) and
+              read_iteration_delay set to a value big enough for the query to exceed slow_query_log_timeout_in_ms
+              (this will cause read queries to take longer than the slow query timeout)
+            - CREATE a table
+            - INSERT 5000 rows on a session on the node that is not a member of the ring
+            - run SELECT statements and check that the slow query messages are present in the debug logs
+              (we cannot check the logs at info level because the no spam logger has unpredictable results)
+    
+            @jira_ticket CASSANDRA-12403
+            """
+        cluster = self.cluster
+        cluster.set_configuration_options(values={'slow_query_log_timeout_in_ms': 1,
+                                                  'request_timeout_in_ms': 120000,
+                                                  'read_request_timeout_in_ms': 120000,
+                                                  'range_request_timeout_in_ms': 120000})
+    
+        cluster.populate(2)
+        node1, node2 = cluster.nodelist()
+    
+        node1.start(wait_for_binary_proto=True, join_ring=False)  # ensure other node executes queries
+        node2.start(wait_for_binary_proto=True,
+                    jvm_args=["-Dcassandra.monitoring_report_interval_ms=10",
+                              "-Dcassandra.test.read_iteration_delay_ms=2"])  # see above for explanation
+    
+        session = self.patient_exclusive_cql_connection(node1)
+    
+>       self._assert_logs_slow_queries(node2, session)
+
+cql_test.py:1108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cql_test.py:1160: in _assert_logs_slow_queries
+    TestCQLSlowQuery._assert_logs_slow_queries_with_skinny_table(node, session)
+cql_test.py:1178: in _assert_logs_slow_queries_with_skinny_table
+    """.format(table))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+05:13:34,960 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:13:34,672 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:13:34.672695
+05:13:34,850 dtest_setup INFO cluster ccm directory: /tmp/dtest-s7_trve0
+------------------------------ Captured log call -------------------------------
+05:13:36,99 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-s7_trve0/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-s7_trve0/test/node1/conf'}
+05:13:36,100 ccm INFO node1: using Java 8 for the current invocation
+05:13:36,315 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-s7_trve0/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-s7_trve0/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:13:36,316 ccm INFO node1: using Java 8 for the current invocation
+05:13:36,419 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:13:44,187 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-s7_trve0/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-s7_trve0/test/node2/conf'}
+05:13:44,188 ccm INFO node2: using Java 8 for the current invocation
+05:13:44,405 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-s7_trve0/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-s7_trve0/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:13:44,406 ccm INFO node2: using Java 8 for the current invocation
+05:13:44,517 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:14:01,219 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:14:11,572 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('1de8ee9a-be51-3567-8b15-afec9331178f'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3f849329-fc79-3824-bb19-2e262f598ced'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:14:11,585 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:14:21,629 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('1de8ee9a-be51-3567-8b15-afec9331178f'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3f849329-fc79-3824-bb19-2e262f598ced'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:16:21,729 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('1de8ee9a-be51-3567-8b15-afec9331178f'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3f849329-fc79-3824-bb19-2e262f598ced'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:16:34,322 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+05:16:36,955 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:16:36,674 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:16:36.674496
+05:16:36,841 dtest_setup INFO cluster ccm directory: /tmp/dtest-w_hgsbg6
+------------------------------ Captured log call -------------------------------
+05:16:38,432 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-w_hgsbg6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-w_hgsbg6/test/node1/conf'}
+05:16:38,433 ccm INFO node1: using Java 8 for the current invocation
+05:16:38,648 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-w_hgsbg6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-w_hgsbg6/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:16:38,649 ccm INFO node1: using Java 8 for the current invocation
+05:16:38,764 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:16:46,530 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-w_hgsbg6/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-w_hgsbg6/test/node2/conf'}
+05:16:46,532 ccm INFO node2: using Java 8 for the current invocation
+05:16:46,743 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-w_hgsbg6/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-w_hgsbg6/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:16:46,744 ccm INFO node2: using Java 8 for the current invocation
+05:16:46,854 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:17:03,587 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:17:04,528 cassandra.cluster INFO Host 127.0.0.2:9042 may be up; will prepare queries and open connection pool
+05:17:13,952 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('4c02b59f-7233-35cd-82f2-f3554598d9db'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f82c6fc2-0927-3280-ac78-58a8f517c70c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:17:13,960 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:17:24,21 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('4c02b59f-7233-35cd-82f2-f3554598d9db'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f82c6fc2-0927-3280-ac78-58a8f517c70c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:17:34,57 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('4c02b59f-7233-35cd-82f2-f3554598d9db'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f82c6fc2-0927-3280-ac78-58a8f517c70c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:19:34,92 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('4c02b59f-7233-35cd-82f2-f3554598d9db'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f82c6fc2-0927-3280-ac78-58a8f517c70c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:16:34,322 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:16:34,322 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+
+05:19:44,440 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured log teardown -----------------------------
+05:19:44,165 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('77154501-af4f-340b-ae18-55472ee12742'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('f621d564-9511-31d4-8651-ae12f6ee0b55'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+===Flaky Test Report===
+
+test_remote_query failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_remote_query failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 370.48 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 392361137496
+---> v1v2 test failed.
+proj: cassandra
+u_test: cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list: cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:20:42,687 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:21:18,663 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 108.05 seconds ==========================
+[msx] rc = 0
+v1v1 running time = 129762862665
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:22:57,80 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:23:36,473 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 116.90 seconds ==========================
+[msx] rc = 0
+v2v2 running time = 138721571468
+---> v1v1 and v2v2 test test suceeded.
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:25:12,288 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('914555a0-93a6-38d5-8b7e-079e37cc2e1e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('c67743fd-e0e9-3809-9edd-232b10075b42'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:25:12,306 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:25:22,331 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('914555a0-93a6-38d5-8b7e-079e37cc2e1e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('c67743fd-e0e9-3809-9edd-232b10075b42'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:25:32,522 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('914555a0-93a6-38d5-8b7e-079e37cc2e1e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('c67743fd-e0e9-3809-9edd-232b10075b42'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:27:32,714 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('914555a0-93a6-38d5-8b7e-079e37cc2e1e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('c67743fd-e0e9-3809-9edd-232b10075b42'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:27:42,763 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('64fa3e94-946a-3cf6-8565-886ab0e82225'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8eb218a5-8495-3886-b264-6d7f58497bed'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:27:42,995 cassandra.cluster ERROR Exception refreshing schema in response to schema change:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4206, in cassandra.cluster.refresh_schema_and_set_result
+  File "cassandra/cluster.py", line 3686, in cassandra.cluster.ControlConnection._refresh_schema
+  File "cassandra/cluster.py", line 3935, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3975, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3963, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/connection.py", line 1041, in cassandra.connection.Connection.wait_for_responses
+cassandra.connection.ConnectionShutdown: Connection <LibevConnection(140650252424192) 127.0.0.1:9042 (defunct)> is already closed
+05:27:42,996 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:27:44,215 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.04 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+05:28:24,88 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f2d4f7bb-a9cc-3389-bd30-b15912335aee'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6afb4ff5-fe25-39a8-9386-c64c20741573'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:28:24,166 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:28:34,173 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f2d4f7bb-a9cc-3389-bd30-b15912335aee'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6afb4ff5-fe25-39a8-9386-c64c20741573'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:28:44,357 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f2d4f7bb-a9cc-3389-bd30-b15912335aee'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6afb4ff5-fe25-39a8-9386-c64c20741573'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:30:44,513 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f2d4f7bb-a9cc-3389-bd30-b15912335aee'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6afb4ff5-fe25-39a8-9386-c64c20741573'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:30:54,573 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('cebf1be3-4d21-3c7f-8a08-1acc412cbe25'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8ded8e19-edcf-339a-aedf-5b0975c4608c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+
+
+=================================== FAILURES ===================================
+______________________ TestCQLSlowQuery.test_remote_query ______________________
+
+self = <cql_test.TestCQLSlowQuery object at 0x7febb0563978>
+
+    def test_remote_query(self):
+        """
+            Check that a query running on a node other than the coordinator is reported as slow:
+    
+            - populate the cluster with 2 nodes
+            - start one node without having it join the ring
+            - start the other one node with slow_query_log_timeout_in_ms set to a small value
+              and the read request timeouts set to a large value (to ensure the query is not aborted) and
+              read_iteration_delay set to a value big enough for the query to exceed slow_query_log_timeout_in_ms
+              (this will cause read queries to take longer than the slow query timeout)
+            - CREATE a table
+            - INSERT 5000 rows on a session on the node that is not a member of the ring
+            - run SELECT statements and check that the slow query messages are present in the debug logs
+              (we cannot check the logs at info level because the no spam logger has unpredictable results)
+    
+            @jira_ticket CASSANDRA-12403
+            """
+        cluster = self.cluster
+        cluster.set_configuration_options(values={'slow_query_log_timeout_in_ms': 1,
+                                                  'request_timeout_in_ms': 120000,
+                                                  'read_request_timeout_in_ms': 120000,
+                                                  'range_request_timeout_in_ms': 120000})
+    
+        cluster.populate(2)
+        node1, node2 = cluster.nodelist()
+    
+        node1.start(wait_for_binary_proto=True, join_ring=False)  # ensure other node executes queries
+        node2.start(wait_for_binary_proto=True,
+                    jvm_args=["-Dcassandra.monitoring_report_interval_ms=10",
+                              "-Dcassandra.test.read_iteration_delay_ms=2"])  # see above for explanation
+    
+        session = self.patient_exclusive_cql_connection(node1)
+    
+>       self._assert_logs_slow_queries(node2, session)
+
+cql_test.py:1108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cql_test.py:1160: in _assert_logs_slow_queries
+    TestCQLSlowQuery._assert_logs_slow_queries_with_skinny_table(node, session)
+cql_test.py:1178: in _assert_logs_slow_queries_with_skinny_table
+    """.format(table))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+05:24:35,618 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:24:35,414 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:24:35.414226
+05:24:35,528 dtest_setup INFO cluster ccm directory: /tmp/dtest-3u1i3e21
+------------------------------ Captured log call -------------------------------
+05:24:36,812 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3u1i3e21/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3u1i3e21/test/node1/conf'}
+05:24:36,813 ccm INFO node1: using Java 8 for the current invocation
+05:24:37,38 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3u1i3e21/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3u1i3e21/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:24:37,39 ccm INFO node1: using Java 8 for the current invocation
+05:24:37,152 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:24:44,895 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3u1i3e21/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3u1i3e21/test/node2/conf'}
+05:24:44,896 ccm INFO node2: using Java 8 for the current invocation
+05:24:45,103 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3u1i3e21/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3u1i3e21/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:24:45,104 ccm INFO node2: using Java 8 for the current invocation
+05:24:45,227 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:25:01,940 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:25:03,466 cassandra.cluster INFO Host 127.0.0.2:9042 may be up; will prepare queries and open connection pool
+05:25:12,288 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('914555a0-93a6-38d5-8b7e-079e37cc2e1e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('c67743fd-e0e9-3809-9edd-232b10075b42'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:25:12,306 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:25:22,331 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('914555a0-93a6-38d5-8b7e-079e37cc2e1e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('c67743fd-e0e9-3809-9edd-232b10075b42'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:25:32,522 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('914555a0-93a6-38d5-8b7e-079e37cc2e1e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('c67743fd-e0e9-3809-9edd-232b10075b42'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:27:32,714 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('914555a0-93a6-38d5-8b7e-079e37cc2e1e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('c67743fd-e0e9-3809-9edd-232b10075b42'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:27:45,279 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+5:27:47,879 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:27:47,650 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:27:47.650327
+05:27:47,750 dtest_setup INFO cluster ccm directory: /tmp/dtest-tv06wbog
+------------------------------ Captured log call -------------------------------
+05:27:49,180 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-tv06wbog/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-tv06wbog/test/node1/conf'}
+05:27:49,181 ccm INFO node1: using Java 8 for the current invocation
+05:27:49,391 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-tv06wbog/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-tv06wbog/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:27:49,392 ccm INFO node1: using Java 8 for the current invocation
+05:27:49,500 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:27:56,786 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-tv06wbog/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-tv06wbog/test/node2/conf'}
+05:27:56,787 ccm INFO node2: using Java 8 for the current invocation
+05:27:57,19 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-tv06wbog/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-tv06wbog/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:27:57,21 ccm INFO node2: using Java 8 for the current invocation
+05:27:57,133 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:28:13,803 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:28:24,88 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f2d4f7bb-a9cc-3389-bd30-b15912335aee'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6afb4ff5-fe25-39a8-9386-c64c20741573'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:28:24,166 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:28:34,173 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f2d4f7bb-a9cc-3389-bd30-b15912335aee'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6afb4ff5-fe25-39a8-9386-c64c20741573'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:28:44,357 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f2d4f7bb-a9cc-3389-bd30-b15912335aee'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6afb4ff5-fe25-39a8-9386-c64c20741573'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:30:44,513 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f2d4f7bb-a9cc-3389-bd30-b15912335aee'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6afb4ff5-fe25-39a8-9386-c64c20741573'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:27:45,279 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:27:45,279 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]05:30:54,898 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_remote_query failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_remote_query failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 380.19 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 401881097169
+---> v1v2 test failed.
+proj: cassandra
+u_test: cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list: cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:31:55,490 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:32:30,695 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 112.52 seconds ==========================
+[msx] rc = 0
+v1v1 running time = 134298125415
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:34:11,964 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:34:53,624 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 122.13 seconds ==========================
+[msx] rc = 0
+v2v2 running time = 143916133676
+---> v1v1 and v2v2 test test suceeded.
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:36:32,654 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:36:32,687 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('442347e1-4589-3df9-91db-88c7d819c32b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('9376556d-7da2-34a8-bfac-8fe9ad43a51c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:36:42,797 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('442347e1-4589-3df9-91db-88c7d819c32b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('9376556d-7da2-34a8-bfac-8fe9ad43a51c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:38:42,827 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('442347e1-4589-3df9-91db-88c7d819c32b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('9376556d-7da2-34a8-bfac-8fe9ad43a51c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:38:52,891 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('69d27dc3-e2d9-3e7b-85e7-27a26ffd3e02'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('6e325693-5cbf-3c2e-aea5-c1de781d460a'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:38:53,149 cassandra.cluster ERROR Exception refreshing schema in response to schema change:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4206, in cassandra.cluster.refresh_schema_and_set_result
+  File "cassandra/cluster.py", line 3686, in cassandra.cluster.ControlConnection._refresh_schema
+  File "cassandra/cluster.py", line 3935, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3975, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3963, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/connection.py", line 1041, in cassandra.connection.Connection.wait_for_responses
+cassandra.connection.ConnectionShutdown: Connection <LibevConnection(140300875826176) 127.0.0.1:9042 (defunct)> is already closed
+05:38:53,150 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:38:54,162 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+05:39:35,109 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:39:35,138 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('a55c39d4-7b5f-33b4-8dcc-6a9bee516a7d'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('40fe66ad-fb7f-38ef-b7b6-a0f83e65d9c6'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:39:45,149 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('a55c39d4-7b5f-33b4-8dcc-6a9bee516a7d'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('40fe66ad-fb7f-38ef-b7b6-a0f83e65d9c6'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:41:45,259 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('a55c39d4-7b5f-33b4-8dcc-6a9bee516a7d'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('40fe66ad-fb7f-38ef-b7b6-a0f83e65d9c6'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+FAILED                                                                   [100%]
+------------------------------ live log teardown -------------------------------
+05:41:55,366 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('fcbe37a2-5b8b-3525-90dd-d67126dfb3f0'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('262347af-2ed6-3d5f-bbc7-1bd066a37c4d'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+
+
+=================================== FAILURES ===================================
+______________________ TestCQLSlowQuery.test_remote_query ______________________
+
+self = <cql_test.TestCQLSlowQuery object at 0x7f9a57de6ac8>
+
+    def test_remote_query(self):
+        """
+            Check that a query running on a node other than the coordinator is reported as slow:
+    
+            - populate the cluster with 2 nodes
+            - start one node without having it join the ring
+            - start the other one node with slow_query_log_timeout_in_ms set to a small value
+              and the read request timeouts set to a large value (to ensure the query is not aborted) and
+              read_iteration_delay set to a value big enough for the query to exceed slow_query_log_timeout_in_ms
+              (this will cause read queries to take longer than the slow query timeout)
+            - CREATE a table
+            - INSERT 5000 rows on a session on the node that is not a member of the ring
+            - run SELECT statements and check that the slow query messages are present in the debug logs
+              (we cannot check the logs at info level because the no spam logger has unpredictable results)
+    
+            @jira_ticket CASSANDRA-12403
+            """
+        cluster = self.cluster
+        cluster.set_configuration_options(values={'slow_query_log_timeout_in_ms': 1,
+                                                  'request_timeout_in_ms': 120000,
+                                                  'read_request_timeout_in_ms': 120000,
+                                                  'range_request_timeout_in_ms': 120000})
+    
+        cluster.populate(2)
+        node1, node2 = cluster.nodelist()
+    
+        node1.start(wait_for_binary_proto=True, join_ring=False)  # ensure other node executes queries
+        node2.start(wait_for_binary_proto=True,
+                    jvm_args=["-Dcassandra.monitoring_report_interval_ms=10",
+                              "-Dcassandra.test.read_iteration_delay_ms=2"])  # see above for explanation
+    
+        session = self.patient_exclusive_cql_connection(node1)
+    
+>       self._assert_logs_slow_queries(node2, session)
+
+cql_test.py:1108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cql_test.py:1160: in _assert_logs_slow_queries
+    TestCQLSlowQuery._assert_logs_slow_queries_with_skinny_table(node, session)
+cql_test.py:1178: in _assert_logs_slow_queries_with_skinny_table
+    """.format(table))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+05:35:55,835 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:35:55,566 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:35:55.566241
+05:35:55,727 dtest_setup INFO cluster ccm directory: /tmp/dtest-3hpk40xf
+------------------------------ Captured log call -------------------------------
+05:35:57,150 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3hpk40xf/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3hpk40xf/test/node1/conf'}
+05:35:57,150 ccm INFO node1: using Java 8 for the current invocation
+05:35:57,366 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3hpk40xf/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3hpk40xf/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:35:57,367 ccm INFO node1: using Java 8 for the current invocation
+05:35:57,466 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:36:05,234 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3hpk40xf/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3hpk40xf/test/node2/conf'}
+05:36:05,235 ccm INFO node2: using Java 8 for the current invocation
+05:36:05,471 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3hpk40xf/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3hpk40xf/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:36:05,471 ccm INFO node2: using Java 8 for the current invocation
+05:36:05,590 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:36:22,294 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:36:23,628 cassandra.cluster INFO Host 127.0.0.2:9042 may be up; will prepare queries and open connection pool
+05:36:32,654 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:36:32,687 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('442347e1-4589-3df9-91db-88c7d819c32b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('9376556d-7da2-34a8-bfac-8fe9ad43a51c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:36:42,797 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('442347e1-4589-3df9-91db-88c7d819c32b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('9376556d-7da2-34a8-bfac-8fe9ad43a51c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:38:42,827 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('442347e1-4589-3df9-91db-88c7d819c32b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('9376556d-7da2-34a8-bfac-8fe9ad43a51c'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:38:55,487 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+05:38:58,170 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:38:57,923 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:38:57.923839
+05:38:58,39 dtest_setup INFO cluster ccm directory: /tmp/dtest-3etek0zy
+------------------------------ Captured log call -------------------------------
+05:38:59,542 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3etek0zy/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3etek0zy/test/node1/conf'}
+05:38:59,544 ccm INFO node1: using Java 8 for the current invocation
+05:38:59,782 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3etek0zy/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3etek0zy/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:38:59,783 ccm INFO node1: using Java 8 for the current invocation
+05:38:59,892 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:39:07,659 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3etek0zy/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3etek0zy/test/node2/conf'}
+05:39:07,660 ccm INFO node2: using Java 8 for the current invocation
+05:39:07,884 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3etek0zy/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3etek0zy/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:39:07,885 ccm INFO node2: using Java 8 for the current invocation
+05:39:08,22 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:39:24,769 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:39:35,109 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:39:35,138 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('a55c39d4-7b5f-33b4-8dcc-6a9bee516a7d'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('40fe66ad-fb7f-38ef-b7b6-a0f83e65d9c6'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:39:35,139 cassandra.cluster INFO Host 127.0.0.2:9042 may be up; will prepare queries and open connection pool
+05:39:45,149 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('a55c39d4-7b5f-33b4-8dcc-6a9bee516a7d'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('40fe66ad-fb7f-38ef-b7b6-a0f83e65d9c6'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:41:45,259 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('a55c39d4-7b5f-33b4-8dcc-6a9bee516a7d'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('40fe66ad-fb7f-38ef-b7b6-a0f83e65d9c6'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:38:55,487 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:38:55,487 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:41:55,617 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured log teardown -----------------------------
+05:41:55,366 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('fcbe37a2-5b8b-3525-90dd-d67126dfb3f0'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('262347af-2ed6-3d5f-bbc7-1bd066a37c4d'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+===Flaky Test Report===
+
+test_remote_query failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_remote_query failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 360.81 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 382539904500
+---> v1v2 test failed.
+proj: cassandra
+u_test: cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list: cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:42:59,236 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:43:35,795 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 117.89 seconds ==========================
+[msx] rc = 0
+v1v1 running time = 139657678293
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:45:19,161 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:45:56,492 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 118.26 seconds ==========================
+[msx] rc = 0
+v2v2 running time = 140084409129
+---> v1v1 and v2v2 test test suceeded.
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:47:34,792 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:47:34,851 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('6acfa913-7697-37aa-acdc-c0dfaf79a99b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e7d1d8d-65da-3642-9526-e3289dc244df'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:47:44,944 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('6acfa913-7697-37aa-acdc-c0dfaf79a99b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e7d1d8d-65da-3642-9526-e3289dc244df'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:49:44,973 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('6acfa913-7697-37aa-acdc-c0dfaf79a99b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e7d1d8d-65da-3642-9526-e3289dc244df'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:49:55,39 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('42653b5f-3cd4-3939-a271-9174fb092ebc'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('4e95670f-45d1-36d9-b6de-4909863286d0'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:49:55,293 cassandra.cluster ERROR Exception refreshing schema in response to schema change:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4206, in cassandra.cluster.refresh_schema_and_set_result
+  File "cassandra/cluster.py", line 3686, in cassandra.cluster.ControlConnection._refresh_schema
+  File "cassandra/cluster.py", line 3935, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3975, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3963, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/connection.py", line 1041, in cassandra.connection.Connection.wait_for_responses
+cassandra.connection.ConnectionShutdown: Connection <LibevConnection(140427290855800) 127.0.0.1:9042 (defunct)> is already closed
+05:49:55,294 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:49:56,404 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.28 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+05:50:37,20 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('05b70313-32ea-3884-aa8c-f19e3398f233'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3d0ddb6f-5984-37c4-a3a9-2fedb4b99775'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:50:37,34 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:50:47,81 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('05b70313-32ea-3884-aa8c-f19e3398f233'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3d0ddb6f-5984-37c4-a3a9-2fedb4b99775'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:50:57,126 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('05b70313-32ea-3884-aa8c-f19e3398f233'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3d0ddb6f-5984-37c4-a3a9-2fedb4b99775'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:52:57,255 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('05b70313-32ea-3884-aa8c-f19e3398f233'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3d0ddb6f-5984-37c4-a3a9-2fedb4b99775'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+FAILED                                                                   [100%]
+------------------------------ live log teardown -------------------------------
+05:53:07,337 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('6d3e66b6-8795-357e-845f-f1fb9d8d1da8'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('b4511838-2004-3cab-91f6-29a855c78667'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+
+
+=================================== FAILURES ===================================
+______________________ TestCQLSlowQuery.test_remote_query ______________________
+
+self = <cql_test.TestCQLSlowQuery object at 0x7fb7c7961fd0>
+
+    def test_remote_query(self):
+        """
+            Check that a query running on a node other than the coordinator is reported as slow:
+    
+            - populate the cluster with 2 nodes
+            - start one node without having it join the ring
+            - start the other one node with slow_query_log_timeout_in_ms set to a small value
+              and the read request timeouts set to a large value (to ensure the query is not aborted) and
+              read_iteration_delay set to a value big enough for the query to exceed slow_query_log_timeout_in_ms
+              (this will cause read queries to take longer than the slow query timeout)
+            - CREATE a table
+            - INSERT 5000 rows on a session on the node that is not a member of the ring
+            - run SELECT statements and check that the slow query messages are present in the debug logs
+              (we cannot check the logs at info level because the no spam logger has unpredictable results)
+    
+            @jira_ticket CASSANDRA-12403
+            """
+        cluster = self.cluster
+        cluster.set_configuration_options(values={'slow_query_log_timeout_in_ms': 1,
+                                                  'request_timeout_in_ms': 120000,
+                                                  'read_request_timeout_in_ms': 120000,
+                                                  'range_request_timeout_in_ms': 120000})
+    
+        cluster.populate(2)
+        node1, node2 = cluster.nodelist()
+    
+        node1.start(wait_for_binary_proto=True, join_ring=False)  # ensure other node executes queries
+        node2.start(wait_for_binary_proto=True,
+                    jvm_args=["-Dcassandra.monitoring_report_interval_ms=10",
+                              "-Dcassandra.test.read_iteration_delay_ms=2"])  # see above for explanation
+    
+        session = self.patient_exclusive_cql_connection(node1)
+    
+>       self._assert_logs_slow_queries(node2, session)
+
+cql_test.py:1108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cql_test.py:1160: in _assert_logs_slow_queries
+    TestCQLSlowQuery._assert_logs_slow_queries_with_skinny_table(node, session)
+cql_test.py:1178: in _assert_logs_slow_queries_with_skinny_table
+    """.format(table))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+05:46:58,120 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:46:57,892 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:46:57.892747
+05:46:58,7 dtest_setup INFO cluster ccm directory: /tmp/dtest-az1twqwl
+------------------------------ Captured log call -------------------------------
+05:46:59,281 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-az1twqwl/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-az1twqwl/test/node1/conf'}
+05:46:59,283 ccm INFO node1: using Java 8 for the current invocation
+05:46:59,496 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-az1twqwl/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-az1twqwl/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:46:59,497 ccm INFO node1: using Java 8 for the current invocation
+05:46:59,610 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:47:07,376 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-az1twqwl/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-az1twqwl/test/node2/conf'}
+05:47:07,377 ccm INFO node2: using Java 8 for the current invocation
+05:47:07,599 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-az1twqwl/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-az1twqwl/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:47:07,600 ccm INFO node2: using Java 8 for the current invocation
+05:47:07,714 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:47:24,427 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:47:25,351 cassandra.cluster INFO Host 127.0.0.2:9042 may be up; will prepare queries and open connection pool
+05:47:34,792 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:47:34,851 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('6acfa913-7697-37aa-acdc-c0dfaf79a99b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e7d1d8d-65da-3642-9526-e3289dc244df'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:47:44,944 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('6acfa913-7697-37aa-acdc-c0dfaf79a99b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e7d1d8d-65da-3642-9526-e3289dc244df'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:49:44,973 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('6acfa913-7697-37aa-acdc-c0dfaf79a99b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('2e7d1d8d-65da-3642-9526-e3289dc244df'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:49:57,523 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+05:50:00,169 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:49:59,962 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:49:59.961959
+05:50:00,44 dtest_setup INFO cluster ccm directory: /tmp/dtest-b36jpbhq
+------------------------------ Captured log call -------------------------------
+05:50:01,575 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-b36jpbhq/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-b36jpbhq/test/node1/conf'}
+05:50:01,577 ccm INFO node1: using Java 8 for the current invocation
+05:50:01,795 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-b36jpbhq/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-b36jpbhq/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:50:01,796 ccm INFO node1: using Java 8 for the current invocation
+05:50:01,891 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:50:09,650 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-b36jpbhq/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-b36jpbhq/test/node2/conf'}
+05:50:09,651 ccm INFO node2: using Java 8 for the current invocation
+05:50:09,875 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-b36jpbhq/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-b36jpbhq/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:50:09,876 ccm INFO node2: using Java 8 for the current invocation
+05:50:09,992 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:50:26,670 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:50:37,20 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('05b70313-32ea-3884-aa8c-f19e3398f233'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3d0ddb6f-5984-37c4-a3a9-2fedb4b99775'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:50:37,34 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:50:47,81 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('05b70313-32ea-3884-aa8c-f19e3398f233'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3d0ddb6f-5984-37c4-a3a9-2fedb4b99775'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:50:57,126 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('05b70313-32ea-3884-aa8c-f19e3398f233'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3d0ddb6f-5984-37c4-a3a9-2fedb4b99775'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:52:57,255 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('05b70313-32ea-3884-aa8c-f19e3398f233'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('3d0ddb6f-5984-37c4-a3a9-2fedb4b99775'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+05:49:57,523 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:49:57,523 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:53:07,636 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured log teardown -----------------------------
+05:53:07,337 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('6d3e66b6-8795-357e-845f-f1fb9d8d1da8'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('b4511838-2004-3cab-91f6-29a855c78667'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+===Flaky Test Report===
+
+test_remote_query failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_remote_query failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 370.46 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 392236705874
+---> v1v2 test failed.
+proj: cassandra
+u_test: cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list: cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:54:07,257 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:54:43,895 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 108.89 seconds ==========================
+[msx] rc = 0
+v1v1 running time = 130628127607
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:56:21,172 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:56:59,438 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 116.88 seconds ==========================
+[msx] rc = 0
+v2v2 running time = 138700880842
+---> v1v1 and v2v2 test test suceeded.
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+05:58:36,337 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e67b974b-d90c-3e56-b959-e62b93d8c31b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8c0a90be-c33b-3be1-8fcc-19b9460580fa'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:58:36,342 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:58:46,405 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e67b974b-d90c-3e56-b959-e62b93d8c31b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8c0a90be-c33b-3be1-8fcc-19b9460580fa'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:58:56,439 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e67b974b-d90c-3e56-b959-e62b93d8c31b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8c0a90be-c33b-3be1-8fcc-19b9460580fa'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:00:56,460 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e67b974b-d90c-3e56-b959-e62b93d8c31b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8c0a90be-c33b-3be1-8fcc-19b9460580fa'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:01:06,506 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e3311156-625d-3994-8b02-981f8f66f9fd'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('45a9293f-7181-3d18-9379-21f1586bc1dc'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:01:06,758 cassandra.cluster ERROR Exception refreshing schema in response to schema change:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4206, in cassandra.cluster.refresh_schema_and_set_result
+  File "cassandra/cluster.py", line 3686, in cassandra.cluster.ControlConnection._refresh_schema
+  File "cassandra/cluster.py", line 3935, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3975, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/cluster.py", line 3963, in cassandra.cluster.ControlConnection.wait_for_schema_agreement
+  File "cassandra/connection.py", line 1041, in cassandra.connection.Connection.wait_for_responses
+cassandra.connection.ConnectionShutdown: Connection <LibevConnection(140653278819384) 127.0.0.1:9042 (defunct)> is already closed
+06:01:06,759 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+06:01:07,971 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.78 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+06:01:49,536 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:01:49,578 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('c3da3acb-27f4-3b6a-a552-563eb90385a1'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('ec1bbd8e-c899-35af-92df-02def224b362'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:01:59,640 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('c3da3acb-27f4-3b6a-a552-563eb90385a1'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('ec1bbd8e-c899-35af-92df-02def224b362'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:03:59,661 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('c3da3acb-27f4-3b6a-a552-563eb90385a1'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('ec1bbd8e-c899-35af-92df-02def224b362'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+FAILED                                                                   [100%]
+------------------------------ live log teardown -------------------------------
+06:04:09,741 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('d1340cfd-3a1b-3608-8248-66bed5a1b4c5'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('36818459-ac3a-3f8f-96f6-2b8310c8c53a'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+
+
+=================================== FAILURES ===================================
+______________________ TestCQLSlowQuery.test_remote_query ______________________
+
+self = <cql_test.TestCQLSlowQuery object at 0x7fec64bcdac8>
+
+    def test_remote_query(self):
+        """
+            Check that a query running on a node other than the coordinator is reported as slow:
+    
+            - populate the cluster with 2 nodes
+            - start one node without having it join the ring
+            - start the other one node with slow_query_log_timeout_in_ms set to a small value
+              and the read request timeouts set to a large value (to ensure the query is not aborted) and
+              read_iteration_delay set to a value big enough for the query to exceed slow_query_log_timeout_in_ms
+              (this will cause read queries to take longer than the slow query timeout)
+            - CREATE a table
+            - INSERT 5000 rows on a session on the node that is not a member of the ring
+            - run SELECT statements and check that the slow query messages are present in the debug logs
+              (we cannot check the logs at info level because the no spam logger has unpredictable results)
+    
+            @jira_ticket CASSANDRA-12403
+            """
+        cluster = self.cluster
+        cluster.set_configuration_options(values={'slow_query_log_timeout_in_ms': 1,
+                                                  'request_timeout_in_ms': 120000,
+                                                  'read_request_timeout_in_ms': 120000,
+                                                  'range_request_timeout_in_ms': 120000})
+    
+        cluster.populate(2)
+        node1, node2 = cluster.nodelist()
+    
+        node1.start(wait_for_binary_proto=True, join_ring=False)  # ensure other node executes queries
+        node2.start(wait_for_binary_proto=True,
+                    jvm_args=["-Dcassandra.monitoring_report_interval_ms=10",
+                              "-Dcassandra.test.read_iteration_delay_ms=2"])  # see above for explanation
+    
+        session = self.patient_exclusive_cql_connection(node1)
+    
+>       self._assert_logs_slow_queries(node2, session)
+
+cql_test.py:1108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cql_test.py:1160: in _assert_logs_slow_queries
+    TestCQLSlowQuery._assert_logs_slow_queries_with_skinny_table(node, session)
+cql_test.py:1178: in _assert_logs_slow_queries_with_skinny_table
+    """.format(table))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+05:57:59,625 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:57:59,371 conftest INFO Starting execution of test_remote_query at 2022-02-04 05:57:59.371452
+05:57:59,532 dtest_setup INFO cluster ccm directory: /tmp/dtest-qeox5zkq
+------------------------------ Captured log call -------------------------------
+05:58:00,817 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qeox5zkq/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qeox5zkq/test/node1/conf'}
+05:58:00,818 ccm INFO node1: using Java 8 for the current invocation
+05:58:01,37 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qeox5zkq/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qeox5zkq/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+05:58:01,38 ccm INFO node1: using Java 8 for the current invocation
+05:58:01,157 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:58:08,909 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qeox5zkq/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qeox5zkq/test/node2/conf'}
+05:58:08,910 ccm INFO node2: using Java 8 for the current invocation
+05:58:09,135 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qeox5zkq/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qeox5zkq/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+05:58:09,136 ccm INFO node2: using Java 8 for the current invocation
+05:58:09,248 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+05:58:25,967 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+05:58:36,337 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e67b974b-d90c-3e56-b959-e62b93d8c31b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8c0a90be-c33b-3be1-8fcc-19b9460580fa'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:58:36,342 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+05:58:46,405 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e67b974b-d90c-3e56-b959-e62b93d8c31b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8c0a90be-c33b-3be1-8fcc-19b9460580fa'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+05:58:56,439 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e67b974b-d90c-3e56-b959-e62b93d8c31b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8c0a90be-c33b-3be1-8fcc-19b9460580fa'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:00:56,460 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('e67b974b-d90c-3e56-b959-e62b93d8c31b'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('8c0a90be-c33b-3be1-8fcc-19b9460580fa'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+06:01:09,61 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+6:01:11,734 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+06:01:11,460 conftest INFO Starting execution of test_remote_query at 2022-02-04 06:01:11.459961
+06:01:11,560 dtest_setup INFO cluster ccm directory: /tmp/dtest-unhpb8hc
+------------------------------ Captured log call -------------------------------
+06:01:13,29 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-unhpb8hc/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-unhpb8hc/test/node1/conf'}
+06:01:13,31 ccm INFO node1: using Java 8 for the current invocation
+06:01:13,258 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-unhpb8hc/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-unhpb8hc/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+06:01:13,259 ccm INFO node1: using Java 8 for the current invocation
+06:01:13,371 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+06:01:21,140 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-unhpb8hc/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-unhpb8hc/test/node2/conf'}
+06:01:21,141 ccm INFO node2: using Java 8 for the current invocation
+06:01:21,350 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-unhpb8hc/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-unhpb8hc/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+06:01:21,351 ccm INFO node2: using Java 8 for the current invocation
+06:01:21,456 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+06:01:39,188 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+06:01:49,536 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:01:49,578 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('c3da3acb-27f4-3b6a-a552-563eb90385a1'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('ec1bbd8e-c899-35af-92df-02def224b362'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:01:59,640 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('c3da3acb-27f4-3b6a-a552-563eb90385a1'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('ec1bbd8e-c899-35af-92df-02def224b362'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:03:59,661 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('c3da3acb-27f4-3b6a-a552-563eb90385a1'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('ec1bbd8e-c899-35af-92df-02def224b362'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+06:01:09,61 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+06:01:09,61 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+06:04:09,867 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured log teardown -----------------------------
+06:04:09,741 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('d1340cfd-3a1b-3608-8248-66bed5a1b4c5'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('36818459-ac3a-3f8f-96f6-2b8310c8c53a'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+===Flaky Test Report===
+
+test_remote_query failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_remote_query failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 371.20 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 392894134247
+---> v1v2 test failed.
+proj: cassandra
+u_test: cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list: cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+06:05:10,456 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:05:47,791 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 118.90 seconds ==========================
+[msx] rc = 0
+v1v1 running time = 140639459304
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+06:07:32,697 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:08:10,175 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 115.43 seconds ==========================
+[msx] rc = 0
+v2v2 running time = 137195424940
+---> v1v1 and v2v2 test test suceeded.
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+06:09:47,483 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:09:47,521 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('747b6b36-9e78-3bd5-8d27-70f42e0c8bbe'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0704ab6e-53cb-3773-9afc-fe17dcdcec9b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:09:57,576 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('747b6b36-9e78-3bd5-8d27-70f42e0c8bbe'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0704ab6e-53cb-3773-9afc-fe17dcdcec9b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:11:57,696 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('747b6b36-9e78-3bd5-8d27-70f42e0c8bbe'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0704ab6e-53cb-3773-9afc-fe17dcdcec9b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:12:08,81 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('fb25df07-22ac-33d1-98f6-e8920b13d58f'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('eaafb9c7-03a7-3b2c-b564-d260050b1988'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:12:08,85 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+06:12:09,292 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.1 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+06:12:49,699 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f7d8982a-8b5e-3d6e-a7e9-ec151713609e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0d5b343c-e815-311b-8e7d-a259fb71c41b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:12:49,809 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:12:59,736 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f7d8982a-8b5e-3d6e-a7e9-ec151713609e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0d5b343c-e815-311b-8e7d-a259fb71c41b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:13:09,938 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f7d8982a-8b5e-3d6e-a7e9-ec151713609e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0d5b343c-e815-311b-8e7d-a259fb71c41b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:15:10,23 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f7d8982a-8b5e-3d6e-a7e9-ec151713609e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0d5b343c-e815-311b-8e7d-a259fb71c41b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:15:20,93 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('756c76bc-dab5-3342-9372-ed687ad8cc37'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('d0ea28c9-3bce-37dd-9e90-14197fea2e7f'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+
+
+=================================== FAILURES ===================================
+______________________ TestCQLSlowQuery.test_remote_query ______________________
+
+self = <cql_test.TestCQLSlowQuery object at 0x7fe382123c50>
+
+    def test_remote_query(self):
+        """
+            Check that a query running on a node other than the coordinator is reported as slow:
+    
+            - populate the cluster with 2 nodes
+            - start one node without having it join the ring
+            - start the other one node with slow_query_log_timeout_in_ms set to a small value
+              and the read request timeouts set to a large value (to ensure the query is not aborted) and
+              read_iteration_delay set to a value big enough for the query to exceed slow_query_log_timeout_in_ms
+              (this will cause read queries to take longer than the slow query timeout)
+            - CREATE a table
+            - INSERT 5000 rows on a session on the node that is not a member of the ring
+            - run SELECT statements and check that the slow query messages are present in the debug logs
+              (we cannot check the logs at info level because the no spam logger has unpredictable results)
+    
+            @jira_ticket CASSANDRA-12403
+            """
+        cluster = self.cluster
+        cluster.set_configuration_options(values={'slow_query_log_timeout_in_ms': 1,
+                                                  'request_timeout_in_ms': 120000,
+                                                  'read_request_timeout_in_ms': 120000,
+                                                  'range_request_timeout_in_ms': 120000})
+    
+        cluster.populate(2)
+        node1, node2 = cluster.nodelist()
+    
+        node1.start(wait_for_binary_proto=True, join_ring=False)  # ensure other node executes queries
+        node2.start(wait_for_binary_proto=True,
+                    jvm_args=["-Dcassandra.monitoring_report_interval_ms=10",
+                              "-Dcassandra.test.read_iteration_delay_ms=2"])  # see above for explanation
+    
+        session = self.patient_exclusive_cql_connection(node1)
+    
+>       self._assert_logs_slow_queries(node2, session)
+
+cql_test.py:1108: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cql_test.py:1160: in _assert_logs_slow_queries
+    TestCQLSlowQuery._assert_logs_slow_queries_with_skinny_table(node, session)
+cql_test.py:1178: in _assert_logs_slow_queries_with_skinny_table
+    """.format(table))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+6:09:10,633 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+06:09:10,344 conftest INFO Starting execution of test_remote_query at 2022-02-04 06:09:10.344046
+06:09:10,522 dtest_setup INFO cluster ccm directory: /tmp/dtest-a7t3guis
+------------------------------ Captured log call -------------------------------
+06:09:12,10 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a7t3guis/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a7t3guis/test/node1/conf'}
+06:09:12,11 ccm INFO node1: using Java 8 for the current invocation
+06:09:12,222 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a7t3guis/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a7t3guis/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+06:09:12,222 ccm INFO node1: using Java 8 for the current invocation
+06:09:12,320 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+06:09:20,102 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a7t3guis/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a7t3guis/test/node2/conf'}
+06:09:20,103 ccm INFO node2: using Java 8 for the current invocation
+06:09:20,314 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a7t3guis/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a7t3guis/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+06:09:20,315 ccm INFO node2: using Java 8 for the current invocation
+06:09:20,419 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+06:09:37,121 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+06:09:38,905 cassandra.cluster INFO Host 127.0.0.2:9042 may be up; will prepare queries and open connection pool
+06:09:47,483 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:09:47,521 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('747b6b36-9e78-3bd5-8d27-70f42e0c8bbe'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0704ab6e-53cb-3773-9afc-fe17dcdcec9b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:09:57,576 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('747b6b36-9e78-3bd5-8d27-70f42e0c8bbe'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0704ab6e-53cb-3773-9afc-fe17dcdcec9b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:11:57,696 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('747b6b36-9e78-3bd5-8d27-70f42e0c8bbe'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0704ab6e-53cb-3773-9afc-fe17dcdcec9b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+06:12:10,337 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+06:12:13,13 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+06:12:12,801 conftest INFO Starting execution of test_remote_query at 2022-02-04 06:12:12.801610
+06:12:12,885 dtest_setup INFO cluster ccm directory: /tmp/dtest-7o5rfkt3
+------------------------------ Captured log call -------------------------------
+06:12:14,264 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-7o5rfkt3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-7o5rfkt3/test/node1/conf'}
+06:12:14,266 ccm INFO node1: using Java 8 for the current invocation
+06:12:14,502 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-7o5rfkt3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-7o5rfkt3/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+06:12:14,503 ccm INFO node1: using Java 8 for the current invocation
+06:12:14,617 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+06:12:22,376 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-7o5rfkt3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-7o5rfkt3/test/node2/conf'}
+06:12:22,377 ccm INFO node2: using Java 8 for the current invocation
+06:12:22,600 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '93a41b8f881b', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'cql_test.py::TestCQLSlowQuery::()::test_remote_query (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-7o5rfkt3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-7o5rfkt3/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.monitoring_report_interval_ms=10 -Dcassandra.test.read_iteration_delay_ms=2 -Dcassandra.migration_task_wait_in_seconds=4'}
+06:12:22,601 ccm INFO node2: using Java 8 for the current invocation
+06:12:22,714 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+06:12:39,443 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+06:12:49,699 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f7d8982a-8b5e-3d6e-a7e9-ec151713609e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0d5b343c-e815-311b-8e7d-a259fb71c41b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:12:49,809 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:12:59,736 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f7d8982a-8b5e-3d6e-a7e9-ec151713609e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0d5b343c-e815-311b-8e7d-a259fb71c41b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:13:09,938 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f7d8982a-8b5e-3d6e-a7e9-ec151713609e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0d5b343c-e815-311b-8e7d-a259fb71c41b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+06:15:10,23 cassandra.cluster WARNING Node 127.0.0.1:9042 is reporting a schema disagreement: {UUID('f7d8982a-8b5e-3d6e-a7e9-ec151713609e'): [<DefaultEndPoint: 127.0.0.1:9042>], UUID('0d5b343c-e815-311b-8e7d-a259fb71c41b'): [<DefaultEndPoint: 127.0.0.2:9042>]}
+--------------------------- Captured stdout teardown ---------------------------
+06:12:10,337 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+06:12:10,337 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]06:15:20,189 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_remote_query failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_remote_query failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/cql_test.py:1108>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1160>, <TracebackEntry /root/cassandra-dtest/cql_test.py:1178>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 370.65 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 392550908571
+---> v1v2 test failed.
+proj: cassandra
+u_test: cql_test.py::TestCQLSlowQuery::test_remote_query
+h_list: cdc_enabled@@@CassandraDaemon@@@-1@@@false@@@true
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+06:16:22,48 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:16:56,522 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 114.86 seconds ==========================
+[msx] rc = 0
+v1v1 running time = 136784193866
+cassandra cql_test.py::TestCQLSlowQuery::test_remote_query false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is cql_test.py::TestCQLSlowQuery::test_remote_query
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+cql_test.py::TestCQLSlowQuery::test_remote_query 
+-------------------------------- live log call ---------------------------------
+06:18:42,980 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+06:19:18,643 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_remote_query passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 118.96 seconds ==========================
+[msx] rc = 0
+v2v2 running time = 140775115825
+---> v1v1 and v2v2 test test suceeded.
+early stop after 7 is satisfied
+v1v2 failed with probability 7 out of 7
+v1v1v2v2 failed with probability 0 out of 7
+Total execution time in seconds : 4673
+0

@@ -1,0 +1,935 @@
+my_type=hypothesis
+proj=cassandra
+u_test=secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+h_list[1]=tombstone_failure_threshold@@@CassandraDaemon@@@1@@@200000@@@100000
+proj: cassandra
+u_test: secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+h_list: tombstone_failure_threshold@@@CassandraDaemon@@@1@@@200000@@@100000
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 27.89 seconds ===========================
+[msx] rc = 0
+v1v2 running time = 49611687894
+---> v1v2 test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column FAILED [100%]
+
+=================================== FAILURES ===================================
+_ TestSecondaryIndexesOnCollections.test_multiple_indexes_on_single_map_column _
+
+self = <secondary_indexes_test.TestSecondaryIndexesOnCollections object at 0x7fa8a17d1908>
+
+    @since('3.0')
+    def test_multiple_indexes_on_single_map_column(self):
+        """
+            verifying functionality of multiple unique secondary indexes on a single column
+            @jira_ticket CASSANDRA-7771
+            @since 3.0
+            """
+        cluster = self.cluster
+        cluster.populate(1).start()
+        [node1] = cluster.nodelist()
+        session = self.patient_cql_connection(node1)
+        create_ks(session, 'map_double_index', 1)
+        session.execute("""
+                    CREATE TABLE map_tbl (
+                        id uuid primary key,
+                        amap map<text, int>
+                    )
+                """)
+        session.execute("CREATE INDEX map_keys ON map_tbl(keys(amap))")
+        session.execute("CREATE INDEX map_values ON map_tbl(amap)")
+        session.execute("CREATE INDEX map_entries ON map_tbl(entries(amap))")
+    
+        # multiple indexes on a single column are allowed but identical duplicate indexes are not
+        assert_invalid(session,
+                       "CREATE INDEX map_values_2 ON map_tbl(amap)",
+                       'Index map_values_2 is a duplicate of existing index map_values')
+    
+        session.execute("INSERT INTO map_tbl (id, amap) values (uuid(), {'foo': 1, 'bar': 2});")
+        session.execute("INSERT INTO map_tbl (id, amap) values (uuid(), {'faz': 1, 'baz': 2});")
+    
+        value_search = list(session.execute("SELECT * FROM map_tbl WHERE amap CONTAINS 1"))
+        assert 2 == len(value_search), "incorrect number of rows when querying on map values"
+    
+        key_search = list(session.execute("SELECT * FROM map_tbl WHERE amap CONTAINS KEY 'foo'"))
+        assert 1 == len(key_search), "incorrect number of rows when querying on map keys"
+    
+        entries_search = list(session.execute("SELECT * FROM map_tbl WHERE amap['foo'] = 1"))
+        assert 1 == len(entries_search), "incorrect number of rows when querying on map entries"
+    
+        session.cluster.refresh_schema_metadata()
+        table_meta = session.cluster.metadata.keyspaces["map_double_index"].tables["map_tbl"]
+        assert 3 == len(table_meta.indexes)
+        assert {'map_keys', 'map_values', 'map_entries'} == set(table_meta.indexes.keys())
+        assert 3 == len(session.cluster.metadata.keyspaces["map_double_index"].indexes)
+    
+        assert 'map_keys' in table_meta.export_as_string()
+        assert 'map_values' in table_meta.export_as_string()
+        assert 'map_entries' in table_meta.export_as_string()
+    
+>       session.execute("DROP TABLE map_tbl")
+
+secondary_indexes_test.py:950: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+05:29:16,600 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:29:15,428 conftest INFO Starting execution of test_multiple_indexes_on_single_map_column at 2022-02-02 05:29:15.428164
+05:29:16,489 dtest_setup INFO cluster ccm directory: /tmp/dtest-e2tht884
+----------------------------- Captured stdout call -----------------------------
+
+05:29:16,603 ccm DEBUG using balanced tokens for non-vnode cluster
+05:29:17,217 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e2tht884/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e2tht884/test/node1/conf'}
+05:29:17,218 ccm INFO node1: using Java 8 for the current invocation
+05:29:17,387 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e2tht884/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e2tht884/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:29:17,387 ccm INFO node1: using Java 8 for the current invocation
+05:29:17,466 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+05:29:17,217 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e2tht884/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e2tht884/test/node1/conf'}
+05:29:17,218 ccm INFO node1: using Java 8 for the current invocation
+05:29:17,387 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e2tht884/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e2tht884/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:29:17,387 ccm INFO node1: using Java 8 for the current invocation
+05:29:17,466 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+05:29:47,939 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+05:29:52,270 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:29:51,465 conftest INFO Starting execution of test_multiple_indexes_on_single_map_column at 2022-02-02 05:29:51.465690
+05:29:52,177 dtest_setup INFO cluster ccm directory: /tmp/dtest-gyf33de_
+----------------------------- Captured stdout call -----------------------------
+05:29:52,273 ccm DEBUG using balanced tokens for non-vnode cluster
+05:29:52,822 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-gyf33de_/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-gyf33de_/test/node1/conf'}
+05:29:52,823 ccm INFO node1: using Java 8 for the current invocation
+05:29:53,1 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-gyf33de_/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-gyf33de_/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:29:53,2 ccm INFO node1: using Java 8 for the current invocation
+05:29:53,88 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+05:29:52,822 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-gyf33de_/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-gyf33de_/test/node1/conf'}
+05:29:52,823 ccm INFO node1: using Java 8 for the current invocation
+05:29:53,1 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-gyf33de_/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-gyf33de_/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:29:53,2 ccm INFO node1: using Java 8 for the current invocation
+05:29:53,88 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+05:29:47,939 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:29:47,939 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:30:26,986 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 72.10 seconds ===========================
+[msx] rc = 1
+v1v1 running time = 93776359666
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 74.75 seconds ===========================
+[msx] rc = 0
+v2v2 running time = 96432848954
+---> v1v1 or v2v2 test failed.
+v1v1 failed in a hypo test
+proj: cassandra
+u_test: secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+h_list: tombstone_failure_threshold@@@CassandraDaemon@@@1@@@200000@@@100000
+vv_mode: v1v1
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 72.09 seconds ===========================
+[msx] rc = 0
+v1v2 running time = 94061264929
+---> v1v2 test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column FAILED [100%]
+
+=================================== FAILURES ===================================
+_ TestSecondaryIndexesOnCollections.test_multiple_indexes_on_single_map_column _
+
+self = <secondary_indexes_test.TestSecondaryIndexesOnCollections object at 0x7f0ec6bd4b38>
+
+    @since('3.0')
+    def test_multiple_indexes_on_single_map_column(self):
+        """
+            verifying functionality of multiple unique secondary indexes on a single column
+            @jira_ticket CASSANDRA-7771
+            @since 3.0
+            """
+        cluster = self.cluster
+        cluster.populate(1).start()
+        [node1] = cluster.nodelist()
+        session = self.patient_cql_connection(node1)
+        create_ks(session, 'map_double_index', 1)
+        session.execute("""
+                    CREATE TABLE map_tbl (
+                        id uuid primary key,
+                        amap map<text, int>
+                    )
+                """)
+        session.execute("CREATE INDEX map_keys ON map_tbl(keys(amap))")
+        session.execute("CREATE INDEX map_values ON map_tbl(amap)")
+        session.execute("CREATE INDEX map_entries ON map_tbl(entries(amap))")
+    
+        # multiple indexes on a single column are allowed but identical duplicate indexes are not
+        assert_invalid(session,
+                       "CREATE INDEX map_values_2 ON map_tbl(amap)",
+                       'Index map_values_2 is a duplicate of existing index map_values')
+    
+        session.execute("INSERT INTO map_tbl (id, amap) values (uuid(), {'foo': 1, 'bar': 2});")
+        session.execute("INSERT INTO map_tbl (id, amap) values (uuid(), {'faz': 1, 'baz': 2});")
+    
+        value_search = list(session.execute("SELECT * FROM map_tbl WHERE amap CONTAINS 1"))
+        assert 2 == len(value_search), "incorrect number of rows when querying on map values"
+    
+        key_search = list(session.execute("SELECT * FROM map_tbl WHERE amap CONTAINS KEY 'foo'"))
+        assert 1 == len(key_search), "incorrect number of rows when querying on map keys"
+    
+        entries_search = list(session.execute("SELECT * FROM map_tbl WHERE amap['foo'] = 1"))
+        assert 1 == len(entries_search), "incorrect number of rows when querying on map entries"
+    
+        session.cluster.refresh_schema_metadata()
+        table_meta = session.cluster.metadata.keyspaces["map_double_index"].tables["map_tbl"]
+        assert 3 == len(table_meta.indexes)
+        assert {'map_keys', 'map_values', 'map_entries'} == set(table_meta.indexes.keys())
+        assert 3 == len(session.cluster.metadata.keyspaces["map_double_index"].indexes)
+    
+        assert 'map_keys' in table_meta.export_as_string()
+        assert 'map_values' in table_meta.export_as_string()
+        assert 'map_entries' in table_meta.export_as_string()
+    
+>       session.execute("DROP TABLE map_tbl")
+
+secondary_indexes_test.py:950: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+05:34:01,144 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:33:59,796 conftest INFO Starting execution of test_multiple_indexes_on_single_map_column at 2022-02-02 05:33:59.796117
+05:34:01,45 dtest_setup INFO cluster ccm directory: /tmp/dtest-1hvuqzrv
+----------------------------- Captured stdout call -----------------------------
+
+05:34:01,147 ccm DEBUG using balanced tokens for non-vnode cluster
+05:34:01,782 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-1hvuqzrv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-1hvuqzrv/test/node1/conf'}
+05:34:01,782 ccm INFO node1: using Java 8 for the current invocation
+05:34:01,961 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-1hvuqzrv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-1hvuqzrv/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:34:01,962 ccm INFO node1: using Java 8 for the current invocation
+05:34:02,40 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+05:34:01,782 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-1hvuqzrv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-1hvuqzrv/test/node1/conf'}
+05:34:01,782 ccm INFO node1: using Java 8 for the current invocation
+05:34:01,961 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-1hvuqzrv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-1hvuqzrv/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:34:01,962 ccm INFO node1: using Java 8 for the current invocation
+05:34:02,40 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+05:34:37,501 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+05:34:41,549 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:34:40,593 conftest INFO Starting execution of test_multiple_indexes_on_single_map_column at 2022-02-02 05:34:40.592937
+05:34:41,453 dtest_setup INFO cluster ccm directory: /tmp/dtest-4fh3bdqr
+----------------------------- Captured stdout call -----------------------------
+
+05:34:41,552 ccm DEBUG using balanced tokens for non-vnode cluster
+05:34:42,231 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4fh3bdqr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4fh3bdqr/test/node1/conf'}
+05:34:42,233 ccm INFO node1: using Java 8 for the current invocation
+05:34:42,394 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4fh3bdqr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4fh3bdqr/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:34:42,395 ccm INFO node1: using Java 8 for the current invocation
+05:34:42,471 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+05:34:42,231 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4fh3bdqr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4fh3bdqr/test/node1/conf'}
+05:34:42,233 ccm INFO node1: using Java 8 for the current invocation
+05:34:42,394 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4fh3bdqr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4fh3bdqr/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:34:42,395 ccm INFO node1: using Java 8 for the current invocation
+05:34:42,471 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+05:34:37,501 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:34:37,501 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:35:14,160 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 74.93 seconds ===========================
+[msx] rc = 1
+v1v1 running time = 96682346356
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 32.43 seconds ===========================
+[msx] rc = 0
+v2v2 running time = 54106584117
+---> v1v1 or v2v2 test failed.
+v1v1 failed in a hypo test
+proj: cassandra
+u_test: secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+h_list: tombstone_failure_threshold@@@CassandraDaemon@@@1@@@200000@@@100000
+vv_mode: v1v1
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 74.26 seconds ===========================
+[msx] rc = 0
+v1v2 running time = 96032023562
+---> v1v2 test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column 
+-------------------------------- live log call ---------------------------------
+05:38:44,24 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:38:45,130 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.16 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+_ TestSecondaryIndexesOnCollections.test_multiple_indexes_on_single_map_column _
+
+self = <secondary_indexes_test.TestSecondaryIndexesOnCollections object at 0x7fb31531be10>
+
+    @since('3.0')
+    def test_multiple_indexes_on_single_map_column(self):
+        """
+            verifying functionality of multiple unique secondary indexes on a single column
+            @jira_ticket CASSANDRA-7771
+            @since 3.0
+            """
+        cluster = self.cluster
+        cluster.populate(1).start()
+        [node1] = cluster.nodelist()
+        session = self.patient_cql_connection(node1)
+        create_ks(session, 'map_double_index', 1)
+        session.execute("""
+                    CREATE TABLE map_tbl (
+                        id uuid primary key,
+                        amap map<text, int>
+                    )
+                """)
+        session.execute("CREATE INDEX map_keys ON map_tbl(keys(amap))")
+        session.execute("CREATE INDEX map_values ON map_tbl(amap)")
+        session.execute("CREATE INDEX map_entries ON map_tbl(entries(amap))")
+    
+        # multiple indexes on a single column are allowed but identical duplicate indexes are not
+        assert_invalid(session,
+                       "CREATE INDEX map_values_2 ON map_tbl(amap)",
+                       'Index map_values_2 is a duplicate of existing index map_values')
+    
+        session.execute("INSERT INTO map_tbl (id, amap) values (uuid(), {'foo': 1, 'bar': 2});")
+        session.execute("INSERT INTO map_tbl (id, amap) values (uuid(), {'faz': 1, 'baz': 2});")
+    
+        value_search = list(session.execute("SELECT * FROM map_tbl WHERE amap CONTAINS 1"))
+        assert 2 == len(value_search), "incorrect number of rows when querying on map values"
+    
+        key_search = list(session.execute("SELECT * FROM map_tbl WHERE amap CONTAINS KEY 'foo'"))
+        assert 1 == len(key_search), "incorrect number of rows when querying on map keys"
+    
+        entries_search = list(session.execute("SELECT * FROM map_tbl WHERE amap['foo'] = 1"))
+        assert 1 == len(entries_search), "incorrect number of rows when querying on map entries"
+    
+        session.cluster.refresh_schema_metadata()
+        table_meta = session.cluster.metadata.keyspaces["map_double_index"].tables["map_tbl"]
+        assert 3 == len(table_meta.indexes)
+        assert {'map_keys', 'map_values', 'map_entries'} == set(table_meta.indexes.keys())
+        assert 3 == len(session.cluster.metadata.keyspaces["map_double_index"].indexes)
+    
+        assert 'map_keys' in table_meta.export_as_string()
+        assert 'map_values' in table_meta.export_as_string()
+        assert 'map_entries' in table_meta.export_as_string()
+    
+>       session.execute("DROP TABLE map_tbl")
+
+secondary_indexes_test.py:950: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+05:38:08,446 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:38:06,735 conftest INFO Starting execution of test_multiple_indexes_on_single_map_column at 2022-02-02 05:38:06.735399
+05:38:08,345 dtest_setup INFO cluster ccm directory: /tmp/dtest-_itmyh8k
+----------------------------- Captured stdout call -----------------------------
+
+05:38:08,449 ccm DEBUG using balanced tokens for non-vnode cluster
+05:38:09,48 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-_itmyh8k/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-_itmyh8k/test/node1/conf'}
+05:38:09,48 ccm INFO node1: using Java 8 for the current invocation
+05:38:09,219 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-_itmyh8k/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-_itmyh8k/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:38:09,220 ccm INFO node1: using Java 8 for the current invocation
+05:38:09,303 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+05:38:09,48 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-_itmyh8k/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-_itmyh8k/test/node1/conf'}
+05:38:09,48 ccm INFO node1: using Java 8 for the current invocation
+05:38:09,219 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-_itmyh8k/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-_itmyh8k/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:38:09,220 ccm INFO node1: using Java 8 for the current invocation
+05:38:09,303 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+05:38:46,102 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+05:38:49,903 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+05:38:49,248 conftest INFO Starting execution of test_multiple_indexes_on_single_map_column at 2022-02-02 05:38:49.248432
+05:38:49,807 dtest_setup INFO cluster ccm directory: /tmp/dtest-4gqope1a
+----------------------------- Captured stdout call -----------------------------
+05:38:49,905 ccm DEBUG using balanced tokens for non-vnode cluster
+05:38:50,446 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4gqope1a/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4gqope1a/test/node1/conf'}
+05:38:50,447 ccm INFO node1: using Java 8 for the current invocation
+05:38:50,623 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4gqope1a/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4gqope1a/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:38:50,624 ccm INFO node1: using Java 8 for the current invocation
+05:38:50,708 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+05:38:50,446 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4gqope1a/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4gqope1a/test/node1/conf'}
+05:38:50,447 ccm INFO node1: using Java 8 for the current invocation
+05:38:50,623 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '43705889f285', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestSecondaryIndexesOnCollections::()::test_multiple_indexes_on_single_map_column (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4gqope1a/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4gqope1a/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+05:38:50,624 ccm INFO node1: using Java 8 for the current invocation
+05:38:50,708 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+05:38:46,102 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:38:46,102 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+05:39:21,488 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 77.34 seconds ===========================
+[msx] rc = 1
+v1v1 running time = 99159753382
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 32.27 seconds ===========================
+[msx] rc = 0
+v2v2 running time = 53965011370
+---> v1v1 or v2v2 test failed.
+v1v1 failed in a hypo test
+proj: cassandra
+u_test: secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+h_list: tombstone_failure_threshold@@@CassandraDaemon@@@1@@@200000@@@100000
+vv_mode: v1v1
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 70.14 seconds ===========================
+[msx] rc = 0
+v1v2 running time = 91941050650
+---> v1v2 test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 74.99 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 96806608108
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 33.14 seconds ===========================
+[msx] rc = 0
+v2v2 running time = 54878131567
+---> v1v1 and v2v2 test test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 26.45 seconds ===========================
+[msx] rc = 0
+v1v2 running time = 48136697760
+---> v1v2 test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 34.79 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 56498849184
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 39.68 seconds ===========================
+[msx] rc = 0
+v2v2 running time = 61441831110
+---> v1v1 and v2v2 test test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 31.69 seconds ===========================
+[msx] rc = 0
+v1v2 running time = 53392761624
+---> v1v2 test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 30.01 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 52083812069
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 30.69 seconds ===========================
+[msx] rc = 0
+v2v2 running time = 52383382580
+---> v1v1 and v2v2 test test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column 
+-------------------------------- live log call ---------------------------------
+05:50:36,386 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+05:50:37,423 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.86 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:950>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 63.90 seconds ===========================
+[msx] rc = 0
+v1v2 running time = 85574747068
+---> v1v2 test suceeded.
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 27.66 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 49297843889
+cassandra secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestSecondaryIndexesOnCollections::test_multiple_indexes_on_single_map_column PASSED [100%]
+===Flaky Test Report===
+
+test_multiple_indexes_on_single_map_column passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 39.04 seconds ===========================
+[msx] rc = 0
+v2v2 running time = 60733538448
+---> v1v1 and v2v2 test test suceeded.
+early stop after 7 is satisfied
+v1v2 failed with probability 0 out of 7
+v1v1v2v2 failed with probability 3 out of 7
+Total execution time in seconds : 1497
+0

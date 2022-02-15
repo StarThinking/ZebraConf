@@ -1,0 +1,1656 @@
+my_type=hypothesis
+proj=cassandra
+u_test=transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list[1]=native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:20:06,485 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:20:08,743 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_always_speculate passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 28.48 seconds ===========================
+[msx] rc = 0
+v1v2 running time = 50550489114
+---> v1v2 test suceeded.
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate PASSED [100%]
+===Flaky Test Report===
+
+test_always_speculate passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 36.72 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 58644160943
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:21:56,510 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:21:59,125 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7f646ec8ef60>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:21:30,492 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:21:30.492732
+04:21:30,673 dtest_setup INFO cluster ccm directory: /tmp/dtest-93f5wz4t
+04:21:32,498 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-93f5wz4t/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-93f5wz4t/test/node1/conf'}
+04:21:32,499 ccm INFO node1: using Java 8 for the current invocation
+04:21:32,716 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-93f5wz4t/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-93f5wz4t/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:21:32,717 ccm INFO node1: using Java 8 for the current invocation
+04:21:32,823 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:21:33,172 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-93f5wz4t/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-93f5wz4t/test/node2/conf'}
+04:21:33,174 ccm INFO node2: using Java 8 for the current invocation
+04:21:33,402 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-93f5wz4t/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-93f5wz4t/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:21:33,404 ccm INFO node2: using Java 8 for the current invocation
+04:21:33,518 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:21:33,873 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-93f5wz4t/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-93f5wz4t/test/node3/conf'}
+04:21:33,874 ccm INFO node3: using Java 8 for the current invocation
+04:21:34,130 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-93f5wz4t/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-93f5wz4t/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:21:34,131 ccm INFO node3: using Java 8 for the current invocation
+04:21:34,245 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:21:54,465 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:21:54,467 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:21:54,718 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:21:54,719 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:21:56,510 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+------------------------------ Captured log call -------------------------------
+04:21:57,20 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:21:57,21 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:21:57,522 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:21:57,522 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:21:57,530 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+04:21:58,12 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:21:58,13 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:21:58,455 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:21:58,456 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]04:21:59,422 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 29.84 seconds ===========================
+[msx] rc = 1
+v2v2 running time = 51830832529
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log call ---------------------------------
+04:22:50,550 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:22:52,509 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7efe2e6d07f0>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+---------------------------- Captured stdout setup -----------------------------
+04:22:22,709 ccm DEBUG Log-watching thread starting.
+04:22:24,796 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node1/conf'}
+04:22:24,797 ccm INFO node1: using Java 8 for the current invocation
+04:22:25,34 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:22:25,35 ccm INFO node1: using Java 8 for the current invocation
+04:22:25,132 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:22:25,466 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node2/conf'}
+04:22:25,468 ccm INFO node2: using Java 8 for the current invocation
+04:22:25,679 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:22:25,680 ccm INFO node2: using Java 8 for the current invocation
+04:22:25,775 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:22:26,122 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node3/conf'}
+04:22:26,124 ccm INFO node3: using Java 8 for the current invocation
+04:22:26,345 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:22:26,348 ccm INFO node3: using Java 8 for the current invocation
+04:22:26,494 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+install rule block digest
+
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:22:22,339 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:22:22.338963
+04:22:22,550 dtest_setup INFO cluster ccm directory: /tmp/dtest-z4vc0dmv
+04:22:24,796 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node1/conf'}
+04:22:24,797 ccm INFO node1: using Java 8 for the current invocation
+04:22:25,34 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:22:25,35 ccm INFO node1: using Java 8 for the current invocation
+04:22:25,132 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:22:25,466 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node2/conf'}
+04:22:25,468 ccm INFO node2: using Java 8 for the current invocation
+04:22:25,679 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:22:25,680 ccm INFO node2: using Java 8 for the current invocation
+04:22:25,775 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:22:26,122 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node3/conf'}
+04:22:26,124 ccm INFO node3: using Java 8 for the current invocation
+04:22:26,345 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z4vc0dmv/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z4vc0dmv/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:22:26,348 ccm INFO node3: using Java 8 for the current invocation
+04:22:26,494 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:22:46,707 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:22:46,712 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:22:46,981 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:22:46,981 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+------------------------------ Captured log call -------------------------------
+04:22:49,364 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:22:49,364 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:22:50,550 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:22:51,411 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:22:51,412 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:22:51,570 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:22:51,571 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:22:51,578 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+04:22:51,850 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:22:51,850 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:22:52,509 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]04:22:52,914 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 31.40 seconds ===========================
+[msx] rc = 1
+v1v2 running time = 53415091600
+---> v1v2 test failed.
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate PASSED [100%]
+===Flaky Test Report===
+
+test_always_speculate passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 37.59 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 59744367977
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log call ---------------------------------
+04:24:43,891 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7fbfff24d7b8>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+---------------------------- Captured stdout setup -----------------------------
+04:24:15,867 ccm DEBUG Log-watching thread starting.
+04:24:17,357 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node1/conf'}
+04:24:17,359 ccm INFO node1: using Java 8 for the current invocation
+04:24:17,578 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:24:17,579 ccm INFO node1: using Java 8 for the current invocation
+04:24:17,690 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:24:18,24 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node2/conf'}
+04:24:18,25 ccm INFO node2: using Java 8 for the current invocation
+04:24:18,240 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:24:18,241 ccm INFO node2: using Java 8 for the current invocation
+04:24:18,348 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:24:18,675 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node3/conf'}
+04:24:18,676 ccm INFO node3: using Java 8 for the current invocation
+04:24:18,895 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:24:18,896 ccm INFO node3: using Java 8 for the current invocation
+04:24:18,998 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+install rule block digest
+
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:24:15,361 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:24:15.360952
+04:24:15,775 dtest_setup INFO cluster ccm directory: /tmp/dtest-nngo9jis
+04:24:17,357 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node1/conf'}
+04:24:17,359 ccm INFO node1: using Java 8 for the current invocation
+04:24:17,578 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:24:17,579 ccm INFO node1: using Java 8 for the current invocation
+04:24:17,690 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:24:18,24 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node2/conf'}
+04:24:18,25 ccm INFO node2: using Java 8 for the current invocation
+04:24:18,240 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:24:18,241 ccm INFO node2: using Java 8 for the current invocation
+04:24:18,348 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:24:18,675 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node3/conf'}
+04:24:18,676 ccm INFO node3: using Java 8 for the current invocation
+04:24:18,895 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-nngo9jis/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-nngo9jis/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:24:18,896 ccm INFO node3: using Java 8 for the current invocation
+04:24:18,998 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:24:38,198 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:24:38,200 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:24:38,401 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:24:38,402 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+----------------------------- Captured stdout call -----------------------------
+install rule disable mutations
+
+------------------------------ Captured log call -------------------------------
+04:24:41,1 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:24:41,1 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:24:42,764 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:24:42,765 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:24:43,224 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:24:43,225 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]04:24:44,305 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 29.82 seconds ===========================
+[msx] rc = 1
+v2v2 running time = 51669043855
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:25:31,253 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:25:34,975 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7f92dbe2a550>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:25:07,55 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:25:07.055431
+04:25:07,135 dtest_setup INFO cluster ccm directory: /tmp/dtest-lsbfny_x
+04:25:08,998 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-lsbfny_x/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-lsbfny_x/test/node1/conf'}
+04:25:09,1 ccm INFO node1: using Java 8 for the current invocation
+04:25:09,213 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-lsbfny_x/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-lsbfny_x/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:25:09,215 ccm INFO node1: using Java 8 for the current invocation
+04:25:09,321 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:25:09,686 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-lsbfny_x/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-lsbfny_x/test/node2/conf'}
+04:25:09,687 ccm INFO node2: using Java 8 for the current invocation
+04:25:09,902 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-lsbfny_x/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-lsbfny_x/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:25:09,903 ccm INFO node2: using Java 8 for the current invocation
+04:25:10,24 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:25:10,377 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-lsbfny_x/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-lsbfny_x/test/node3/conf'}
+04:25:10,378 ccm INFO node3: using Java 8 for the current invocation
+04:25:10,596 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-lsbfny_x/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-lsbfny_x/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:25:10,597 ccm INFO node3: using Java 8 for the current invocation
+04:25:10,700 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:25:29,861 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:25:29,865 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:25:30,111 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:25:30,112 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:25:31,253 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:25:32,370 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:25:32,371 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:25:32,387 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+------------------------------ Captured log call -------------------------------
+04:25:32,900 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:25:32,900 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:25:33,878 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:25:33,878 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:25:34,281 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:25:34,282 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:25:34,975 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+--------------------------- Captured stdout teardown ---------------------------
+04:25:35,389 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 29.14 seconds ===========================
+[msx] rc = 1
+v1v2 running time = 50943316446
+---> v1v2 test failed.
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate PASSED [100%]
+===Flaky Test Report===
+
+test_always_speculate passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 35.57 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 57638304165
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:27:21,524 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:27:23,777 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7f9bca92d0b8>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:26:55,705 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:26:55.705526
+04:26:56,326 dtest_setup INFO cluster ccm directory: /tmp/dtest-37eglzm4
+04:26:58,92 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-37eglzm4/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-37eglzm4/test/node1/conf'}
+04:26:58,94 ccm INFO node1: using Java 8 for the current invocation
+04:26:58,317 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-37eglzm4/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-37eglzm4/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:26:58,318 ccm INFO node1: using Java 8 for the current invocation
+04:26:58,421 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:26:58,756 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-37eglzm4/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-37eglzm4/test/node2/conf'}
+04:26:58,758 ccm INFO node2: using Java 8 for the current invocation
+04:26:58,954 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-37eglzm4/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-37eglzm4/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:26:58,955 ccm INFO node2: using Java 8 for the current invocation
+04:26:59,66 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:26:59,397 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-37eglzm4/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-37eglzm4/test/node3/conf'}
+04:26:59,398 ccm INFO node3: using Java 8 for the current invocation
+04:26:59,584 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-37eglzm4/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-37eglzm4/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:26:59,585 ccm INFO node3: using Java 8 for the current invocation
+04:26:59,701 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:27:18,839 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:27:18,840 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:27:19,113 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:27:19,113 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:27:21,524 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+----------------------------- Captured stdout call -----------------------------
+nstall rule disable mutations
+
+install rule disable mutations
+
+------------------------------ Captured log call -------------------------------
+04:27:21,581 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:27:21,582 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:27:22,536 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:27:22,537 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:27:22,544 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+04:27:22,682 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:27:22,682 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:27:23,113 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:27:23,114 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]04:27:24,61 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 29.22 seconds ===========================
+[msx] rc = 1
+v2v2 running time = 51152035329
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:28:10,784 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:28:12,968 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7fe769d8df60>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:27:46,683 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:27:46.683456
+04:27:47,60 dtest_setup INFO cluster ccm directory: /tmp/dtest-y64ec1p5
+04:27:48,623 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y64ec1p5/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y64ec1p5/test/node1/conf'}
+04:27:48,625 ccm INFO node1: using Java 8 for the current invocation
+04:27:48,854 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y64ec1p5/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y64ec1p5/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:27:48,855 ccm INFO node1: using Java 8 for the current invocation
+04:27:48,957 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:27:49,307 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y64ec1p5/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y64ec1p5/test/node2/conf'}
+04:27:49,308 ccm INFO node2: using Java 8 for the current invocation
+04:27:49,532 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y64ec1p5/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y64ec1p5/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:27:49,534 ccm INFO node2: using Java 8 for the current invocation
+04:27:49,643 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:27:49,966 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y64ec1p5/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y64ec1p5/test/node3/conf'}
+04:27:49,967 ccm INFO node3: using Java 8 for the current invocation
+04:27:50,200 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y64ec1p5/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y64ec1p5/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:27:50,201 ccm INFO node3: using Java 8 for the current invocation
+04:27:50,298 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:28:08,497 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:28:08,501 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:28:08,728 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:28:08,729 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:28:10,784 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+------------------------------ Captured log call -------------------------------
+04:28:10,994 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:28:10,995 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:28:11,893 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:28:11,893 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:28:12,7 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:28:12,7 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:28:12,11 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+04:28:12,322 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:28:12,322 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:28:12,968 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+--------------------------- Captured stdout teardown ---------------------------
+04:28:13,347 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 27.46 seconds ===========================
+[msx] rc = 1
+v1v2 running time = 49569032824
+---> v1v2 test failed.
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate PASSED [100%]
+===Flaky Test Report===
+
+test_always_speculate passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 38.25 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 60143427814
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:30:02,827 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:30:05,884 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:30:06,22 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7f3961c4cf60>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:29:36,497 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:29:36.496929
+04:29:36,774 dtest_setup INFO cluster ccm directory: /tmp/dtest-pywcrf38
+04:29:38,618 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-pywcrf38/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-pywcrf38/test/node1/conf'}
+04:29:38,619 ccm INFO node1: using Java 8 for the current invocation
+04:29:38,840 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-pywcrf38/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-pywcrf38/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:29:38,841 ccm INFO node1: using Java 8 for the current invocation
+04:29:38,953 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:29:39,278 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-pywcrf38/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-pywcrf38/test/node2/conf'}
+04:29:39,279 ccm INFO node2: using Java 8 for the current invocation
+04:29:39,511 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-pywcrf38/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-pywcrf38/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:29:39,511 ccm INFO node2: using Java 8 for the current invocation
+04:29:39,607 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:29:39,973 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-pywcrf38/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-pywcrf38/test/node3/conf'}
+04:29:39,974 ccm INFO node3: using Java 8 for the current invocation
+04:29:40,222 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-pywcrf38/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-pywcrf38/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:29:40,222 ccm INFO node3: using Java 8 for the current invocation
+04:29:40,325 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:30:01,568 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:30:01,570 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:01,855 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:30:01,855 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:02,827 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:30:03,844 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:30:03,845 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:30:03,863 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+------------------------------ Captured log call -------------------------------
+04:30:03,899 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:30:03,900 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:04,903 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:30:04,904 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:05,345 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:30:05,346 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:05,884 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]04:30:06,308 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 30.62 seconds ===========================
+[msx] rc = 1
+v2v2 running time = 52484617340
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log call ---------------------------------
+04:30:56,771 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:30:58,166 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7f4a25d53898>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+---------------------------- Captured stdout setup -----------------------------
+04:30:29,623 ccm DEBUG Log-watching thread starting.
+04:30:31,228 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node1/conf'}
+04:30:31,229 ccm INFO node1: using Java 8 for the current invocation
+04:30:31,448 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:30:31,449 ccm INFO node1: using Java 8 for the current invocation
+04:30:31,560 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:30:31,900 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node2/conf'}
+04:30:31,901 ccm INFO node2: using Java 8 for the current invocation
+04:30:32,124 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:30:32,126 ccm INFO node2: using Java 8 for the current invocation
+04:30:32,243 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:30:32,599 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node3/conf'}
+04:30:32,601 ccm INFO node3: using Java 8 for the current invocation
+04:30:32,820 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:30:32,822 ccm INFO node3: using Java 8 for the current invocation
+04:30:32,932 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+install rule block digest
+
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:30:29,5 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:30:29.005682
+04:30:29,519 dtest_setup INFO cluster ccm directory: /tmp/dtest-qcwm9vih
+04:30:31,228 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node1/conf'}
+04:30:31,229 ccm INFO node1: using Java 8 for the current invocation
+04:30:31,448 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:30:31,449 ccm INFO node1: using Java 8 for the current invocation
+04:30:31,560 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:30:31,900 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node2/conf'}
+04:30:31,901 ccm INFO node2: using Java 8 for the current invocation
+04:30:32,124 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:30:32,126 ccm INFO node2: using Java 8 for the current invocation
+04:30:32,243 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:30:32,599 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node3/conf'}
+04:30:32,601 ccm INFO node3: using Java 8 for the current invocation
+04:30:32,820 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qcwm9vih/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qcwm9vih/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:30:32,822 ccm INFO node3: using Java 8 for the current invocation
+04:30:32,932 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:30:53,120 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:30:53,123 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:53,362 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:30:53,362 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+------------------------------ Captured log call -------------------------------
+04:30:55,927 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:30:55,927 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:56,771 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:30:57,57 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:30:57,57 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:57,507 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:30:57,508 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:30:57,789 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:30:57,790 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:30:57,798 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+04:30:58,166 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+--------------------------- Captured stdout teardown ---------------------------
+04:30:58,539 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 30.33 seconds ===========================
+[msx] rc = 1
+v1v2 running time = 52239510296
+---> v1v2 test failed.
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate PASSED [100%]
+===Flaky Test Report===
+
+test_always_speculate passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 36.97 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 58993359960
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:32:46,736 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:32:50,812 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7f9ad7305860>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:32:20,465 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:32:20.465891
+04:32:20,593 dtest_setup INFO cluster ccm directory: /tmp/dtest-z_66cbm1
+04:32:22,464 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z_66cbm1/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z_66cbm1/test/node1/conf'}
+04:32:22,465 ccm INFO node1: using Java 8 for the current invocation
+04:32:22,719 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z_66cbm1/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z_66cbm1/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:32:22,720 ccm INFO node1: using Java 8 for the current invocation
+04:32:22,843 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:32:23,168 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z_66cbm1/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z_66cbm1/test/node2/conf'}
+04:32:23,169 ccm INFO node2: using Java 8 for the current invocation
+04:32:23,382 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z_66cbm1/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z_66cbm1/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:32:23,383 ccm INFO node2: using Java 8 for the current invocation
+04:32:23,489 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:32:23,838 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z_66cbm1/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z_66cbm1/test/node3/conf'}
+04:32:23,839 ccm INFO node3: using Java 8 for the current invocation
+04:32:24,46 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z_66cbm1/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z_66cbm1/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:32:24,46 ccm INFO node3: using Java 8 for the current invocation
+04:32:24,129 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:32:45,330 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:32:45,332 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:32:45,590 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:32:45,590 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:32:46,736 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:32:47,848 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:32:47,848 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:32:47,853 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+----------------------------- Captured stdout call -----------------------------
+install rule disable mutations
+
+------------------------------ Captured log call -------------------------------
+04:32:48,296 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:32:48,296 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:32:49,652 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:32:49,652 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:32:50,157 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:32:50,158 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+--------------------------- Captured stdout teardown ---------------------------
+FAILED                                                                   [100%]04:32:51,170 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 31.55 seconds ===========================
+[msx] rc = 1
+v2v2 running time = 53709062645
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:33:44,18 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:33:47,326 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:33:47,414 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7f8cdd09b8d0>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:33:14,44 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:33:14.043910
+04:33:14,222 dtest_setup INFO cluster ccm directory: /tmp/dtest-9511ca58
+04:33:16,414 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-9511ca58/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-9511ca58/test/node1/conf'}
+04:33:16,415 ccm INFO node1: using Java 8 for the current invocation
+04:33:16,773 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-9511ca58/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-9511ca58/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:33:16,774 ccm INFO node1: using Java 8 for the current invocation
+04:33:16,933 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:17,605 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-9511ca58/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-9511ca58/test/node2/conf'}
+04:33:17,606 ccm INFO node2: using Java 8 for the current invocation
+04:33:18,113 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-9511ca58/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-9511ca58/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:33:18,114 ccm INFO node2: using Java 8 for the current invocation
+04:33:18,289 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:19,125 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-9511ca58/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-9511ca58/test/node3/conf'}
+04:33:19,126 ccm INFO node3: using Java 8 for the current invocation
+04:33:19,693 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-9511ca58/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-9511ca58/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:33:19,694 ccm INFO node3: using Java 8 for the current invocation
+04:33:19,877 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:42,186 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:33:42,187 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:33:42,455 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:33:42,455 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:33:44,18 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:33:45,137 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:33:45,137 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+------------------------------ Captured log call -------------------------------
+04:33:45,150 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+04:33:45,173 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:33:45,173 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:33:46,320 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:33:46,320 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:33:46,745 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:33:46,745 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:33:47,326 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:33:47,414 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+--------------------------- Captured stdout teardown ---------------------------
+04:33:47,805 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 34.62 seconds ===========================
+[msx] rc = 1
+v1v2 running time = 56600848230
+---> v1v2 test failed.
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate PASSED [100%]
+===Flaky Test Report===
+
+test_always_speculate passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 28.25 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 50255528120
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:35:25,682 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:35:30,647 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7fa1e28854e0>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:35:00,955 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:35:00.955727
+04:35:01,82 dtest_setup INFO cluster ccm directory: /tmp/dtest-a9wj1v0u
+04:35:03,279 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a9wj1v0u/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a9wj1v0u/test/node1/conf'}
+04:35:03,280 ccm INFO node1: using Java 8 for the current invocation
+04:35:03,520 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a9wj1v0u/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a9wj1v0u/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:35:03,521 ccm INFO node1: using Java 8 for the current invocation
+04:35:03,634 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:35:03,964 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a9wj1v0u/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a9wj1v0u/test/node2/conf'}
+04:35:03,968 ccm INFO node2: using Java 8 for the current invocation
+04:35:04,197 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a9wj1v0u/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a9wj1v0u/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:35:04,198 ccm INFO node2: using Java 8 for the current invocation
+04:35:04,307 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:35:04,667 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a9wj1v0u/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a9wj1v0u/test/node3/conf'}
+04:35:04,668 ccm INFO node3: using Java 8 for the current invocation
+04:35:04,897 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-a9wj1v0u/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-a9wj1v0u/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:35:04,898 ccm INFO node3: using Java 8 for the current invocation
+04:35:05,6 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:35:24,198 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:35:24,202 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:35:24,439 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:35:24,439 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:35:25,682 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+04:35:26,707 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:35:26,707 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:35:26,715 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+------------------------------ Captured log call -------------------------------
+04:35:27,490 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:35:27,490 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:35:29,537 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:35:29,538 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:35:29,975 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:35:29,976 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+--------------------------- Captured stdout teardown ---------------------------
+04:35:31,102 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 30.96 seconds ===========================
+[msx] rc = 1
+v2v2 running time = 52920151133
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log setup --------------------------------
+04:36:20,531 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+-------------------------------- live log call ---------------------------------
+04:36:23,29 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7f844ffbf0f0>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+------------------------------ Captured log setup ------------------------------
+04:35:53,954 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:35:53.954902
+04:35:54,73 dtest_setup INFO cluster ccm directory: /tmp/dtest-xkwntawe
+04:35:56,376 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xkwntawe/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xkwntawe/test/node1/conf'}
+04:35:56,377 ccm INFO node1: using Java 8 for the current invocation
+04:35:56,610 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xkwntawe/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xkwntawe/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:35:56,610 ccm INFO node1: using Java 8 for the current invocation
+04:35:56,738 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:35:57,139 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xkwntawe/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xkwntawe/test/node2/conf'}
+04:35:57,139 ccm INFO node2: using Java 8 for the current invocation
+04:35:57,428 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xkwntawe/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xkwntawe/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:35:57,429 ccm INFO node2: using Java 8 for the current invocation
+04:35:57,550 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:35:57,970 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xkwntawe/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xkwntawe/test/node3/conf'}
+04:35:57,970 ccm INFO node3: using Java 8 for the current invocation
+04:35:58,198 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xkwntawe/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xkwntawe/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:35:58,199 ccm INFO node3: using Java 8 for the current invocation
+04:35:58,317 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:36:18,476 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:36:18,478 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:36:18,714 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:36:18,714 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:36:20,531 cassandra.cluster WARNING Host 127.0.0.3:9042 has been marked down
+------------------------------ Captured log call -------------------------------
+04:36:20,782 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:36:20,783 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:36:21,546 cassandra.pool INFO Successful reconnection to 127.0.0.3:9042, marking node up if it isn't already
+04:36:21,547 cassandra.cluster INFO Host 127.0.0.3:9042 may be up; will prepare queries and open connection pool
+04:36:21,555 cassandra.cluster INFO Connection pools established for node 127.0.0.3:9042
+04:36:21,901 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:36:21,902 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:36:22,370 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:36:22,371 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:36:23,29 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+--------------------------- Captured stdout teardown ---------------------------
+04:36:23,434 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 30.31 seconds ===========================
+[msx] rc = 1
+v1v2 running time = 52442838477
+---> v1v2 test failed.
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate PASSED [100%]
+===Flaky Test Report===
+
+test_always_speculate passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 38.31 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 60333521059
+cassandra transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate 
+-------------------------------- live log call ---------------------------------
+04:38:16,331 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+_______ TestTransientReplicationSpeculativeQueries.test_always_speculate _______
+
+self = <transient_replication_test.TestTransientReplicationSpeculativeQueries object at 0x7fa3feaf4f28>
+
+    @pytest.mark.no_vnodes
+    def test_always_speculate(self):
+        """ If write can't succeed on full replica, it's written to the transient node instead """
+        session = self.exclusive_cql_connection(self.node1)
+        session.execute("ALTER TABLE %s.%s WITH speculative_retry = 'ALWAYS';" % (self.keyspace, self.table))
+        self.insert_row(1, 1, 1)
+        # Stop writes to the other full node
+        self.node2.byteman_submit([mk_bman_path('stop_writes.btm')])
+>       self.insert_row(1, 2, 2)
+
+transient_replication_test.py:605: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+transient_replication_test.py:259: in insert_row
+    self.quorum(session, "INSERT INTO %s.%s (pk, ck, value) VALUES (%s, %s, %s)" % (self.keyspace, self.table, pk, ck, value))
+transient_replication_test.py:243: in quorum
+    return session.execute(SimpleStatement(stmt_str, consistency_level=ConsistencyLevel.QUORUM))
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.cluster.NoHostAvailable: ('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+
+cassandra/cluster.py:4894: NoHostAvailable
+---------------------------- Captured stdout setup -----------------------------
+04:37:47,176 ccm DEBUG Log-watching thread starting.
+04:37:48,891 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node1/conf'}
+04:37:48,892 ccm INFO node1: using Java 8 for the current invocation
+04:37:49,115 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:37:49,116 ccm INFO node1: using Java 8 for the current invocation
+04:37:49,228 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:37:49,578 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node2/conf'}
+04:37:49,579 ccm INFO node2: using Java 8 for the current invocation
+04:37:49,803 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:37:49,804 ccm INFO node2: using Java 8 for the current invocation
+04:37:49,915 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:37:50,245 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node3/conf'}
+04:37:50,246 ccm INFO node3: using Java 8 for the current invocation
+04:37:50,489 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:37:50,490 ccm INFO node3: using Java 8 for the current invocation
+04:37:50,641 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+install rule block digest
+
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:37:46,561 conftest INFO Starting execution of test_always_speculate at 2022-02-05 04:37:46.561210
+04:37:47,73 dtest_setup INFO cluster ccm directory: /tmp/dtest-qby0a0ve
+04:37:48,891 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node1/conf'}
+04:37:48,892 ccm INFO node1: using Java 8 for the current invocation
+04:37:49,115 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6'}
+04:37:49,116 ccm INFO node1: using Java 8 for the current invocation
+04:37:49,228 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:37:49,578 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node2/conf'}
+04:37:49,579 ccm INFO node2: using Java 8 for the current invocation
+04:37:49,803 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node2/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:37:49,804 ccm INFO node2: using Java 8 for the current invocation
+04:37:49,915 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:37:50,245 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node3/conf'}
+04:37:50,246 ccm INFO node3: using Java 8 for the current invocation
+04:37:50,489 ccm INFO node3: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'bd461afef06d', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'transient_replication_test.py::TestTransientReplicationSpeculativeQueries::()::test_always_speculate (setup)', 'CASSANDRA_INCLUDE': '/tmp/dtest-qby0a0ve/test/node3/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-qby0a0ve/test/node3/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -XX:-PerfDisableSharedMem -Dcassandra.enable_nodelocal_queries=true -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6 -Dcassandra.migration_task_wait_in_seconds=6'}
+04:37:50,490 ccm INFO node3: using Java 8 for the current invocation
+04:37:50,641 ccm INFO Starting node3 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:38:10,884 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.1:9042 datacenter1> discovered
+04:38:10,885 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:38:11,161 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:38:11,161 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+----------------------------- Captured stdout call -----------------------------
+install rule disable mutations
+
+------------------------------ Captured log call -------------------------------
+04:38:13,484 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:38:13,485 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:38:15,242 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:38:15,242 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:38:15,686 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 datacenter1> discovered
+04:38:15,687 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 datacenter1> discovered
+04:38:16,331 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+--------------------------- Captured stdout teardown ---------------------------
+04:38:16,570 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_always_speculate failed and was not selected for rerun.
+	<class 'cassandra.cluster.NoHostAvailable'>
+	('Unable to complete the operation against any hosts', {<Host: 127.0.0.1:9042 datacenter1>: ConnectionShutdown('[Errno 104] Connection reset by peer',)})
+	[<TracebackEntry /root/cassandra-dtest/transient_replication_test.py:605>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:259>, <TracebackEntry /root/cassandra-dtest/transient_replication_test.py:243>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 30.83 seconds ===========================
+[msx] rc = 1
+v2v2 running time = 52871189724
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: transient_replication_test.py::TestTransientReplicationSpeculativeQueries::test_always_speculate
+h_list: native_transport_idle_timeout_in_ms@@@CassandraDaemon@@@-1@@@0@@@600
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+early stop after 7 is satisfied
+v1v2 failed with probability 6 out of 7
+v1v1v2v2 failed with probability 7 out of 7
+Total execution time in seconds : 1138
+0

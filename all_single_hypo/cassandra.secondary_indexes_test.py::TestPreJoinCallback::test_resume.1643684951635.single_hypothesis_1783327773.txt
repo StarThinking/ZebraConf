@@ -1,0 +1,1323 @@
+my_type=hypothesis
+proj=cassandra
+u_test=secondary_indexes_test.py::TestPreJoinCallback::test_resume
+h_list[1]=internode_streaming_tcp_user_timeout_in_ms@@@CassandraDaemon@@@-1@@@300@@@300000
+proj: cassandra
+u_test: secondary_indexes_test.py::TestPreJoinCallback::test_resume
+h_list: internode_streaming_tcp_user_timeout_in_ms@@@CassandraDaemon@@@-1@@@300@@@300000
+cassandra secondary_indexes_test.py::TestPreJoinCallback::test_resume false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestPreJoinCallback::test_resume
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestPreJoinCallback::test_resume 
+-------------------------------- live log call ---------------------------------
+04:00:20,687 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:00:20,690 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:00:21,796 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.8 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:00:23,601 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.24 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+------------------------------ live log teardown -------------------------------
+04:11:33,230 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:01:28,454 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:11:33,236 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-36b667cd] 2022-02-01 04:01:28,916 CassandraEntireSSTableStreamReader.java:147 - [Stream a0567280-8313-11ec-ac52-db79a589fadb] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+ERROR                                                                    [100%]
+secondary_indexes_test.py::TestPreJoinCallback::test_resume 
+-------------------------------- live log call ---------------------------------
+04:12:23,415 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:12:23,416 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:12:24,421 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.72 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+
+==================================== ERRORS ====================================
+_____________ ERROR at teardown of TestPreJoinCallback.test_resume _____________
+Unexpected error found in node logs (see stdout for full details). Errors: [ERROR [Stream-Deserializer-/127.0.0.1:7000-36b667cd] 2022-02-01 04:01:28,916 CassandraEntireSSTableStreamReader.java:147 - [Stream a0567280-8313-11ec-ac52-db79a589fadb] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748), ERROR [Stream-Deserializer-/127.0.0.1:7000-36b667cd] 2022-02-01 04:01:28,922 StorageService.java:1890 - Error during bootstrap: Stream failed
+org.apache.cassandra.streaming.StreamException: Stream failed
+	at org.apache.cassandra.streaming.management.StreamEventJMXNotifier.onFailure(StreamEventJMXNotifier.java:88)
+	at com.google.common.util.concurrent.Futures$CallbackListener.run(Futures.java:1056)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1138)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:958)
+	at com.google.common.util.concurrent.AbstractFuture.setException(AbstractFuture.java:748)
+	at org.apache.cassandra.streaming.StreamResultFuture.maybeComplete(StreamResultFuture.java:220)
+	at org.apache.cassandra.streaming.StreamResultFuture.handleSessionComplete(StreamResultFuture.java:196)
+	at org.apache.cassandra.streaming.StreamSession.closeSession(StreamSession.java:506)
+	at org.apache.cassandra.streaming.StreamSession.onError(StreamSession.java:658)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:197)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748), ERROR [Stream-Deserializer-/127.0.0.1:7000-36b667cd] 2022-02-01 04:01:28,916 CassandraEntireSSTableStreamReader.java:147 - [Stream a0567280-8313-11ec-ac52-db79a589fadb] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)]
+---------------------------- Captured stdout setup -----------------------------
+03:59:32,63 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+03:59:30,908 conftest INFO Starting execution of test_resume at 2022-02-01 03:59:30.908297
+03:59:31,967 dtest_setup INFO cluster ccm directory: /tmp/dtest-y1j11q3i
+----------------------------- Captured stdout call -----------------------------
+install rule inject stream failure
+
+04:00:25,316 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node2/conf'}
+04:00:25,317 ccm INFO node2: using Java 8 for the current invocation
+04:00:25,499 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:00:25,499 ccm INFO node2: using Java 8 for the current invocation
+04:00:25,586 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:01:24,354 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node2/conf'}
+04:01:24,355 ccm INFO node2: using Java 8 for the current invocation
+----------------------------- Captured stderr call -----------------------------
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 193, in run
+    self.scan_and_report()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 186, in scan_and_report
+    on_error_call(errordata)
+  File "/root/cassandra-dtest/dtest_setup.py", line 136, in _log_error_handler
+    pytest.fail("Error details: \n{message}".format(message=message))
+  File "/root/dtest/lib/python3.6/site-packages/_pytest/outcomes.py", line 97, in fail
+    raise Failed(msg=msg, pytrace=pytrace)
+Failed: Error details: 
+Errors seen in logs for: node1
+node1: WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:01:28,454 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+
+------------------------------ Captured log call -------------------------------
+03:59:33,3 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node1/conf'}
+03:59:33,4 ccm INFO node1: using Java 8 for the current invocation
+03:59:33,180 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:59:33,181 ccm INFO node1: using Java 8 for the current invocation
+03:59:33,259 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:00:15,434 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node1/conf'}
+04:00:15,435 ccm INFO node1: using Java 8 for the current invocation
+04:00:15,609 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:00:15,610 ccm INFO node1: using Java 8 for the current invocation
+04:00:15,693 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:00:20,687 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:00:20,690 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:00:21,796 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.8 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:00:23,601 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.24 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:00:25,316 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node2/conf'}
+04:00:25,317 ccm INFO node2: using Java 8 for the current invocation
+04:00:25,499 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:00:25,499 ccm INFO node2: using Java 8 for the current invocation
+04:00:25,586 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:00:27,996 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:00:27,996 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:00:28,43 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:01:24,354 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-y1j11q3i/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-y1j11q3i/test/node2/conf'}
+04:01:24,355 ccm INFO node2: using Java 8 for the current invocation
+---------------------------- Captured log teardown -----------------------------
+04:11:33,230 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:01:28,454 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:11:33,236 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-36b667cd] 2022-02-01 04:01:28,916 CassandraEntireSSTableStreamReader.java:147 - [Stream a0567280-8313-11ec-ac52-db79a589fadb] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+===Flaky Test Report===
+
+test_resume failed (1 runs remaining out of 2).
+	<class 'ccmlib.node.TimeoutError'>
+	01 Feb 2022 04:11:29 [node2] after 600.65/600 seconds Missing: ['Starting listening for CQL clients'] not found in system.log:
+ Head: INFO  [main] 2022-02-01 04:00:26,850 YamlConfigura
+ Tail: ... some nodes were not ready
+INFO  [OptionalTasks:1] 2022-02-01 04:11:21,431 CassandraRoleManager.java:370 - Setup task failed with error, rescheduling
+
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1234>, <TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1194>, <TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1230>, <TracebackEntry /root/dtest/lib/python3.6/site-packages/ccmlib/node.py:592>, <TracebackEntry /root/dtest/lib/python3.6/site-packages/ccmlib/node.py:56>]
+test_resume passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+===================== 1 passed, 1 error in 842.25 seconds ======================
+[msx] rc = 1
+v1v2 running time = 863869648240
+---> v1v2 test failed.
+proj: cassandra
+u_test: secondary_indexes_test.py::TestPreJoinCallback::test_resume
+h_list: internode_streaming_tcp_user_timeout_in_ms@@@CassandraDaemon@@@-1@@@300@@@300000
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra secondary_indexes_test.py::TestPreJoinCallback::test_resume false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestPreJoinCallback::test_resume
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestPreJoinCallback::test_resume 
+-------------------------------- live log call ---------------------------------
+04:14:42,538 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:14:42,541 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:14:43,546 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_resume passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 118.59 seconds ==========================
+[msx] rc = 0
+v1v1 running time = 140177054888
+cassandra secondary_indexes_test.py::TestPreJoinCallback::test_resume false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestPreJoinCallback::test_resume
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestPreJoinCallback::test_resume 
+-------------------------------- live log call ---------------------------------
+04:17:00,583 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:17:00,585 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_resume passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 113.77 seconds ==========================
+[msx] rc = 0
+v2v2 running time = 135280401786
+---> v1v1 and v2v2 test test suceeded.
+cassandra secondary_indexes_test.py::TestPreJoinCallback::test_resume false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestPreJoinCallback::test_resume
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestPreJoinCallback::test_resume 
+-------------------------------- live log call ---------------------------------
+04:19:15,431 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:19:16,539 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+------------------------------ live log teardown -------------------------------
+04:30:24,84 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:20:19,398 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:30:24,89 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-8183c95a] 2022-02-01 04:20:19,983 CassandraEntireSSTableStreamReader.java:147 - [Stream 42add350-8316-11ec-811f-89a1e4bcb71b] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+ERROR                                                                    [100%]
+secondary_indexes_test.py::TestPreJoinCallback::test_resume 
+-------------------------------- live log call ---------------------------------
+04:31:16,696 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+PASSED                                                                   [100%]
+
+==================================== ERRORS ====================================
+_____________ ERROR at teardown of TestPreJoinCallback.test_resume _____________
+Unexpected error found in node logs (see stdout for full details). Errors: [ERROR [Stream-Deserializer-/127.0.0.1:7000-8183c95a] 2022-02-01 04:20:19,983 CassandraEntireSSTableStreamReader.java:147 - [Stream 42add350-8316-11ec-811f-89a1e4bcb71b] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748), ERROR [Stream-Deserializer-/127.0.0.1:7000-8183c95a] 2022-02-01 04:20:19,989 StorageService.java:1890 - Error during bootstrap: Stream failed
+org.apache.cassandra.streaming.StreamException: Stream failed
+	at org.apache.cassandra.streaming.management.StreamEventJMXNotifier.onFailure(StreamEventJMXNotifier.java:88)
+	at com.google.common.util.concurrent.Futures$CallbackListener.run(Futures.java:1056)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1138)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:958)
+	at com.google.common.util.concurrent.AbstractFuture.setException(AbstractFuture.java:748)
+	at org.apache.cassandra.streaming.StreamResultFuture.maybeComplete(StreamResultFuture.java:220)
+	at org.apache.cassandra.streaming.StreamResultFuture.handleSessionComplete(StreamResultFuture.java:196)
+	at org.apache.cassandra.streaming.StreamSession.closeSession(StreamSession.java:506)
+	at org.apache.cassandra.streaming.StreamSession.onError(StreamSession.java:658)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:197)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748), ERROR [Stream-Deserializer-/127.0.0.1:7000-8183c95a] 2022-02-01 04:20:19,983 CassandraEntireSSTableStreamReader.java:147 - [Stream 42add350-8316-11ec-811f-89a1e4bcb71b] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)]
+---------------------------- Captured stdout setup -----------------------------
+04:18:31,959 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:18:30,249 conftest INFO Starting execution of test_resume at 2022-02-01 04:18:30.249582
+04:18:31,851 dtest_setup INFO cluster ccm directory: /tmp/dtest-xuwfkjr6
+----------------------------- Captured stdout call -----------------------------
+install rule inject stream failure
+
+04:19:18,792 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node2/conf'}
+04:19:18,792 ccm INFO node2: using Java 8 for the current invocation
+04:19:18,963 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:19:18,963 ccm INFO node2: using Java 8 for the current invocation
+04:19:19,62 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:20:15,861 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node2/conf'}
+04:20:15,862 ccm INFO node2: using Java 8 for the current invocation
+----------------------------- Captured stderr call -----------------------------
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 193, in run
+    self.scan_and_report()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 186, in scan_and_report
+    on_error_call(errordata)
+  File "/root/cassandra-dtest/dtest_setup.py", line 136, in _log_error_handler
+    pytest.fail("Error details: \n{message}".format(message=message))
+  File "/root/dtest/lib/python3.6/site-packages/_pytest/outcomes.py", line 97, in fail
+    raise Failed(msg=msg, pytrace=pytrace)
+Failed: Error details: 
+Errors seen in logs for: node1
+node1: WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:20:19,398 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+
+------------------------------ Captured log call -------------------------------
+04:18:32,821 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node1/conf'}
+04:18:32,822 ccm INFO node1: using Java 8 for the current invocation
+04:18:32,988 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:18:32,989 ccm INFO node1: using Java 8 for the current invocation
+04:18:33,78 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:19:08,778 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node1/conf'}
+04:19:08,779 ccm INFO node1: using Java 8 for the current invocation
+04:19:08,950 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:19:08,951 ccm INFO node1: using Java 8 for the current invocation
+04:19:09,136 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:19:15,431 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:19:16,539 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:19:18,725 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:19:18,725 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:19:18,778 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:19:18,792 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node2/conf'}
+04:19:18,792 ccm INFO node2: using Java 8 for the current invocation
+04:19:18,963 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:19:18,963 ccm INFO node2: using Java 8 for the current invocation
+04:19:19,62 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:20:15,861 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-xuwfkjr6/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-xuwfkjr6/test/node2/conf'}
+04:20:15,862 ccm INFO node2: using Java 8 for the current invocation
+---------------------------- Captured log teardown -----------------------------
+04:30:24,84 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:20:19,398 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:30:24,89 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-8183c95a] 2022-02-01 04:20:19,983 CassandraEntireSSTableStreamReader.java:147 - [Stream 42add350-8316-11ec-811f-89a1e4bcb71b] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+===Flaky Test Report===
+
+test_resume failed (1 runs remaining out of 2).
+	<class 'ccmlib.node.TimeoutError'>
+	01 Feb 2022 04:30:20 [node2] after 600.66/600 seconds Missing: ['Starting listening for CQL clients'] not found in system.log:
+ Head: INFO  [main] 2022-02-01 04:19:20,369 YamlConfigura
+ Tail: ... some nodes were not ready
+INFO  [OptionalTasks:1] 2022-02-01 04:30:13,757 CassandraRoleManager.java:370 - Setup task failed with error, rescheduling
+
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1234>, <TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1194>, <TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1230>, <TracebackEntry /root/dtest/lib/python3.6/site-packages/ccmlib/node.py:592>, <TracebackEntry /root/dtest/lib/python3.6/site-packages/ccmlib/node.py:56>]
+test_resume passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+===================== 1 passed, 1 error in 833.46 seconds ======================
+[msx] rc = 1
+v1v2 running time = 855068300326
+---> v1v2 test failed.
+proj: cassandra
+u_test: secondary_indexes_test.py::TestPreJoinCallback::test_resume
+h_list: internode_streaming_tcp_user_timeout_in_ms@@@CassandraDaemon@@@-1@@@300@@@300000
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra secondary_indexes_test.py::TestPreJoinCallback::test_resume false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is secondary_indexes_test.py::TestPreJoinCallback::test_resume
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+secondary_indexes_test.py::TestPreJoinCallback::test_resume 
+-------------------------------- live log call ---------------------------------
+04:33:31,904 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:33:31,907 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:33:32,912 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.9 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+------------------------------ live log teardown -------------------------------
+04:44:38,943 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:34:34,278 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:44:38,947 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-1cf2b25f] 2022-02-01 04:34:34,701 CassandraEntireSSTableStreamReader.java:147 - [Stream 3ffef510-8318-11ec-9a5f-35f2f64c60ae] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+ERROR                                                                    [100%]
+secondary_indexes_test.py::TestPreJoinCallback::test_resume 
+-------------------------------- live log call ---------------------------------
+04:45:29,881 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:45:29,882 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:45:30,987 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+WARN: wait process timeout!
+ERROR: met exception during test:
+Total execution time in seconds : 0
+0
+04:52:59,890 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:52:59,892 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:00,897 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.98 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:02,902 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:29,891 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:53:29,894 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:30,899 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.26 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:33,204 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.56 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:54:50,336 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:54:51,441 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:54:53,245 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.88 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:54:57,154 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.08 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:05,274 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 16.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:21,819 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 35.52 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:59,937 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 402, in cassandra.pool.HostConnection.__init__
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 837, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 350, in handle_read
+    buf = self._socket.recv(self.in_buffer_size)
+ConnectionResetError: [Errno 104] Connection reset by peer
+04:55:59,938 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+04:56:01,106 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.22 seconds: [Errno 104] Connection reset by peer
+04:56:03,411 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.44 seconds: [Errno 104] Connection reset by peer
+04:56:07,925 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 6.88 seconds: [Errno 104] Connection reset by peer
+04:56:14,844 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 17.28 seconds: [Errno 104] Connection reset by peer
+04:56:29,893 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:56:29,894 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:29,898 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 837, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 350, in handle_read
+    buf = self._socket.recv(self.in_buffer_size)
+ConnectionResetError: [Errno 104] Connection reset by peer
+04:56:30,981 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.84 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:32,185 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 31.04 seconds: [Errno 104] Connection reset by peer
+04:56:32,885 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.4 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:36,293 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 9.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+FAILED                                                                   [100%]
+------------------------------ live log teardown -------------------------------
+04:56:38,512 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:46:36,615 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:56:38,516 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-9bdc31b9] 2022-02-01 04:46:37,239 CassandraEntireSSTableStreamReader.java:147 - [Stream ee883e10-8319-11ec-a420-69327bb1c6e2] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+
+secondary_indexes_test.py::TestPreJoinCallback::test_resume ERROR        [100%]
+
+==================================== ERRORS ====================================
+_____________ ERROR at teardown of TestPreJoinCallback.test_resume _____________
+Unexpected error found in node logs (see stdout for full details). Errors: [ERROR [Stream-Deserializer-/127.0.0.1:7000-1cf2b25f] 2022-02-01 04:34:34,701 CassandraEntireSSTableStreamReader.java:147 - [Stream 3ffef510-8318-11ec-9a5f-35f2f64c60ae] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748), ERROR [Stream-Deserializer-/127.0.0.1:7000-1cf2b25f] 2022-02-01 04:34:34,707 StorageService.java:1890 - Error during bootstrap: Stream failed
+org.apache.cassandra.streaming.StreamException: Stream failed
+	at org.apache.cassandra.streaming.management.StreamEventJMXNotifier.onFailure(StreamEventJMXNotifier.java:88)
+	at com.google.common.util.concurrent.Futures$CallbackListener.run(Futures.java:1056)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1138)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:958)
+	at com.google.common.util.concurrent.AbstractFuture.setException(AbstractFuture.java:748)
+	at org.apache.cassandra.streaming.StreamResultFuture.maybeComplete(StreamResultFuture.java:220)
+	at org.apache.cassandra.streaming.StreamResultFuture.handleSessionComplete(StreamResultFuture.java:196)
+	at org.apache.cassandra.streaming.StreamSession.closeSession(StreamSession.java:506)
+	at org.apache.cassandra.streaming.StreamSession.onError(StreamSession.java:658)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:197)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748), ERROR [Stream-Deserializer-/127.0.0.1:7000-1cf2b25f] 2022-02-01 04:34:34,701 CassandraEntireSSTableStreamReader.java:147 - [Stream 3ffef510-8318-11ec-9a5f-35f2f64c60ae] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)]
+---------------------------- Captured stdout setup -----------------------------
+04:32:46,382 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:32:45,191 conftest INFO Starting execution of test_resume at 2022-02-01 04:32:45.191532
+04:32:46,251 dtest_setup INFO cluster ccm directory: /tmp/dtest-3t0gctr3
+----------------------------- Captured stdout call -----------------------------
+install rule inject stream failure
+
+04:33:36,311 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:33:36,312 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,524 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:33:36,525 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,607 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:34:30,360 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:34:30,360 ccm INFO node2: using Java 8 for the current invocation
+----------------------------- Captured stderr call -----------------------------
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 193, in run
+    self.scan_and_report()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 186, in scan_and_report
+    on_error_call(errordata)
+  File "/root/cassandra-dtest/dtest_setup.py", line 136, in _log_error_handler
+    pytest.fail("Error details: \n{message}".format(message=message))
+  File "/root/dtest/lib/python3.6/site-packages/_pytest/outcomes.py", line 97, in fail
+    raise Failed(msg=msg, pytrace=pytrace)
+Failed: Error details: 
+Errors seen in logs for: node1
+node1: WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:34:34,278 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+
+------------------------------ Captured log call -------------------------------
+04:32:47,274 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf'}
+04:32:47,275 ccm INFO node1: using Java 8 for the current invocation
+04:32:47,444 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:32:47,445 ccm INFO node1: using Java 8 for the current invocation
+04:32:47,536 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:25,894 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf'}
+04:33:25,895 ccm INFO node1: using Java 8 for the current invocation
+04:33:26,79 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:33:26,80 ccm INFO node1: using Java 8 for the current invocation
+04:33:26,177 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:31,904 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:33:31,907 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:33:32,912 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.9 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:33:34,873 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:33:34,874 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:33:34,929 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:33:36,311 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:33:36,312 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,524 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:33:36,525 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,607 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:34:30,360 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:34:30,360 ccm INFO node2: using Java 8 for the current invocation
+---------------------------- Captured log teardown -----------------------------
+04:44:38,943 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:34:34,278 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:44:38,947 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-1cf2b25f] 2022-02-01 04:34:34,701 CassandraEntireSSTableStreamReader.java:147 - [Stream 3ffef510-8318-11ec-9a5f-35f2f64c60ae] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+_____________ ERROR at teardown of TestPreJoinCallback.test_resume _____________
+Unexpected error found in node logs (see stdout for full details). Errors: [ERROR [Stream-Deserializer-/127.0.0.1:7000-9bdc31b9] 2022-02-01 04:46:37,239 CassandraEntireSSTableStreamReader.java:147 - [Stream ee883e10-8319-11ec-a420-69327bb1c6e2] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748), ERROR [Stream-Deserializer-/127.0.0.1:7000-9bdc31b9] 2022-02-01 04:46:37,248 StorageService.java:1890 - Error during bootstrap: Stream failed
+org.apache.cassandra.streaming.StreamException: Stream failed
+	at org.apache.cassandra.streaming.management.StreamEventJMXNotifier.onFailure(StreamEventJMXNotifier.java:88)
+	at com.google.common.util.concurrent.Futures$CallbackListener.run(Futures.java:1056)
+	at com.google.common.util.concurrent.DirectExecutor.execute(DirectExecutor.java:30)
+	at com.google.common.util.concurrent.AbstractFuture.executeListener(AbstractFuture.java:1138)
+	at com.google.common.util.concurrent.AbstractFuture.complete(AbstractFuture.java:958)
+	at com.google.common.util.concurrent.AbstractFuture.setException(AbstractFuture.java:748)
+	at org.apache.cassandra.streaming.StreamResultFuture.maybeComplete(StreamResultFuture.java:220)
+	at org.apache.cassandra.streaming.StreamResultFuture.handleSessionComplete(StreamResultFuture.java:196)
+	at org.apache.cassandra.streaming.StreamSession.closeSession(StreamSession.java:506)
+	at org.apache.cassandra.streaming.StreamSession.onError(StreamSession.java:658)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:197)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748), ERROR [Stream-Deserializer-/127.0.0.1:7000-9bdc31b9] 2022-02-01 04:46:37,239 CassandraEntireSSTableStreamReader.java:147 - [Stream ee883e10-8319-11ec-a420-69327bb1c6e2] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)]
+---------------------------- Captured stdout setup -----------------------------
+04:32:46,382 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:32:45,191 conftest INFO Starting execution of test_resume at 2022-02-01 04:32:45.191532
+04:32:46,251 dtest_setup INFO cluster ccm directory: /tmp/dtest-3t0gctr3
+----------------------------- Captured stdout call -----------------------------
+install rule inject stream failure
+
+04:33:36,311 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:33:36,312 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,524 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:33:36,525 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,607 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:34:30,360 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:34:30,360 ccm INFO node2: using Java 8 for the current invocation
+----------------------------- Captured stderr call -----------------------------
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 193, in run
+    self.scan_and_report()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 186, in scan_and_report
+    on_error_call(errordata)
+  File "/root/cassandra-dtest/dtest_setup.py", line 136, in _log_error_handler
+    pytest.fail("Error details: \n{message}".format(message=message))
+  File "/root/dtest/lib/python3.6/site-packages/_pytest/outcomes.py", line 97, in fail
+    raise Failed(msg=msg, pytrace=pytrace)
+Failed: Error details: 
+Errors seen in logs for: node1
+node1: WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:34:34,278 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+
+------------------------------ Captured log call -------------------------------
+04:32:47,274 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf'}
+04:32:47,275 ccm INFO node1: using Java 8 for the current invocation
+04:32:47,444 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:32:47,445 ccm INFO node1: using Java 8 for the current invocation
+04:32:47,536 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:25,894 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf'}
+04:33:25,895 ccm INFO node1: using Java 8 for the current invocation
+04:33:26,79 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:33:26,80 ccm INFO node1: using Java 8 for the current invocation
+04:33:26,177 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:31,904 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:33:31,907 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:33:32,912 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.9 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:33:34,873 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:33:34,874 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:33:34,929 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:33:36,311 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:33:36,312 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,524 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:33:36,525 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,607 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:34:30,360 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:34:30,360 ccm INFO node2: using Java 8 for the current invocation
+---------------------------- Captured log teardown -----------------------------
+04:44:38,943 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:34:34,278 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:44:38,947 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-1cf2b25f] 2022-02-01 04:34:34,701 CassandraEntireSSTableStreamReader.java:147 - [Stream 3ffef510-8318-11ec-9a5f-35f2f64c60ae] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+---------------------------- Captured stdout setup -----------------------------
+04:44:43,250 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:44:42,469 conftest INFO Starting execution of test_resume at 2022-02-01 04:44:42.469644
+04:44:43,136 dtest_setup INFO cluster ccm directory: /tmp/dtest-e0le_3gv
+------------------------------ Captured log call -------------------------------
+04:44:44,200 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node1/conf'}
+04:44:44,201 ccm INFO node1: using Java 8 for the current invocation
+04:44:44,373 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:44:44,373 ccm INFO node1: using Java 8 for the current invocation
+04:44:44,457 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:45:23,652 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node1/conf'}
+04:45:23,653 ccm INFO node1: using Java 8 for the current invocation
+04:45:23,857 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:45:23,858 ccm INFO node1: using Java 8 for the current invocation
+04:45:23,948 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:45:29,881 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:45:29,882 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:45:30,987 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:45:32,881 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:45:32,882 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:45:32,940 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:45:34,598 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node2/conf'}
+04:45:34,599 ccm INFO node2: using Java 8 for the current invocation
+04:45:34,806 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:45:34,807 ccm INFO node2: using Java 8 for the current invocation
+04:45:34,899 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:46:32,675 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node2/conf'}
+04:46:32,676 ccm INFO node2: using Java 8 for the current invocation
+04:52:59,890 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:52:59,892 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:00,897 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.98 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:02,902 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:06,722 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:53:06,723 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:53:06,746 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:53:29,891 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:53:29,894 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:30,899 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.26 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:33,204 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.56 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:36,871 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:53:36,871 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:53:36,931 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:54:50,336 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:54:51,441 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:54:53,245 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.88 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:54:57,154 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.08 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:05,274 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 16.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:21,819 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 35.52 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:57,402 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:55:57,402 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:55:57,414 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:55:59,905 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 dc1> discovered
+04:55:59,920 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+04:55:59,937 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 402, in cassandra.pool.HostConnection.__init__
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 837, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 350, in handle_read
+    buf = self._socket.recv(self.in_buffer_size)
+ConnectionResetError: [Errno 104] Connection reset by peer
+04:55:59,938 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+04:56:01,106 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.22 seconds: [Errno 104] Connection reset by peer
+04:56:03,411 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.44 seconds: [Errno 104] Connection reset by peer
+04:56:07,925 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 6.88 seconds: [Errno 104] Connection reset by peer
+04:56:14,844 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 17.28 seconds: [Errno 104] Connection reset by peer
+04:56:29,893 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:56:29,894 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:29,898 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 837, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 350, in handle_read
+    buf = self._socket.recv(self.in_buffer_size)
+ConnectionResetError: [Errno 104] Connection reset by peer
+04:56:30,981 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.84 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:32,185 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 31.04 seconds: [Errno 104] Connection reset by peer
+04:56:32,885 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.4 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:36,293 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 9.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:37,595 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:56:37,692 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+---------------------------- Captured log teardown -----------------------------
+04:56:38,512 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:46:36,615 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:56:38,516 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-9bdc31b9] 2022-02-01 04:46:37,239 CassandraEntireSSTableStreamReader.java:147 - [Stream ee883e10-8319-11ec-a420-69327bb1c6e2] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+=================================== FAILURES ===================================
+_______________________ TestPreJoinCallback.test_resume ________________________
+
+self = <secondary_indexes_test.TestPreJoinCallback object at 0x7f32b26bed68>
+
+    def test_resume(self):
+        def resume(cluster, token):
+            node1 = cluster.nodes['node1']
+            # set up byteman on node1 to inject a failure when streaming to node2
+            node1.stop(wait=True)
+            node1.byteman_port = '8100'
+            node1.import_config_files()
+            node1.start(wait_for_binary_proto=True)
+    
+            if cluster.version() < '4.0':
+                node1.byteman_submit([mk_bman_path('pre4.0/inject_failure_streaming_to_node2.btm')])
+            else:
+                node1.byteman_submit([mk_bman_path('4.0/inject_failure_streaming_to_node2.btm')])
+    
+            node2 = new_node(cluster)
+    
+            yaml_opts = {'initial_token': token}
+            if cluster.version() < '4.0':
+                yaml_opts['streaming_socket_timeout_in_ms'] = 1000
+    
+            node2.set_configuration_options(values=yaml_opts)
+            node2.start(wait_for_binary_proto=False)
+            node2.watch_log_for('Some data streaming failed. Use nodetool to check bootstrap state and resume.')
+    
+            node2.nodetool("bootstrap resume")
+            node2.watch_log_for('Starting listening for CQL clients')
+            assert_bootstrap_state(self, node2, 'COMPLETED')
+            assert node2.grep_log('Executing pre-join post-bootstrap tasks')
+    
+>       self._base_test(resume)
+
+secondary_indexes_test.py:1234: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+secondary_indexes_test.py:1194: in _base_test
+    joinFn(cluster, tokens[1])
+secondary_indexes_test.py:1230: in resume
+    node2.watch_log_for('Starting listening for CQL clients')
+../dtest/lib/python3.6/site-packages/ccmlib/node.py:592: in watch_log_for
+    head=reads[:50], tail="..."+reads[len(reads)-150:]))
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+start = 1643690797.5884292, timeout = 600
+msg = "Missing: ['Starting listening for CQL clients'] not found in system.log:\n Head: INFO  [main] 2022-02-01 04:45:36,169...[OptionalTasks:1] 2022-02-01 04:52:29,644 CassandraRoleManager.java:370 - Setup task failed with error, rescheduling\n"
+node = 'node2'
+
+    @staticmethod
+    def raise_if_passed(start, timeout, msg, node=None):
+        if start + timeout < time.time():
+>           raise TimeoutError.create(start, timeout, msg, node)
+E           ccmlib.node.TimeoutError: 01 Feb 2022 04:56:38 [node2] after 600.61/600 seconds Missing: ['Starting listening for CQL clients'] not found in system.log:
+E            Head: INFO  [main] 2022-02-01 04:45:36,169 YamlConfigura
+E            Tail: ... some nodes were not ready
+E           INFO  [OptionalTasks:1] 2022-02-01 04:52:29,644 CassandraRoleManager.java:370 - Setup task failed with error, rescheduling
+
+../dtest/lib/python3.6/site-packages/ccmlib/node.py:56: TimeoutError
+---------------------------- Captured stdout setup -----------------------------
+04:32:46,382 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:32:45,191 conftest INFO Starting execution of test_resume at 2022-02-01 04:32:45.191532
+04:32:46,251 dtest_setup INFO cluster ccm directory: /tmp/dtest-3t0gctr3
+----------------------------- Captured stdout call -----------------------------
+install rule inject stream failure
+
+04:33:36,311 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:33:36,312 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,524 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:33:36,525 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,607 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:34:30,360 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:34:30,360 ccm INFO node2: using Java 8 for the current invocation
+----------------------------- Captured stderr call -----------------------------
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/usr/lib/python3.6/threading.py", line 916, in _bootstrap_inner
+    self.run()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 193, in run
+    self.scan_and_report()
+  File "/root/dtest/lib/python3.6/site-packages/ccmlib/cluster.py", line 186, in scan_and_report
+    on_error_call(errordata)
+  File "/root/cassandra-dtest/dtest_setup.py", line 136, in _log_error_handler
+    pytest.fail("Error details: \n{message}".format(message=message))
+  File "/root/dtest/lib/python3.6/site-packages/_pytest/outcomes.py", line 97, in fail
+    raise Failed(msg=msg, pytrace=pytrace)
+Failed: Error details: 
+Errors seen in logs for: node1
+node1: WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:34:34,278 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+
+------------------------------ Captured log call -------------------------------
+04:32:47,274 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf'}
+04:32:47,275 ccm INFO node1: using Java 8 for the current invocation
+04:32:47,444 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:32:47,445 ccm INFO node1: using Java 8 for the current invocation
+04:32:47,536 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:25,894 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf'}
+04:33:25,895 ccm INFO node1: using Java 8 for the current invocation
+04:33:26,79 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:33:26,80 ccm INFO node1: using Java 8 for the current invocation
+04:33:26,177 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:31,904 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:33:31,907 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:33:32,912 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.9 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:33:34,873 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:33:34,874 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:33:34,929 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:33:36,311 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:33:36,312 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,524 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:33:36,525 ccm INFO node2: using Java 8 for the current invocation
+04:33:36,607 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:34:30,360 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-3t0gctr3/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-3t0gctr3/test/node2/conf'}
+04:34:30,360 ccm INFO node2: using Java 8 for the current invocation
+---------------------------- Captured log teardown -----------------------------
+04:44:38,943 conftest ERROR Unexpected error in node1 log, error: 
+WARN  [Streaming-EventLoop-4-1] 2022-02-01 04:34:34,278 DefaultChannelPipeline.java:1152 - An exceptionCaught() event was fired, and it reached at the tail of the pipeline. It usually means the last handler in the pipeline did not handle the exception.
+io.netty.channel.unix.Errors$NativeIoException: readAddress(..) failed: Connection timed out
+04:44:38,947 conftest ERROR Unexpected error in node2 log, error: 
+ERROR [Stream-Deserializer-/127.0.0.1:7000-1cf2b25f] 2022-02-01 04:34:34,701 CassandraEntireSSTableStreamReader.java:147 - [Stream 3ffef510-8318-11ec-9a5f-35f2f64c60ae] Error while reading sstable from stream for table = ks.cf
+java.lang.NullPointerException: null
+	at org.apache.cassandra.net.AsyncStreamingInputPlus.consume(AsyncStreamingInputPlus.java:151)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.write(BigTableZeroCopyWriter.java:217)
+	at org.apache.cassandra.io.sstable.format.big.BigTableZeroCopyWriter.writeComponent(BigTableZeroCopyWriter.java:206)
+	at org.apache.cassandra.db.streaming.CassandraEntireSSTableStreamReader.read(CassandraEntireSSTableStreamReader.java:125)
+	at org.apache.cassandra.db.streaming.CassandraIncomingFile.read(CassandraIncomingFile.java:84)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:53)
+	at org.apache.cassandra.streaming.messages.IncomingStreamMessage$1.deserialize(IncomingStreamMessage.java:38)
+	at org.apache.cassandra.streaming.messages.StreamMessage.deserialize(StreamMessage.java:53)
+	at org.apache.cassandra.streaming.async.StreamingInboundHandler$StreamDeserializingTask.run(StreamingInboundHandler.java:172)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.lang.Thread.run(Thread.java:748)
+---------------------------- Captured stdout setup -----------------------------
+04:44:43,250 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:44:42,469 conftest INFO Starting execution of test_resume at 2022-02-01 04:44:42.469644
+04:44:43,136 dtest_setup INFO cluster ccm directory: /tmp/dtest-e0le_3gv
+------------------------------ Captured log call -------------------------------
+04:44:44,200 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node1/conf'}
+04:44:44,201 ccm INFO node1: using Java 8 for the current invocation
+04:44:44,373 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:44:44,373 ccm INFO node1: using Java 8 for the current invocation
+04:44:44,457 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:45:23,652 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node1/conf'}
+04:45:23,653 ccm INFO node1: using Java 8 for the current invocation
+04:45:23,857 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:45:23,858 ccm INFO node1: using Java 8 for the current invocation
+04:45:23,948 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:45:29,881 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:45:29,882 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:45:30,987 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:45:32,881 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:45:32,882 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:45:32,940 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:45:34,598 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node2/conf'}
+04:45:34,599 ccm INFO node2: using Java 8 for the current invocation
+04:45:34,806 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node2/conf', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=4'}
+04:45:34,807 ccm INFO node2: using Java 8 for the current invocation
+04:45:34,899 ccm INFO Starting node2 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:46:32,675 ccm INFO node2: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': '5923031e8f3f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'secondary_indexes_test.py::TestPreJoinCallback::()::test_resume (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-e0le_3gv/test/node2/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-e0le_3gv/test/node2/conf'}
+04:46:32,676 ccm INFO node2: using Java 8 for the current invocation
+04:52:59,890 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:52:59,892 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:00,897 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.98 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:02,902 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:06,722 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:53:06,723 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:53:06,746 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:53:29,891 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:53:29,894 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:30,899 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.26 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:33,204 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.56 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:53:36,871 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:53:36,871 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:53:36,931 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:54:50,336 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:54:51,441 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.74 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:54:53,245 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.88 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:54:57,154 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.08 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:05,274 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 16.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:21,819 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 35.52 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:55:57,402 cassandra.pool INFO Successful reconnection to 127.0.0.1:9042, marking node up if it isn't already
+04:55:57,402 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:55:57,414 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+04:55:59,905 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.3:9042 dc1> discovered
+04:55:59,920 cassandra.cluster INFO New Cassandra host <Host: 127.0.0.2:9042 dc1> discovered
+04:55:59,937 cassandra.cluster WARNING Failed to create connection pool for new host 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3175, in cassandra.cluster.Session.add_or_renew_pool.run_add_or_renew_pool
+  File "cassandra/pool.py", line 402, in cassandra.pool.HostConnection.__init__
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 837, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 350, in handle_read
+    buf = self._socket.recv(self.in_buffer_size)
+ConnectionResetError: [Errno 104] Connection reset by peer
+04:55:59,938 cassandra.cluster WARNING Host 127.0.0.2:9042 has been marked down
+04:56:01,106 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 2.22 seconds: [Errno 104] Connection reset by peer
+04:56:03,411 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 4.44 seconds: [Errno 104] Connection reset by peer
+04:56:07,925 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 6.88 seconds: [Errno 104] Connection reset by peer
+04:56:14,844 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 17.28 seconds: [Errno 104] Connection reset by peer
+04:56:29,893 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:56:29,894 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:29,898 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.2:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 837, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 350, in handle_read
+    buf = self._socket.recv(self.in_buffer_size)
+ConnectionResetError: [Errno 104] Connection reset by peer
+04:56:30,981 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.84 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:32,185 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.2:9042, scheduling retry in 31.04 seconds: [Errno 104] Connection reset by peer
+04:56:32,885 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.4 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:36,293 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 9.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:56:37,595 cassandra.cluster INFO Host 127.0.0.1:9042 may be up; will prepare queries and open connection pool
+04:56:37,692 cassandra.cluster INFO Connection pools established for node 127.0.0.1:9042
+===Flaky Test Report===
+
+test_resume failed (1 runs remaining out of 2).
+	<class 'ccmlib.node.TimeoutError'>
+	01 Feb 2022 04:44:35 [node2] after 600.69/600 seconds Missing: ['Starting listening for CQL clients'] not found in system.log:
+ Head: INFO  [main] 2022-02-01 04:33:37,848 YamlConfigura
+ Tail: ... some nodes were not ready
+INFO  [OptionalTasks:1] 2022-02-01 04:44:27,683 CassandraRoleManager.java:370 - Setup task failed with error, rescheduling
+
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1234>, <TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1194>, <TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1230>, <TracebackEntry /root/dtest/lib/python3.6/site-packages/ccmlib/node.py:592>, <TracebackEntry /root/dtest/lib/python3.6/site-packages/ccmlib/node.py:56>]
+test_resume failed; it passed 0 out of the required 1 times.
+	<class 'ccmlib.node.TimeoutError'>
+	01 Feb 2022 04:56:38 [node2] after 600.61/600 seconds Missing: ['Starting listening for CQL clients'] not found in system.log:
+ Head: INFO  [main] 2022-02-01 04:45:36,169 YamlConfigura
+ Tail: ... some nodes were not ready
+INFO  [OptionalTasks:1] 2022-02-01 04:52:29,644 CassandraRoleManager.java:370 - Setup task failed with error, rescheduling
+
+	[<TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1234>, <TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1194>, <TracebackEntry /root/cassandra-dtest/secondary_indexes_test.py:1230>, <TracebackEntry /root/dtest/lib/python3.6/site-packages/ccmlib/node.py:592>, <TracebackEntry /root/dtest/lib/python3.6/site-packages/ccmlib/node.py:56>]
+
+===End Flaky Test Report===
+===================== 1 failed, 2 error in 1434.33 seconds =====================

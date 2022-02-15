@@ -1,0 +1,1826 @@
+my_type=hypothesis
+proj=cassandra
+u_test=schema_test.py::TestSchema::test_drop_column_and_restart
+h_list[1]=periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+03:49:09,963 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+03:49:21,562 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+03:49:21,565 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7fd81be63588>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+03:47:16,475 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+03:47:16,269 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 03:47:16.269028
+03:47:16,380 dtest_setup INFO cluster ccm directory: /tmp/dtest-ntvlem8y
+------------------------------ Captured log call -------------------------------
+03:47:17,125 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-ntvlem8y/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-ntvlem8y/test/node1/conf'}
+03:47:17,126 ccm INFO node1: using Java 8 for the current invocation
+03:47:17,352 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-ntvlem8y/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-ntvlem8y/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:47:17,353 ccm INFO node1: using Java 8 for the current invocation
+03:47:17,494 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+03:49:09,963 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+03:49:22,329 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+3:49:24,928 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+03:49:24,726 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 03:49:24.726176
+03:49:24,829 dtest_setup INFO cluster ccm directory: /tmp/dtest-kz6ndv1p
+----------------------------- Captured stdout call -----------------------------
+03:49:24,930 ccm DEBUG using balanced tokens for non-vnode cluster
+03:49:25,700 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-kz6ndv1p/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-kz6ndv1p/test/node1/conf'}
+03:49:25,702 ccm INFO node1: using Java 8 for the current invocation
+03:49:25,906 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-kz6ndv1p/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-kz6ndv1p/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:49:25,907 ccm INFO node1: using Java 8 for the current invocation
+03:49:26,15 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+03:49:25,700 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-kz6ndv1p/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-kz6ndv1p/test/node1/conf'}
+03:49:25,702 ccm INFO node1: using Java 8 for the current invocation
+03:49:25,906 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-kz6ndv1p/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-kz6ndv1p/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:49:25,907 ccm INFO node1: using Java 8 for the current invocation
+03:49:26,15 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+03:49:22,329 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+03:49:22,329 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+03:51:19,40 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 243.31 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 265082920993
+---> v1v2 test failed.
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+03:51:55,36 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+03:51:56,144 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.0 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+03:51:58,149 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+03:52:01,762 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.52 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 28.72 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 50562853076
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+03:54:25,922 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+03:54:37,547 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+03:54:37,552 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f07ba5e2da0>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+03:52:32,272 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+03:52:31,945 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 03:52:31.945173
+03:52:32,95 dtest_setup INFO cluster ccm directory: /tmp/dtest-uyvqvfeg
+------------------------------ Captured log call -------------------------------
+03:52:33,100 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-uyvqvfeg/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-uyvqvfeg/test/node1/conf'}
+03:52:33,101 ccm INFO node1: using Java 8 for the current invocation
+03:52:33,322 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-uyvqvfeg/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-uyvqvfeg/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:52:33,323 ccm INFO node1: using Java 8 for the current invocation
+03:52:33,440 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+03:54:25,922 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+03:54:38,376 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+03:54:41,45 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+03:54:40,828 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 03:54:40.828864
+03:54:40,941 dtest_setup INFO cluster ccm directory: /tmp/dtest-18c0t37o
+----------------------------- Captured stdout call -----------------------------
+03:54:41,47 ccm DEBUG using balanced tokens for non-vnode cluster
+03:54:41,761 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-18c0t37o/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-18c0t37o/test/node1/conf'}
+03:54:41,763 ccm INFO node1: using Java 8 for the current invocation
+03:54:42,2 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-18c0t37o/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-18c0t37o/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:54:42,3 ccm INFO node1: using Java 8 for the current invocation
+03:54:42,110 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+03:54:41,761 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-18c0t37o/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-18c0t37o/test/node1/conf'}
+03:54:41,763 ccm INFO node1: using Java 8 for the current invocation
+03:54:42,2 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-18c0t37o/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-18c0t37o/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:54:42,3 ccm INFO node1: using Java 8 for the current invocation
+03:54:42,110 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+03:54:38,376 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+03:54:38,376 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+03:56:34,859 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 243.46 seconds ==========================
+[msx] rc = 1
+v2v2 running time = 265239490970
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+03:58:50,826 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+
+-------------------------------- live log call ---------------------------------
+04:01:19,152 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f065c5b47f0>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+03:56:57,309 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+03:56:57,86 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 03:56:57.086491
+03:56:57,213 dtest_setup INFO cluster ccm directory: /tmp/dtest-0brag9ac
+------------------------------ Captured log call -------------------------------
+03:56:57,969 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-0brag9ac/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-0brag9ac/test/node1/conf'}
+03:56:57,971 ccm INFO node1: using Java 8 for the current invocation
+03:56:58,189 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-0brag9ac/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-0brag9ac/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:56:58,191 ccm INFO node1: using Java 8 for the current invocation
+03:56:58,301 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+03:58:50,826 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+03:59:13,201 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+3:59:15,837 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+03:59:15,628 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 03:59:15.628500
+03:59:15,741 dtest_setup INFO cluster ccm directory: /tmp/dtest-_zxwr6u7
+------------------------------ Captured log call -------------------------------
+03:59:16,514 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-_zxwr6u7/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-_zxwr6u7/test/node1/conf'}
+03:59:16,516 ccm INFO node1: using Java 8 for the current invocation
+03:59:16,717 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-_zxwr6u7/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-_zxwr6u7/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+03:59:16,719 ccm INFO node1: using Java 8 for the current invocation
+03:59:16,825 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:01:19,152 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+03:59:13,201 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+03:59:13,201 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:01:29,467 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:137>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 272.92 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 294588846570
+---> v1v2 test failed.
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:02:02,719 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:02:03,727 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.28 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:02:06,33 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.8 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:02:09,847 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.8 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 26.43 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 48168548403
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:04:43,788 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+04:04:55,215 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:04:55,219 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7fef0bb83e10>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+04:02:40,192 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:02:39,925 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:02:39.925163
+04:02:40,92 dtest_setup INFO cluster ccm directory: /tmp/dtest-vw3zuhct
+------------------------------ Captured log call -------------------------------
+04:02:40,861 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-vw3zuhct/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-vw3zuhct/test/node1/conf'}
+04:02:40,863 ccm INFO node1: using Java 8 for the current invocation
+04:02:41,78 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-vw3zuhct/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-vw3zuhct/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:02:41,79 ccm INFO node1: using Java 8 for the current invocation
+04:02:41,187 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:04:43,788 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:04:56,318 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+04:04:59,67 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:04:58,748 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:04:58.748491
+04:04:58,910 dtest_setup INFO cluster ccm directory: /tmp/dtest-53qrthv0
+----------------------------- Captured stdout call -----------------------------
+04:04:59,77 ccm DEBUG using balanced tokens for non-vnode cluster
+04:05:00,4 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-53qrthv0/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-53qrthv0/test/node1/conf'}
+04:05:00,5 ccm INFO node1: using Java 8 for the current invocation
+04:05:00,266 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-53qrthv0/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-53qrthv0/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:05:00,267 ccm INFO node1: using Java 8 for the current invocation
+04:05:00,381 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:05:00,4 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-53qrthv0/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-53qrthv0/test/node1/conf'}
+04:05:00,5 ccm INFO node1: using Java 8 for the current invocation
+04:05:00,266 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-53qrthv0/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-53qrthv0/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:05:00,267 ccm INFO node1: using Java 8 for the current invocation
+04:05:00,381 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:04:56,318 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:04:56,318 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:06:53,146 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 253.77 seconds ==========================
+[msx] rc = 1
+v2v2 running time = 275596044149
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart FAILED          [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7fb7f6bc9a58>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+04:07:15,807 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:07:15,579 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:07:15.579008
+04:07:15,705 dtest_setup INFO cluster ccm directory: /tmp/dtest-iq7czze6
+----------------------------- Captured stdout call -----------------------------
+04:07:15,810 ccm DEBUG using balanced tokens for non-vnode cluster
+04:07:16,495 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-iq7czze6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-iq7czze6/test/node1/conf'}
+04:07:16,496 ccm INFO node1: using Java 8 for the current invocation
+04:07:16,730 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-iq7czze6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-iq7czze6/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:07:16,731 ccm INFO node1: using Java 8 for the current invocation
+04:07:16,843 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:07:16,495 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-iq7czze6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-iq7czze6/test/node1/conf'}
+04:07:16,496 ccm INFO node1: using Java 8 for the current invocation
+04:07:16,730 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-iq7czze6/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-iq7czze6/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:07:16,731 ccm INFO node1: using Java 8 for the current invocation
+04:07:16,843 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:09:01,607 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+4:09:04,191 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:09:03,917 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:09:03.917921
+04:09:04,32 dtest_setup INFO cluster ccm directory: /tmp/dtest-flj8mubr
+----------------------------- Captured stdout call -----------------------------
+04:09:04,198 ccm DEBUG using balanced tokens for non-vnode cluster
+04:09:05,60 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-flj8mubr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-flj8mubr/test/node1/conf'}
+04:09:05,61 ccm INFO node1: using Java 8 for the current invocation
+04:09:05,278 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-flj8mubr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-flj8mubr/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:09:05,278 ccm INFO node1: using Java 8 for the current invocation
+04:09:05,371 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:09:05,60 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-flj8mubr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-flj8mubr/test/node1/conf'}
+04:09:05,61 ccm INFO node1: using Java 8 for the current invocation
+04:09:05,278 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-flj8mubr/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-flj8mubr/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:09:05,278 ccm INFO node1: using Java 8 for the current invocation
+04:09:05,371 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:09:01,607 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:09:01,607 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:10:58,237 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 223.23 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 245159315522
+---> v1v2 test failed.
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:11:32,655 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:11:33,662 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.06 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:11:35,768 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.0 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:11:39,783 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.04 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 25.41 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 47133588317
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:14:01,458 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+04:14:13,121 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:14:13,126 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f46d997ceb8>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+04:12:08,33 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:12:07,774 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:12:07.774437
+04:12:07,902 dtest_setup INFO cluster ccm directory: /tmp/dtest-et7njf6r
+------------------------------ Captured log call -------------------------------
+04:12:08,705 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-et7njf6r/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-et7njf6r/test/node1/conf'}
+04:12:08,706 ccm INFO node1: using Java 8 for the current invocation
+04:12:08,936 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-et7njf6r/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-et7njf6r/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:12:08,938 ccm INFO node1: using Java 8 for the current invocation
+04:12:09,44 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:14:01,458 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:14:13,888 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+4:14:16,475 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:14:16,243 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:14:16.243514
+04:14:16,357 dtest_setup INFO cluster ccm directory: /tmp/dtest-btx4kkki
+----------------------------- Captured stdout call -----------------------------
+04:14:16,482 ccm DEBUG using balanced tokens for non-vnode cluster
+04:14:17,316 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-btx4kkki/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-btx4kkki/test/node1/conf'}
+04:14:17,318 ccm INFO node1: using Java 8 for the current invocation
+04:14:17,537 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-btx4kkki/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-btx4kkki/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:14:17,538 ccm INFO node1: using Java 8 for the current invocation
+04:14:17,687 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:14:17,316 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-btx4kkki/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-btx4kkki/test/node1/conf'}
+04:14:17,318 ccm INFO node1: using Java 8 for the current invocation
+04:14:17,537 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-btx4kkki/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-btx4kkki/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:14:17,538 ccm INFO node1: using Java 8 for the current invocation
+04:14:17,687 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:14:13,888 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:14:13,888 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:16:10,811 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 243.57 seconds ==========================
+[msx] rc = 1
+v2v2 running time = 265397824920
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:18:27,147 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+04:18:38,641 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:18:38,645 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+04:20:35,878 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f9cfbf23e10>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+04:16:33,504 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:16:33,251 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:16:33.251534
+04:16:33,364 dtest_setup INFO cluster ccm directory: /tmp/dtest-v8c3odei
+------------------------------ Captured log call -------------------------------
+04:16:34,225 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-v8c3odei/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-v8c3odei/test/node1/conf'}
+04:16:34,226 ccm INFO node1: using Java 8 for the current invocation
+04:16:34,451 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-v8c3odei/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-v8c3odei/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:16:34,452 ccm INFO node1: using Java 8 for the current invocation
+04:16:34,564 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:18:27,147 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:18:39,603 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+04:18:42,221 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:18:41,958 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:18:41.958515
+04:18:42,96 dtest_setup INFO cluster ccm directory: /tmp/dtest-spiq9id_
+------------------------------ Captured log call -------------------------------
+04:18:42,984 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-spiq9id_/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-spiq9id_/test/node1/conf'}
+04:18:42,986 ccm INFO node1: using Java 8 for the current invocation
+04:18:43,207 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-spiq9id_/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-spiq9id_/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:18:43,208 ccm INFO node1: using Java 8 for the current invocation
+04:18:43,309 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:20:35,878 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:18:39,603 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:18:39,603 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:20:46,84 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 253.34 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 275150397753
+---> v1v2 test failed.
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:21:21,516 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:21:22,524 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:21:24,328 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.28 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:21:28,644 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.12 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 28.58 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 50436044506
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:26:01,866 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7efe63550d68>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+04:21:59,75 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:21:58,844 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:21:58.843979
+04:21:58,955 dtest_setup INFO cluster ccm directory: /tmp/dtest-7bc3lb9e
+----------------------------- Captured stdout call -----------------------------
+04:21:59,78 ccm DEBUG using balanced tokens for non-vnode cluster
+04:21:59,742 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-7bc3lb9e/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-7bc3lb9e/test/node1/conf'}
+04:21:59,743 ccm INFO node1: using Java 8 for the current invocation
+04:21:59,959 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-7bc3lb9e/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-7bc3lb9e/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:21:59,961 ccm INFO node1: using Java 8 for the current invocation
+04:22:00,67 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:21:59,742 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-7bc3lb9e/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-7bc3lb9e/test/node1/conf'}
+04:21:59,743 ccm INFO node1: using Java 8 for the current invocation
+04:21:59,959 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-7bc3lb9e/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-7bc3lb9e/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:21:59,961 ccm INFO node1: using Java 8 for the current invocation
+04:22:00,67 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:23:55,390 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+4:23:58,67 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:23:57,826 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:23:57.826506
+04:23:57,957 dtest_setup INFO cluster ccm directory: /tmp/dtest-poe7jkyf
+------------------------------ Captured log call -------------------------------
+04:23:58,794 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-poe7jkyf/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-poe7jkyf/test/node1/conf'}
+04:23:58,795 ccm INFO node1: using Java 8 for the current invocation
+04:23:59,13 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-poe7jkyf/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-poe7jkyf/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:23:59,14 ccm INFO node1: using Java 8 for the current invocation
+04:23:59,130 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:26:01,866 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:23:55,390 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:23:55,390 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:26:12,188 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 253.89 seconds ==========================
+[msx] rc = 1
+v2v2 running time = 275649432444
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart FAILED          [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f9f82b8f908>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+04:26:34,582 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:26:34,376 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:26:34.376718
+04:26:34,486 dtest_setup INFO cluster ccm directory: /tmp/dtest-l2ke3g0n
+----------------------------- Captured stdout call -----------------------------
+04:26:34,584 ccm DEBUG using balanced tokens for non-vnode cluster
+04:26:35,265 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-l2ke3g0n/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-l2ke3g0n/test/node1/conf'}
+04:26:35,266 ccm INFO node1: using Java 8 for the current invocation
+04:26:35,472 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-l2ke3g0n/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-l2ke3g0n/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:26:35,473 ccm INFO node1: using Java 8 for the current invocation
+04:26:35,573 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:26:35,265 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-l2ke3g0n/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-l2ke3g0n/test/node1/conf'}
+04:26:35,266 ccm INFO node1: using Java 8 for the current invocation
+04:26:35,472 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-l2ke3g0n/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-l2ke3g0n/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:26:35,473 ccm INFO node1: using Java 8 for the current invocation
+04:26:35,573 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:28:30,637 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+4:28:33,342 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:28:33,56 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:28:33.056335
+04:28:33,236 dtest_setup INFO cluster ccm directory: /tmp/dtest-4wghcdjk
+----------------------------- Captured stdout call -----------------------------
+04:28:33,348 ccm DEBUG using balanced tokens for non-vnode cluster
+04:28:34,182 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4wghcdjk/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4wghcdjk/test/node1/conf'}
+04:28:34,184 ccm INFO node1: using Java 8 for the current invocation
+04:28:34,422 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4wghcdjk/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4wghcdjk/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:28:34,423 ccm INFO node1: using Java 8 for the current invocation
+04:28:34,564 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:28:34,182 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4wghcdjk/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4wghcdjk/test/node1/conf'}
+04:28:34,184 ccm INFO node1: using Java 8 for the current invocation
+04:28:34,422 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-4wghcdjk/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-4wghcdjk/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:28:34,423 ccm INFO node1: using Java 8 for the current invocation
+04:28:34,564 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:28:30,637 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:28:30,637 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:30:37,430 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 243.61 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 265328343847
+---> v1v2 test failed.
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:31:11,55 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:31:12,64 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 2.02 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:31:14,170 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.92 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:31:18,184 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.68 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:31:25,944 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 18.24 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 29.70 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 51732436173
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:33:56,87 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+04:34:07,885 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:34:07,892 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f001b289f98>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+4:31:52,143 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:31:51,876 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:31:51.876339
+04:31:52,36 dtest_setup INFO cluster ccm directory: /tmp/dtest-z9qphd_2
+------------------------------ Captured log call -------------------------------
+04:31:52,934 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z9qphd_2/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z9qphd_2/test/node1/conf'}
+04:31:52,935 ccm INFO node1: using Java 8 for the current invocation
+04:31:53,153 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-z9qphd_2/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-z9qphd_2/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:31:53,154 ccm INFO node1: using Java 8 for the current invocation
+04:31:53,266 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:33:56,87 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:34:08,513 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+04:34:11,66 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:34:10,850 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:34:10.850873
+04:34:10,964 dtest_setup INFO cluster ccm directory: /tmp/dtest-t3q_z_ku
+----------------------------- Captured stdout call -----------------------------
+04:34:11,68 ccm DEBUG using balanced tokens for non-vnode cluster
+04:34:11,708 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-t3q_z_ku/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-t3q_z_ku/test/node1/conf'}
+04:34:11,709 ccm INFO node1: using Java 8 for the current invocation
+04:34:11,933 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-t3q_z_ku/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-t3q_z_ku/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:34:11,934 ccm INFO node1: using Java 8 for the current invocation
+04:34:12,44 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:34:11,708 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-t3q_z_ku/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-t3q_z_ku/test/node1/conf'}
+04:34:11,709 ccm INFO node1: using Java 8 for the current invocation
+04:34:11,933 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-t3q_z_ku/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-t3q_z_ku/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:34:11,934 ccm INFO node1: using Java 8 for the current invocation
+04:34:12,44 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:34:08,513 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:34:08,513 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:36:04,878 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 253.58 seconds ==========================
+[msx] rc = 1
+v2v2 running time = 275618238636
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:40:09,751 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+FAILED                                                                   [100%]
+------------------------------ live log teardown -------------------------------
+04:40:19,810 cassandra.cluster ERROR Exception refreshing schema in response to schema change:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4206, in cassandra.cluster.refresh_schema_and_set_result
+  File "cassandra/cluster.py", line 3698, in cassandra.cluster.ControlConnection._refresh_schema
+  File "cassandra/metadata.py", line 148, in cassandra.metadata.Metadata.refresh
+  File "cassandra/metadata.py", line 2547, in cassandra.metadata.SchemaParserV3.get_table
+  File "cassandra/metadata.py", line 1953, in cassandra.metadata._SchemaParser._handle_results
+cassandra.connection.ConnectionShutdown: Connection to 127.0.0.1:9042 was closed
+
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f78fab2db00>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+4:36:27,626 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:36:27,258 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:36:27.257952
+04:36:27,485 dtest_setup INFO cluster ccm directory: /tmp/dtest-12dst4mp
+----------------------------- Captured stdout call -----------------------------
+04:36:27,630 ccm DEBUG using balanced tokens for non-vnode cluster
+04:36:28,433 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-12dst4mp/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-12dst4mp/test/node1/conf'}
+04:36:28,434 ccm INFO node1: using Java 8 for the current invocation
+04:36:28,676 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-12dst4mp/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-12dst4mp/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:36:28,677 ccm INFO node1: using Java 8 for the current invocation
+04:36:28,811 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:36:28,433 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-12dst4mp/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-12dst4mp/test/node1/conf'}
+04:36:28,434 ccm INFO node1: using Java 8 for the current invocation
+04:36:28,676 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-12dst4mp/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-12dst4mp/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:36:28,677 ccm INFO node1: using Java 8 for the current invocation
+04:36:28,811 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:38:23,954 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+04:38:26,517 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:38:26,308 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:38:26.307874
+04:38:26,423 dtest_setup INFO cluster ccm directory: /tmp/dtest-sdy1jc78
+------------------------------ Captured log call -------------------------------
+04:38:27,124 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-sdy1jc78/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-sdy1jc78/test/node1/conf'}
+04:38:27,126 ccm INFO node1: using Java 8 for the current invocation
+04:38:27,356 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-sdy1jc78/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-sdy1jc78/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:38:27,357 ccm INFO node1: using Java 8 for the current invocation
+04:38:27,467 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:40:09,751 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:38:23,954 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:38:23,954 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:40:19,832 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured log teardown -----------------------------
+04:40:19,810 cassandra.cluster ERROR Exception refreshing schema in response to schema change:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 4206, in cassandra.cluster.refresh_schema_and_set_result
+  File "cassandra/cluster.py", line 3698, in cassandra.cluster.ControlConnection._refresh_schema
+  File "cassandra/metadata.py", line 148, in cassandra.metadata.Metadata.refresh
+  File "cassandra/metadata.py", line 2547, in cassandra.metadata.SchemaParserV3.get_table
+  File "cassandra/metadata.py", line 1953, in cassandra.metadata._SchemaParser._handle_results
+cassandra.connection.ConnectionShutdown: Connection to 127.0.0.1:9042 was closed
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 233.14 seconds ==========================
+[msx] rc = 1
+v1v2 running time = 254942969082
+---> v1v2 test failed.
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v1v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:40:53,96 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:40:54,205 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.82 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:40:56,110 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.48 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:41:00,627 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.76 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 25.87 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 47564740443
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:43:12,931 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+04:43:24,721 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:43:24,723 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f767ff00ac8>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+04:41:29,690 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:41:29,520 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:41:29.519987
+04:41:29,600 dtest_setup INFO cluster ccm directory: /tmp/dtest-p84uswju
+------------------------------ Captured log call -------------------------------
+04:41:30,310 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-p84uswju/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-p84uswju/test/node1/conf'}
+04:41:30,311 ccm INFO node1: using Java 8 for the current invocation
+04:41:30,530 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-p84uswju/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-p84uswju/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:41:30,531 ccm INFO node1: using Java 8 for the current invocation
+04:41:30,643 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:43:12,931 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:43:25,257 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+04:43:28,81 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:43:27,730 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:43:27.730009
+04:43:27,944 dtest_setup INFO cluster ccm directory: /tmp/dtest-1enkle__
+----------------------------- Captured stdout call -----------------------------
+04:43:28,85 ccm DEBUG using balanced tokens for non-vnode cluster
+04:43:28,824 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-1enkle__/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-1enkle__/test/node1/conf'}
+04:43:28,826 ccm INFO node1: using Java 8 for the current invocation
+04:43:29,49 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-1enkle__/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-1enkle__/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:43:29,50 ccm INFO node1: using Java 8 for the current invocation
+04:43:29,167 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+------------------------------ Captured log call -------------------------------
+04:43:28,824 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-1enkle__/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-1enkle__/test/node1/conf'}
+04:43:28,826 ccm INFO node1: using Java 8 for the current invocation
+04:43:29,49 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-1enkle__/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-1enkle__/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:43:29,50 ccm INFO node1: using Java 8 for the current invocation
+04:43:29,167 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+--------------------------- Captured stdout teardown ---------------------------
+04:43:25,257 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:43:25,257 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:45:21,898 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'127.0.0.1:9042': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 232.90 seconds ==========================
+[msx] rc = 1
+v2v2 running time = 254537832957
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:47:27,937 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+04:48:09,599 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:48:09,601 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:48:10,606 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.7 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:48:12,311 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 3.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:48:15,921 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 8.16 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:48:24,144 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 17.6 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:48:41,791 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 33.92 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 206.14 seconds ==========================
+[msx] rc = 0
+v1v2 running time = 227971818787
+---> v1v2 test suceeded.
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:49:44,10 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:49:45,20 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 1.82 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:49:46,926 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 4.28 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+04:49:51,241 cassandra.pool WARNING Error attempting to reconnect to 127.0.0.1:9042, scheduling retry in 7.28 seconds: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+PASSED                                                                   [100%]
+===Flaky Test Report===
+
+test_drop_column_and_restart passed 1 out of the required 1 times. Success!
+
+===End Flaky Test Report===
+
+========================== 1 passed in 27.44 seconds ===========================
+[msx] rc = 0
+v1v1 running time = 49206387460
+cassandra schema_test.py::TestSchema::test_drop_column_and_restart false false
+log_dst_dir = /root/vm_images/ZebraConf/app_meta/logs
+the_test is schema_test.py::TestSchema::test_drop_column_and_restart
+============================= test session starts ==============================
+platform linux -- Python 3.6.9, pytest-3.6.4, py-1.11.0, pluggy-0.7.1 -- /root/dtest/bin/python
+cachedir: .pytest_cache
+rootdir: /root/cassandra-dtest, inifile: pytest.ini
+plugins: flaky-3.7.0, timeout-1.4.2, repeat-0.9.1
+timeout: 1200.0s
+timeout method: signal
+timeout func_only: False
+collecting ... collected 1 item
+
+schema_test.py::TestSchema::test_drop_column_and_restart 
+-------------------------------- live log call ---------------------------------
+04:52:05,261 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+04:52:16,879 cassandra.cluster WARNING Host 127.0.0.1:9042 has been marked down
+04:52:16,882 cassandra.cluster WARNING [control connection] Error connecting to 127.0.0.1:9042:
+Traceback (most recent call last):
+  File "cassandra/cluster.py", line 3522, in cassandra.cluster.ControlConnection._reconnect_internal
+  File "cassandra/cluster.py", line 3544, in cassandra.cluster.ControlConnection._try_connect
+  File "cassandra/cluster.py", line 1620, in cassandra.cluster.Cluster.connection_factory
+  File "cassandra/connection.py", line 831, in cassandra.connection.Connection.factory
+  File "/root/dtest/src/cassandra-driver/cassandra/io/libevreactor.py", line 267, in __init__
+    self._connect_socket()
+  File "cassandra/connection.py", line 898, in cassandra.connection.Connection._connect_socket
+ConnectionRefusedError: [Errno 111] Tried connecting to [('127.0.0.1', 9042)]. Last error: Connection refused
+
+-------------------------------- live log call ---------------------------------
+04:54:04,318 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+FAILED                                                                   [100%]
+
+=================================== FAILURES ===================================
+___________________ TestSchema.test_drop_column_and_restart ____________________
+
+self = <schema_test.TestSchema object at 0x7f7faaab0b38>
+
+    def test_drop_column_and_restart(self):
+        """
+            Simply insert data in a table, drop a column involved in the insert and restart the node afterwards.
+            This ensures that the dropped_columns system table is properly flushed on the alter or the restart
+            fails as in CASSANDRA-11050.
+    
+            @jira_ticket CASSANDRA-11050
+            """
+        session = self.prepare()
+    
+        session.execute("USE ks")
+>       session.execute("CREATE TABLE t (k int PRIMARY KEY, c1 int, c2 int)")
+
+schema_test.py:134: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+cassandra/cluster.py:2618: in cassandra.cluster.Session.execute
+    ???
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+>   ???
+E   cassandra.OperationTimedOut: errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+
+cassandra/cluster.py:4894: OperationTimedOut
+---------------------------- Captured stdout setup -----------------------------
+04:50:21,730 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:50:21,428 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:50:21.428698
+04:50:21,587 dtest_setup INFO cluster ccm directory: /tmp/dtest-uxlm7h70
+------------------------------ Captured log call -------------------------------
+04:50:22,519 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-uxlm7h70/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-uxlm7h70/test/node1/conf'}
+04:50:22,520 ccm INFO node1: using Java 8 for the current invocation
+04:50:22,743 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-uxlm7h70/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-uxlm7h70/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:50:22,745 ccm INFO node1: using Java 8 for the current invocation
+04:50:22,853 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:52:05,261 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:52:17,812 ccm DEBUG Log-watching thread exiting.
+---------------------------- Captured stdout setup -----------------------------
+04:52:20,343 ccm DEBUG Log-watching thread starting.
+---------------------------- Captured stderr setup -----------------------------
+swapoff: Not superuser.
+------------------------------ Captured log setup ------------------------------
+04:52:20,143 conftest INFO Starting execution of test_drop_column_and_restart at 2022-02-01 04:52:20.143693
+04:52:20,224 dtest_setup INFO cluster ccm directory: /tmp/dtest-mcfzqnm0
+------------------------------ Captured log call -------------------------------
+04:52:21,235 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-mcfzqnm0/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-mcfzqnm0/test/node1/conf'}
+04:52:21,236 ccm INFO node1: using Java 8 for the current invocation
+04:52:21,458 ccm INFO node1: current_java_version=8, current_java_home_version=8, jvm_version=None, for_build=False, cassandra_version=4.0.2, install_dir=/root/cassandra, env={'HOSTNAME': 'd48941cf338f', 'JAVA_HOME': '/usr/lib/jvm/java-1.8.0-openjdk-amd64', 'PWD': '/root/cassandra-dtest', 'HOME': '/root', 'SHLVL': '4', 'ZEBRACONF_HOME': '/root/vm_images/ZebraConf', 'PATH': '/root/dtest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', '_': '/root/dtest/bin/pytest', 'OLDPWD': '/', 'PYTEST_CURRENT_TEST': 'schema_test.py::TestSchema::()::test_drop_column_and_restart (call)', 'CASSANDRA_INCLUDE': '/tmp/dtest-mcfzqnm0/test/node1/bin/cassandra.in.sh', 'MAX_HEAP_SIZE': '500M', 'HEAP_NEWSIZE': '50M', 'CASSANDRA_HOME': '/root/cassandra', 'CASSANDRA_CONF': '/tmp/dtest-mcfzqnm0/test/node1/conf', 'CASSANDRA_LIBJEMALLOC': '-', 'JVM_EXTRA_OPTS': ' -Dcassandra.migration_task_wait_in_seconds=2'}
+04:52:21,459 ccm INFO node1: using Java 8 for the current invocation
+04:52:21,567 ccm INFO Starting node1 with JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64 java_version=8 cassandra_version=4.0.2, install_dir=/root/cassandra
+04:54:04,318 dtest WARNING AlreadyExists executing create ks query 'CREATE KEYSPACE ks WITH replication={'class':'SimpleStrategy', 'replication_factor':1}'
+--------------------------- Captured stdout teardown ---------------------------
+04:52:17,812 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:52:17,812 ccm DEBUG Log-watching thread exiting.
+--------------------------- Captured stdout teardown ---------------------------
+04:54:14,439 ccm DEBUG Log-watching thread exiting.
+===Flaky Test Report===
+
+test_drop_column_and_restart failed (1 runs remaining out of 2).
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+test_drop_column_and_restart failed; it passed 0 out of the required 1 times.
+	<class 'cassandra.OperationTimedOut'>
+	errors={'Connection defunct by heartbeat': 'Client request timeout. See Session.execute[_async](timeout)'}, last_host=127.0.0.1:9042
+	[<TracebackEntry /root/cassandra-dtest/schema_test.py:134>, <TracebackEntry cassandra/cluster.py:2618>, <TracebackEntry cassandra/cluster.py:4894>]
+
+===End Flaky Test Report===
+========================== 1 failed in 233.60 seconds ==========================
+[msx] rc = 1
+v2v2 running time = 255389766832
+---> v1v1 or v2v2 test failed.
+v2v2 failed in a hypo test
+proj: cassandra
+u_test: schema_test.py::TestSchema::test_drop_column_and_restart
+h_list: periodic_commitlog_sync_lag_block_in_ms@@@CassandraDaemon@@@-3@@@null@@@100
+vv_mode: v2v2
+result: FAIL
+failureMessage: 
+stackTrace: 
+
+early stop after 7 is satisfied
+v1v2 failed with probability 6 out of 7
+v1v1v2v2 failed with probability 7 out of 7
+Total execution time in seconds : 4040
+0

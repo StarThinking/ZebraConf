@@ -63,7 +63,7 @@ done
 # for check
 #exit 0
 
-final_root_dir='/root/vm_images/ZebraConf/app_meta/cassandra/profiling/01_26/prerun/'
+final_root_dir='/root/vm_images/ZebraConf/app_meta/cassandra/profiling/02_05/prerun/'
 unable_id_suffix="unidentifiable"
 unable_id=0
 
